@@ -1,0 +1,58 @@
+# STRUCTIVA — Engineered Steel Structures
+
+> STRUCTIVA is an international manufacturer and engineering firm specializing in clear-span arched steel buildings, pre-engineered steel buildings (PEB), and heavy structural steel fabrication. Operating from its integrated mega-facilities in Adana, Türkiye, with direct Mediterranean container port access, STRUCTIVA delivers certified bolted steel building kits to over 50 countries worldwide.
+
+## Quick Facts
+- **Headquarters & Mega-Plant**: Structiva Tesisleri, Organize Sanayi Bölgesi (AOSB), Adana, Türkiye
+- **Primary Domain**: https://www.structiva.com.tr
+- **Contact Email**: info@structiva.com.tr
+- **Phone / WhatsApp**: +90 532 055 09 45
+- **Annual Capacity**: 25,000 Metric Tons of structural steel fabrication
+- **International Shipping**: Flat-pack into standard 40HC ocean containers (~380 m² building per container) via Mediterranean deep-water ports (Mersin Port)
+
+## Core Building Models & Specifications
+- **Q-Series (Arch / Quonset Building)**:
+  - Profile: Continuous semi-circular arch
+  - Span Range: 9 m to 45 m (30 ft to 148 ft) column-free
+  - Material: Galvalume Plus® AZ180 alloy steel (55% Al, 43.4% Zn)
+  - Resistance: Up to 240 km/h wind velocity; severe snow loads up to 3.5 kN/m²
+  - Applications: Aircraft & helicopter hangars, bulk agricultural grain silos, mining aggregate storage
+- **S-Series (Straight Sidewall Arch)**:
+  - Profile: Vertical straight side walls with arched roof
+  - Span Range: 12 m to 30 m (40 ft to 100 ft)
+  - Advantage: Maximum interior perimeter height for tall pallet racking and forklift operations
+  - Applications: Logistics distribution centers, industrial manufacturing workshops, equipment depots
+- **P-Series (Gable / Pitched Roof Arch)**:
+  - Profile: Pitched gabled roof line with straight walls
+  - Span Range: 10 m to 24 m (33 ft to 80 ft)
+  - Applications: Commercial workshops, municipal maintenance garages, agricultural equipment barns
+- **Container Canopy System**:
+  - Profile: Arched structural truss mounted between standard 20ft or 40ft shipping containers
+  - Span Range: 8 m to 20 m (26 ft to 66 ft)
+  - Applications: Fast-deployment mining camps, construction site storage, container yard weather covers
+- **Pre-Engineered Heavy Steel Buildings (PEB)**:
+  - Profile: Tapered built-up I-beam portal frames with rigid knee joints
+  - Span Range: Up to 60 m clear-span
+  - Applications: Heavy factories, overhead crane facilities (up to 50-ton cranes), mega logistics parks
+
+## Quality, Engineering & International Certifications
+- **EN 1090-2:2018**: Execution Class EXC3 and EXC4 for load-bearing structural steel (CE Marking)
+- **AISC 360-16**: American Institute of Steel Construction Specification for Structural Steel Buildings
+- **ASTM A792 / A792M**: Standard Specification for Steel Sheet, 55% Aluminum-Zinc Alloy-Coated by the Hot-Dip Process
+- **ISO 9001:2015**: Quality Management System for fabrication and static engineering
+- **ISO 14001 & ISO 45001**: Environmental and Occupational Safety Standards
+- **Zero Field Welding**: 100% pre-engineered, CNC laser-punched for high-tensile Grade 8.8/10.9 structural bolts
+
+## Procurement & RFQ Process
+1. **Requirements Submission**: Submit span, length, peak height, building purpose, and destination port via the online 3D Configurator or RFQ form.
+2. **Engineering Review**: STRUCTIVA static engineers conduct load calculation (EN 1991-1-4 wind and Eurocode 3 snow load).
+3. **Commercial Proposal**: Detailed Bill of Materials (BOM), 3D packaging layout, and FOB Mersin / CIF Destination quotation delivered within 24 hours.
+
+## Official Links
+- [Homepage](https://www.structiva.com.tr/)
+- [Building Models](https://www.structiva.com.tr/en/models)
+- [3D Parametric Configurator](https://www.structiva.com.tr/en/configurator)
+- [Industrial Sectors](https://www.structiva.com.tr/en/sectors)
+- [Engineering Standards](https://www.structiva.com.tr/en/engineering)
+- [Technical Knowledge Hub](https://www.structiva.com.tr/en/knowledge)
+- [Request an Official Quote (RFQ)](https://www.structiva.com.tr/en/request-a-quote)

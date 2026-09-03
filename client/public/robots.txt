@@ -25,3 +25,8 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: https://www.structiva.com.tr/sitemap.xml
+
+# LLM & AI Engine Content Discovery
+# See https://llmstxt.org/ for specification
+User-agent: *
+Allow: /llms.txt

@@ -109,6 +109,25 @@ export async function saveInquiry(data: Omit<Inquiry, "id" | "createdAt" | "stat
     console.warn("Firestore sync optional note:", firebaseErr);
   }
 
+  // 3. Dispatch Email Notification to cebrailkara@gmail.com via Natro SMTP (mail.kurumsaleposta.com)
+  try {
+    fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newInquiry),
+    }).then((res) => {
+      if (res.ok) {
+        console.log("[Notification] Natro SMTP email successfully queued to cebrailkara@gmail.com");
+      } else {
+        console.warn("[Notification Note] API email dispatch returned status:", res.status);
+      }
+    }).catch((netErr) => {
+      console.warn("[Notification Note] Direct server endpoint offline, message safely stored in Firestore/Dashboard:", netErr);
+    });
+  } catch (err) {
+    console.warn("Email dispatch error:", err);
+  }
+
   return newInquiry;
 }
 

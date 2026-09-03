@@ -39,8 +39,42 @@ export default function DashboardPage() {
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState<string>("all");
+  const [filterType, setFilterType] = useState<string>("all");
   const [search, setSearch] = useState("");
   const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
+  const [testSending, setTestSending] = useState(false);
+  const [testResult, setTestResult] = useState<string | null>(null);
+
+  const handleSendTestEmail = async () => {
+    setTestSending(true);
+    setTestResult(null);
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "contact",
+          name: "Cebrail Kara (Natro SMTP Test)",
+          email: "info@structiva.com.tr",
+          phone: "0532 055 09 45",
+          company: "STRUCTIVA",
+          country: "Türkiye / Adana",
+          model: "Q-Series Arch (36m Açıklık)",
+          message: "Bu bildirim Natro altyapısı (mail.kurumsaleposta.com) üzerinden info@structiva.com.tr adresi ile cebrailkara@gmail.com adresine başarıyla iletilmiştir.",
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setTestResult("✓ Natro SMTP testi başarılı! info@structiva.com.tr -> cebrailkara@gmail.com iletildi.");
+      } else {
+        setTestResult(`Uyarı: ${data.error || "SMTP bağlantısı yanıt vermedi."}`);
+      }
+    } catch (err: any) {
+      setTestResult(`Bağlantı Notu: ${err.message}. (Canlı statik barındırmada mesajlar anında veritabanına ve panoya kaydedilir)`);
+    } finally {
+      setTestSending(false);
+    }
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,50 +132,46 @@ export default function DashboardPage() {
     return (
       <div className="min-h-[85vh] flex items-center justify-center bg-[#09131c] px-4 py-16">
         <div className="w-full max-w-md rounded-3xl bg-[#0e1b27] border border-amber-500/30 p-8 sm:p-10 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-400 to-orange-500" />
-
-          <div className="text-center mb-8">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 mx-auto mb-4 shadow-lg shadow-amber-500/10">
-              <Lock size={26} />
+          <div className="text-center mb-6">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-500/40 text-amber-400 mx-auto mb-3">
+              <Lock size={28} />
             </div>
-            <h2 className="text-2xl font-black text-white tracking-tight">Süper Admin Girişi</h2>
-            <p className="text-xs text-slate-400 mt-1">
-              STRUCTIVA Yönetim & Talep Paneline erişmek için yetkili bilgilerinizi giriniz.
-            </p>
+            <h2 className="text-xl font-black text-white tracking-wide uppercase">STRUCTIVA YÖNETİCİ GİRİŞİ</h2>
+            <p className="text-xs text-slate-400 mt-1">Süper Admin Güvenli Giriş Kapısı</p>
           </div>
 
           {loginError && (
-            <div className="mb-6 rounded-xl bg-rose-500/20 border border-rose-500/40 p-3.5 text-xs text-rose-300">
+            <div className="mb-4 p-3 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs text-center font-medium">
               {loginError}
             </div>
           )}
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                Yönetici E-Posta
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                Yönetici E-posta
               </label>
               <input
                 type="email"
                 required
-                placeholder="cebrailkara@gmail.com"
                 value={loginEmail}
                 onChange={(e) => setLoginEmail(e.target.value)}
-                className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:border-amber-400 transition-colors"
+                placeholder="cebrailkara@gmail.com"
+                className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-600 outline-none focus:border-amber-400"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                Yönetici Şifresi
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                Admin Şifresi
               </label>
               <input
                 type="password"
                 required
-                placeholder="••••••••"
                 value={loginPassword}
                 onChange={(e) => setLoginPassword(e.target.value)}
-                className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:border-amber-400 transition-colors"
+                placeholder="••••••••"
+                className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-600 outline-none focus:border-amber-400"
               />
             </div>
 
@@ -163,18 +193,21 @@ export default function DashboardPage() {
   }
 
   const filteredInquiries = inquiries.filter((inq) => {
-    const matchesFilter = filterStatus === "all" ? true : inq.status === filterStatus;
+    const matchesStatus = filterStatus === "all" ? true : inq.status === filterStatus;
+    const matchesType = filterType === "all" ? true : inq.type === filterType;
     const matchesSearch =
       inq.name.toLowerCase().includes(search.toLowerCase()) ||
       inq.email.toLowerCase().includes(search.toLowerCase()) ||
       (inq.company && inq.company.toLowerCase().includes(search.toLowerCase())) ||
       (inq.model && inq.model.toLowerCase().includes(search.toLowerCase())) ||
       inq.country.toLowerCase().includes(search.toLowerCase());
-    return matchesFilter && matchesSearch;
+    return matchesStatus && matchesType && matchesSearch;
   });
 
   const totalArea = inquiries.reduce((acc, curr) => acc + (curr.areaM2 || 0), 0);
   const newCount = inquiries.filter((i) => i.status === "new").length;
+  const contactMessagesCount = inquiries.filter((i) => i.type === "contact").length;
+  const quoteRequestsCount = inquiries.filter((i) => i.type === "quote").length;
 
   const exportCSV = () => {
     const headers = ["ID", "Tarih", "Tür", "İsim", "E-posta", "Telefon", "Şirket", "Ülke", "Model", "Alan (m2)", "Durum", "Mesaj"];
@@ -254,7 +287,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Top Metric Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <div className="rounded-2xl bg-[#0f1d2a] border border-white/10 p-4 sm:p-5">
             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Toplam Talep</span>
             <div className="text-2xl sm:text-3xl font-mono font-black text-white">{inquiries.length}</div>
@@ -268,46 +301,115 @@ export default function DashboardPage() {
             <span className="text-[10px] text-slate-400 mt-1 block">İnceleme bekliyor</span>
           </div>
 
-          <div className="rounded-2xl bg-[#0f1d2a] border border-white/10 p-4 sm:p-5">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Toplam Proje Alanı</span>
-            <div className="text-2xl sm:text-3xl font-mono font-black text-emerald-400">{totalArea.toLocaleString()} m²</div>
-            <span className="text-[10px] text-slate-500 mt-1 block">Talep edilen net alan</span>
+          <div className="rounded-2xl bg-[#0f1d2a] border border-sky-500/30 p-4 sm:p-5">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-sky-400 block mb-1">İletişim Mesajları</span>
+            <div className="text-2xl sm:text-3xl font-mono font-black text-sky-400">{contactMessagesCount}</div>
+            <span className="text-[10px] text-slate-500 mt-1 block">İletişim formundan gelenler</span>
           </div>
 
-          <div className="rounded-2xl bg-[#0f1d2a] border border-white/10 p-4 sm:p-5">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Aktif Ülkeler</span>
-            <div className="text-2xl sm:text-3xl font-mono font-black text-sky-400">
-              {new Set(inquiries.map((i) => i.country)).size}
+          <div className="rounded-2xl bg-[#0f1d2a] border border-emerald-500/30 p-4 sm:p-5">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 block mb-1">Teklif (RFQ) Talepleri</span>
+            <div className="text-2xl sm:text-3xl font-mono font-black text-emerald-400">{quoteRequestsCount}</div>
+            <span className="text-[10px] text-slate-500 mt-1 block">3D Motor & Teklif Formu</span>
+          </div>
+        </div>
+
+        {/* Natro SMTP Notification Status Strip */}
+        <div className="rounded-2xl bg-gradient-to-r from-[#0d1c29] to-[#122536] border border-amber-500/30 p-4 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/30">
+              <Mail size={20} />
             </div>
-            <span className="text-[10px] text-slate-500 mt-1 block">Farklı pazar talebi</span>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-white uppercase tracking-wider">Natro SMTP Otomatik Bildirim Sistemi</span>
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+              </div>
+              <p className="text-xs text-slate-300 mt-0.5">
+                Gönderen: <strong className="text-amber-400">info@structiva.com.tr</strong> (mail.kurumsaleposta.com) → Hedef: <strong className="text-emerald-400">cebrailkara@gmail.com</strong>
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            {testResult && (
+              <span className="text-xs text-amber-300 bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-lg">
+                {testResult}
+              </span>
+            )}
+            <button
+              onClick={handleSendTestEmail}
+              disabled={testSending}
+              className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#0f1d2a] text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all shrink-0"
+            >
+              <Mail size={14} />
+              <span>{testSending ? "Gönderiliyor..." : "Test E-postası Gönder"}</span>
+            </button>
           </div>
         </div>
 
         {/* Filter and Search Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#0f1d2a] border border-white/10 rounded-2xl p-4 mb-6">
-          <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
-            {[
-              { id: "all", label: "Tümü" },
-              { id: "new", label: "Yeni" },
-              { id: "contacted", label: "Görüşüldü" },
-              { id: "quoted", label: "Teklif Verildi" },
-              { id: "archived", label: "Arşiv" }
-            ].map((tab) => (
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#0f1d2a] border border-white/10 rounded-2xl p-4 mb-6">
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Status filters */}
+            <div className="flex items-center gap-1.5 bg-black/30 p-1 rounded-xl border border-white/5">
+              {[
+                { id: "all", label: "Tüm Durumlar" },
+                { id: "new", label: "Yeni" },
+                { id: "contacted", label: "Görüşüldü" },
+                { id: "quoted", label: "Teklif Verildi" },
+                { id: "archived", label: "Arşiv" }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setFilterStatus(tab.id)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+                    filterStatus === tab.id
+                      ? "bg-amber-500 text-[#0f1d2a]"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Type filters */}
+            <div className="flex items-center gap-1.5 bg-black/30 p-1 rounded-xl border border-white/5">
               <button
-                key={tab.id}
-                onClick={() => setFilterStatus(tab.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all shrink-0 ${
-                  filterStatus === tab.id
-                    ? "bg-amber-500 text-[#0f1d2a]"
-                    : "bg-white/5 text-slate-400 hover:text-white"
+                onClick={() => setFilterType("all")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+                  filterType === "all"
+                    ? "bg-white/20 text-white"
+                    : "text-slate-400 hover:text-white"
                 }`}
               >
-                {tab.label}
+                Hepsi
               </button>
-            ))}
+              <button
+                onClick={() => setFilterType("contact")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+                  filterType === "contact"
+                    ? "bg-sky-500 text-white shadow-md shadow-sky-500/20"
+                    : "text-slate-400 hover:text-sky-300"
+                }`}
+              >
+                ✉️ İletişim Formu ({contactMessagesCount})
+              </button>
+              <button
+                onClick={() => setFilterType("quote")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+                  filterType === "quote"
+                    ? "bg-amber-500 text-[#0f1d2a] shadow-md shadow-amber-500/20"
+                    : "text-slate-400 hover:text-amber-300"
+                }`}
+              >
+                🏗️ Teklif Talepleri ({quoteRequestsCount})
+              </button>
+            </div>
           </div>
 
-          <div className="relative w-full sm:w-72">
+          <div className="relative w-full md:w-72">
             <Search size={15} className="absolute left-3 top-3 text-slate-400" />
             <input
               type="text"
@@ -341,15 +443,24 @@ export default function DashboardPage() {
                 >
                   <div className="flex items-start justify-between gap-4 mb-2">
                     <div>
-                      <div className="flex items-center gap-2 mb-1">
+                      <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                        <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
+                          item.type === "contact"
+                            ? "bg-sky-500/20 text-sky-400 border border-sky-500/40"
+                            : "bg-amber-500/20 text-amber-400 border border-amber-500/40"
+                        }`}>
+                          {item.type === "contact" ? "✉️ İletişim Formu" : "🏗️ Proje Teklifi (RFQ)"}
+                        </span>
                         <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
                           item.status === "new"
-                            ? "bg-amber-500/20 text-amber-400 border border-amber-500/40"
+                            ? "bg-rose-500/20 text-rose-400 border border-rose-500/40"
                             : item.status === "quoted"
                             ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                            : item.status === "contacted"
+                            ? "bg-blue-500/20 text-blue-400 border border-blue-500/40"
                             : "bg-slate-500/20 text-slate-300 border border-slate-500/40"
                         }`}>
-                          {item.status === "new" ? "Yeni Talep" : item.status === "quoted" ? "Teklif Verildi" : "İşlendi"}
+                          {item.status === "new" ? "Yeni" : item.status === "quoted" ? "Teklif Verildi" : item.status === "contacted" ? "Görüşüldü" : "Arşiv"}
                         </span>
                         <span className="text-[10px] font-mono text-slate-400">
                           {new Date(item.createdAt).toLocaleDateString("tr-TR", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
@@ -361,10 +472,16 @@ export default function DashboardPage() {
                       </h3>
                     </div>
 
-                    {item.areaM2 && (
+                    {item.areaM2 ? (
                       <div className="text-right">
                         <span className="block font-mono text-sm font-bold text-amber-400">{item.areaM2} m²</span>
                         <span className="text-[10px] text-slate-400">{item.model}</span>
+                      </div>
+                    ) : (
+                      <div className="text-right">
+                        <span className="inline-block font-mono text-xs text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded border border-sky-500/20">
+                          Doğrudan Mesaj
+                        </span>
                       </div>
                     )}
                   </div>
