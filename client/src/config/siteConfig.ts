@@ -3,10 +3,7 @@
  * Central single source of truth for SEO, canonical URLs, contact NAP, and language registry.
  */
 
-export const SITE_URL = (typeof window !== "undefined" && window.location.origin) 
-  ? window.location.origin 
-  : "https://www.structiva.com.tr";
-
+export const SITE_URL = "https://www.structiva.com.tr";
 export const PRODUCTION_CANONICAL_HOST = "https://www.structiva.com.tr";
 
 export const COMPANY_INFO = {
