@@ -22,62 +22,7 @@ export interface Inquiry {
 
 const LOCAL_STORAGE_KEY = "structiva_leads_data";
 
-const SAMPLE_INQUIRIES: Inquiry[] = [
-  {
-    id: "lead-1001",
-    type: "quote",
-    name: "Dr. Al-Ghamdi",
-    email: "ghamdi.logistics@saudi-cargo.com",
-    phone: "+966 50 123 4567",
-    company: "Saudi Bulk Logistics Co.",
-    country: "Saudi Arabia",
-    model: "Q-Series (Max-Arch)",
-    span: 36,
-    length: 90,
-    height: 12,
-    areaM2: 3240,
-    accessories: ["Large Overhead Doors", "Ventilation Turbines", "Heavy Snow Kit"],
-    message: "Requirement for grain and fertilizer bulk storage near Dammam Port. Severe desert heat and wind resistance required.",
-    status: "new",
-    createdAt: new Date(Date.now() - 1000 * 60 * 45).toISOString(),
-  },
-  {
-    id: "lead-1002",
-    type: "quote",
-    name: "Markus Weber",
-    email: "m.weber@bavaria-agri.de",
-    phone: "+49 89 7654 3210",
-    company: "Weber Agrarbetriebe GmbH",
-    country: "Germany",
-    model: "S-Series (Straight Sidewall)",
-    span: 24,
-    length: 60,
-    height: 7.5,
-    areaM2: 1440,
-    accessories: ["Insulation Liner", "Side Service Doors", "Skylight Panels"],
-    message: "Tractor and harvest equipment storage facility in Bavaria. EN 1090-2 certification required for local building approval.",
-    status: "quoted",
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(),
-  },
-  {
-    id: "lead-1003",
-    type: "contact",
-    name: "Mehmet Yılmaz",
-    email: "mehmet@anadolumaden.com.tr",
-    phone: "+90 532 888 1234",
-    company: "Anadolu Madencilik A.Ş.",
-    country: "Türkiye",
-    model: "Container Canopy System",
-    span: 18,
-    length: 48,
-    height: 6,
-    areaM2: 864,
-    accessories: ["Container Lock Mounts", "Heavy Duty Endwall"],
-    message: "Mersin limanı sahasında 40ft konteynerler üzerine monte edilecek maden stoklama çatısı arıyoruz. Montaj süresi ve teslimat takvimi rica ederiz.",
-    status: "contacted",
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
-  }
-];
+const SAMPLE_INQUIRIES: Inquiry[] = [];
 
 export async function saveInquiry(data: Omit<Inquiry, "id" | "createdAt" | "status">): Promise<Inquiry> {
   const newId = `lead-${Date.now().toString(36)}`;
@@ -109,7 +54,7 @@ export async function saveInquiry(data: Omit<Inquiry, "id" | "createdAt" | "stat
     console.warn("Firestore sync optional note:", firebaseErr);
   }
 
-  // 3. Dispatch Email Notification to cebrailkara@gmail.com via Natro SMTP (mail.kurumsaleposta.com)
+  // 3. Dispatch Email Notification to engineering desk
   try {
     fetch("/api/send-email", {
       method: "POST",
@@ -117,12 +62,12 @@ export async function saveInquiry(data: Omit<Inquiry, "id" | "createdAt" | "stat
       body: JSON.stringify(newInquiry),
     }).then((res) => {
       if (res.ok) {
-        console.log("[Notification] Natro SMTP email successfully queued to cebrailkara@gmail.com");
+        console.log("[Notification] Lead notification queued to engineering desk");
       } else {
         console.warn("[Notification Note] API email dispatch returned status:", res.status);
       }
     }).catch((netErr) => {
-      console.warn("[Notification Note] Direct server endpoint offline, message safely stored in Firestore/Dashboard:", netErr);
+      console.warn("[Notification Note] Message safely stored in Firestore/Dashboard:", netErr);
     });
   } catch (err) {
     console.warn("Email dispatch error:", err);

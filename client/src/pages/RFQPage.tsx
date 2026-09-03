@@ -209,19 +209,34 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
             <div className="rounded-3xl bg-[#0e1b27] border border-white/10 p-8 sm:p-10 shadow-2xl">
               {submitted ? (
                 <div className="rounded-2xl bg-emerald-500/20 border border-emerald-500/40 p-8 text-center text-emerald-300 animate-in fade-in duration-300">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-[#0f1d2a] mx-auto mb-4 font-black">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-[#0f1d2a] mx-auto mb-4 font-black shadow-lg shadow-emerald-500/30">
                     <CheckCircle2 size={36} strokeWidth={2.5} />
                   </div>
                   <h3 className="text-2xl font-black text-white mb-2">Teknik Başvurunuz Alındı</h3>
                   <p className="text-sm text-slate-300 leading-relaxed max-w-lg mx-auto mb-6">
-                    Proje detaylarınız kaydedildi ve Adana mühendislik merkezimiz ile Yönetim Paneline aktarıldı. 
-                    Mühendislerimiz 24 saat içerisinde teknik analiz ve teklif dosyasıyla sizinle iletişime geçecektir.
+                    Proje detaylarınız güvenle kaydedildi ve Adana Tesisleri Mühendislik Departmanımıza iletildi. 
+                    Mühendislerimiz 24 saat içerisinde teknik fizibilite ve proforma teklif dosyasıyla sizinle iletişime geçecektir.
                   </p>
+
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
+                    <a
+                      href={`https://wa.me/905320550945?text=${encodeURIComponent(
+                        `Merhaba STRUCTIVA, ${name} (${company || "Kurumsal Müşteri"}) adına ${selectedModel} model projem için teklif talebi gönderdim. Proje lokasyonu: ${projectCity ? projectCity + ", " : ""}${projectCountry || country}. Hızlı teknik değerlendirme rica ederim.`
+                      )}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black uppercase tracking-wider shadow-lg shadow-emerald-600/30 transition-all hover:scale-105"
+                    >
+                      <Send size={15} />
+                      <span>WhatsApp'tan Mühendisle Hemen Görüş (Öncelikli Hat)</span>
+                    </a>
+                  </div>
+
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="py-3 px-6 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#0f1d2a] text-xs font-black uppercase tracking-wider"
+                    className="text-xs font-bold text-slate-400 hover:text-amber-400 underline transition-colors"
                   >
-                    Yeni Bir Teklif Talebi Oluştur
+                    ← Yeni Bir Teklif Talebi Oluştur
                   </button>
                 </div>
               ) : (

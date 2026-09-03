@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Calculator, Check, ArrowRight, Box, Layers, Shield, Sparkles, Send } from "lucide-react";
+import { Calculator, Check, ArrowRight, Box, Layers, Shield, Sparkles, Send, FileText, Printer } from "lucide-react";
 import { STEEL_MODELS } from "../data/modelsData";
 import { saveInquiry } from "../services/messageService";
 import { useLanguage } from "../contexts/LanguageContext";
+import SpecSheetModal from "./SpecSheetModal";
 
 export default function BuildingConfigurator() {
   const { t } = useLanguage();
@@ -10,6 +11,8 @@ export default function BuildingConfigurator() {
   const [span, setSpan] = useState(24); // meters
   const [length, setLength] = useState(48); // meters
   const [height, setHeight] = useState(8); // meters
+  const [unitSystem, setUnitSystem] = useState<"metric" | "imperial">("metric");
+  const [showSpecModal, setShowSpecModal] = useState(false);
 
   // Selected accessories
   const [accessories, setAccessories] = useState<string[]>([
@@ -122,10 +125,27 @@ export default function BuildingConfigurator() {
 
           {/* Dimension Controls */}
           <div className="rounded-2xl bg-white/5 border border-white/10 p-5 space-y-5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center justify-between">
-              <span>2. {t("stat_span")} & {t("config_height")}</span>
-              <span className="text-slate-400 font-normal lowercase font-mono">metric / imperial</span>
-            </h4>
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400">
+                2. {t("stat_span")} & {t("config_height")}
+              </h4>
+              <div className="flex items-center bg-black/40 rounded-lg p-0.5 border border-white/10 text-[10px] font-mono">
+                <button
+                  type="button"
+                  onClick={() => setUnitSystem("metric")}
+                  className={`px-2 py-0.5 rounded ${unitSystem === "metric" ? "bg-amber-500 text-[#0f1d2a] font-bold" : "text-slate-400 hover:text-white"}`}
+                >
+                  METRİK (m)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setUnitSystem("imperial")}
+                  className={`px-2 py-0.5 rounded ${unitSystem === "imperial" ? "bg-amber-500 text-[#0f1d2a] font-bold" : "text-slate-400 hover:text-white"}`}
+                >
+                  IMPERIAL (ft)
+                </button>
+              </div>
+            </div>
 
             {/* Span / Width Slider */}
             <div>
@@ -321,6 +341,22 @@ export default function BuildingConfigurator() {
                 <span className="block text-[9px] text-slate-500 font-mono">40HC Flat-pack</span>
               </div>
             </div>
+
+            {/* Action Bar: View Spec Sheet & PDF */}
+            <div className="mt-4 pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <span className="text-[11px] text-slate-400 flex items-center gap-1.5">
+                <Shield size={13} className="text-amber-400" />
+                <span>EN 1090-2 & Galvalume Plus® Sertifikalı</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowSpecModal(true)}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 hover:text-amber-200 text-xs font-bold transition-all shadow-sm"
+              >
+                <Printer size={13} />
+                <span>Resmi Şartnameyi İncele / PDF</span>
+              </button>
+            </div>
           </div>
 
           {/* Quick Technical Brief Form */}
@@ -339,9 +375,33 @@ export default function BuildingConfigurator() {
                 <p className="text-xs text-slate-300 mt-1">
                   {t("config_submitted_desc")}
                 </p>
+
+                {/* Instant Actions for the submitted lead */}
+                <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-2">
+                  <a
+                    href={`https://wa.me/905320550945?text=${encodeURIComponent(
+                      `Merhaba STRUCTIVA, web sitenizden ${selectedModel.name} (${span}m × ${length}m = ${areaM2}m²) çelik hangar teklif talebimi oluşturdum. Hızlıca detayları görüşebilir miyiz?`
+                    )}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg transition-all"
+                  >
+                    <Send size={13} />
+                    <span>WhatsApp'tan Hemen İletin</span>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => setShowSpecModal(true)}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-all"
+                  >
+                    <FileText size={13} />
+                    <span>Şartnameyi İndir / PDF</span>
+                  </button>
+                </div>
+
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-4 text-xs font-bold text-amber-400 hover:underline"
+                  className="mt-4 text-xs font-bold text-amber-400 hover:underline block mx-auto"
                 >
                   ← {t("nav_configurator")}
                 </button>
@@ -405,6 +465,25 @@ export default function BuildingConfigurator() {
           </div>
         </div>
       </div>
+
+      {/* Branded Official Spec Sheet & Quote PDF Modal */}
+      <SpecSheetModal
+        isOpen={showSpecModal}
+        onClose={() => setShowSpecModal(false)}
+        data={{
+          modelName: selectedModel.name,
+          modelSeries: selectedModel.series,
+          span,
+          length,
+          height,
+          areaM2,
+          areaSqFt,
+          volumeM3,
+          containersNeeded,
+          accessories,
+          unitSystem,
+        }}
+      />
     </div>
   );
 }

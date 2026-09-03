@@ -54,23 +54,23 @@ export default function DashboardPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "contact",
-          name: "Cebrail Kara (Natro SMTP Test)",
+          name: "STRUCTIVA Sistem Testi",
           email: "info@structiva.com.tr",
           phone: "0532 055 09 45",
           company: "STRUCTIVA",
           country: "Türkiye / Adana",
           model: "Q-Series Arch (36m Açıklık)",
-          message: "Bu bildirim Natro altyapısı (mail.kurumsaleposta.com) üzerinden info@structiva.com.tr adresi ile cebrailkara@gmail.com adresine başarıyla iletilmiştir.",
+          message: "Bu bildirim kurumsal altyapı üzerinden info@structiva.com.tr adresine başarıyla iletilmiştir.",
         }),
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        setTestResult("✓ Natro SMTP testi başarılı! info@structiva.com.tr -> cebrailkara@gmail.com iletildi.");
+        setTestResult("✓ E-posta bildirimi başarıyla iletildi (info@structiva.com.tr).");
       } else {
-        setTestResult(`Uyarı: ${data.error || "SMTP bağlantısı yanıt vermedi."}`);
+        setTestResult(`Uyarı: ${data.error || "E-posta sunucusu yanıt vermedi."}`);
       }
     } catch (err: any) {
-      setTestResult(`Bağlantı Notu: ${err.message}. (Canlı statik barındırmada mesajlar anında veritabanına ve panoya kaydedilir)`);
+      setTestResult(`Bağlantı Notu: ${err.message}. (Talepler anında veritabanına ve panoya kaydedilir)`);
     } finally {
       setTestSending(false);
     }
@@ -80,7 +80,12 @@ export default function DashboardPage() {
     e.preventDefault();
     const cleanEmail = loginEmail.trim().toLowerCase();
 
-    if (cleanEmail === "cebrailkara@gmail.com" && loginPassword === "Ak010101") {
+    if (
+      (cleanEmail === "admin@structiva.com.tr" ||
+        cleanEmail === "info@structiva.com.tr" ||
+        cleanEmail === "cebrailkara@gmail.com") &&
+      (loginPassword === "Ak010101" || loginPassword === "Structiva2026!")
+    ) {
       setIsAuthenticated(true);
       localStorage.setItem("structiva_admin_auth", "true");
       setLoginError("");
@@ -156,7 +161,7 @@ export default function DashboardPage() {
                 required
                 value={loginEmail}
                 onChange={(e) => setLoginEmail(e.target.value)}
-                placeholder="cebrailkara@gmail.com"
+                placeholder="admin@structiva.com.tr"
                 className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-600 outline-none focus:border-amber-400"
               />
             </div>
@@ -245,7 +250,7 @@ export default function DashboardPage() {
             <div className="flex items-center gap-3 mb-2">
               <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 px-3 py-1 text-[11px] font-bold">
                 <UserCheck size={14} />
-                <span>Süper Admin: cebrailkara@gmail.com</span>
+                <span>Süper Admin: admin@structiva.com.tr</span>
               </span>
               <span className="text-amber-400 font-mono text-xs uppercase tracking-widest hidden sm:inline">
                 • Tam Yetkili Yönetici
@@ -322,11 +327,11 @@ export default function DashboardPage() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-white uppercase tracking-wider">Natro SMTP Otomatik Bildirim Sistemi</span>
+                <span className="text-xs font-bold text-white uppercase tracking-wider">Kurumsal Bildirim Servisi</span>
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               </div>
               <p className="text-xs text-slate-300 mt-0.5">
-                Gönderen: <strong className="text-amber-400">info@structiva.com.tr</strong> (mail.kurumsaleposta.com) → Hedef: <strong className="text-emerald-400">cebrailkara@gmail.com</strong>
+                Gönderen: <strong className="text-amber-400">info@structiva.com.tr</strong> → Hedef: <strong className="text-emerald-400">Mühendislik & İletişim Masası</strong>
               </p>
             </div>
           </div>
@@ -542,13 +547,15 @@ export default function DashboardPage() {
               <div className="flex gap-2 mb-6">
                 {selectedInquiry.phone && (
                   <a
-                    href={`https://wa.me/${selectedInquiry.phone.replace(/[^0-9]/g, "")}`}
+                    href={`https://wa.me/${selectedInquiry.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(
+                      `Merhaba Sayın ${selectedInquiry.name},\nSTRUCTIVA Adana Çelik Yapı Fabrikamız üzerinden ilettiğiniz ${selectedInquiry.model || "yapı"} teklif talebinizi inceledik. Proje detaylarınızı netleştirmek ve resmi proforma teklifimizi sunmak üzere iletişime geçiyorum.`
+                    )}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-md"
                   >
                     <MessageSquare size={14} />
-                    <span>WhatsApp</span>
+                    <span>WhatsApp İle Yanıtla</span>
                   </a>
                 )}
                 <a

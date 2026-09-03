@@ -17,6 +17,7 @@ import {
 import { STEEL_MODELS } from "../data/modelsData";
 import { SECTORS } from "../data/sectorsData";
 import BuildingConfigurator from "../components/BuildingConfigurator";
+import ComparisonTable from "../components/ComparisonTable";
 import SEOHead from "../components/SEOHead";
 import GeoAnswerBox from "../components/GeoAnswerBox";
 import { useLanguage } from "../contexts/LanguageContext";
@@ -83,6 +84,10 @@ export default function HomePage({ lang = "tr" }: { lang?: string }) {
         <img
           src="/images/arched-steel-hangar-hd.jpg"
           alt="STRUCTIVA Arched Steel Hangar HD"
+          fetchPriority="high"
+          decoding="async"
+          width="1376"
+          height="768"
           className="absolute inset-0 h-full w-full object-cover object-center opacity-75 contrast-105 saturate-110"
         />
         {/* Soft targeted gradient for text readability without washing out the photo */}
@@ -188,6 +193,8 @@ export default function HomePage({ lang = "tr" }: { lang?: string }) {
                   <img
                     src={img.src}
                     alt={img.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
@@ -349,6 +356,9 @@ export default function HomePage({ lang = "tr" }: { lang?: string }) {
         </div>
       </section>
 
+      {/* Engineering Comparison Matrix (Concrete vs Traditional Steel vs Structiva) */}
+      <ComparisonTable />
+
       {/* Sectors and Use Cases */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 border-b border-white/10">
         <div className="mx-auto max-w-[1440px]">
@@ -433,6 +443,8 @@ export default function HomePage({ lang = "tr" }: { lang?: string }) {
               <img
                 src="/images/global-project.jpg"
                 alt="STRUCTIVA Global Logistics and Multi-span Campus"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-auto object-cover"
               />
             </div>

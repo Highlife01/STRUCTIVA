@@ -32,7 +32,7 @@ export default function ModelsPage({ lang = "tr" }: { lang?: string }) {
             Kemerli ve Ağır Yapısal <span className="text-amber-400">Çelik Bina Modelleri</span>
           </h1>
           <p className="text-sm text-slate-300 leading-relaxed">
-            SteelMaster ve Curvco standartlarında cıvatalı, kolonsuz açık açıklık (clear-span) sunan 
+            EN 1090-2 EXC4 ve uluslararası mühendislik standartlarında cıvatalı, kolonsuz açık açıklık (clear-span) sunan 
             yüksek mukavemetli çelik binalar. Projenizin mimari ve iklim şartlarına en uygun modeli seçin.
           </p>
         </div>

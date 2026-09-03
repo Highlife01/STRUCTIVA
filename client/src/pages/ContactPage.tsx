@@ -192,7 +192,7 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                       </label>
                       <input
                         type="tel"
-                        placeholder="+90 532 000 00 00"
+                        placeholder="+90 5XX XXX XX XX"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
