@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Core Root -->
+  <url>
+    <loc>https://www.structiva.com.tr/</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.structiva.com.tr/zh" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en" />
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Models -->
+  <url>
+    <loc>https://www.structiva.com.tr/en/models</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/models" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/models" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/models" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/models" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/models" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/models" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/models" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/models" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Sectors -->
+  <url>
+    <loc>https://www.structiva.com.tr/en/sectors</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/sectors" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/sectors" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/sectors" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/sectors" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/sectors" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/sectors" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/sectors" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/sectors" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Engineering -->
+  <url>
+    <loc>https://www.structiva.com.tr/en/engineering</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/engineering" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/engineering" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/engineering" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/engineering" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/engineering" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/engineering" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/engineering" />
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 3D Configurator -->
+  <url>
+    <loc>https://www.structiva.com.tr/en/configurator</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/configurator" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/configurator" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/configurator" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/configurator" />
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Knowledge Hub -->
+  <url>
+    <loc>https://www.structiva.com.tr/en/knowledge</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/knowledge" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/knowledge" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/knowledge" />
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Projects -->
+  <url>
+    <loc>https://www.structiva.com.tr/en/projects</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/projects" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/projects" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/projects" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- RFQ Request a Quote -->
+  <url>
+    <loc>https://www.structiva.com.tr/en/request-a-quote</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/request-a-quote" />
+    <changefreq>daily</changefreq>
+    <priority>0.98</priority>
+  </url>
+</urlset>

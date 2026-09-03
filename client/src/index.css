@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root { --radius: 0rem; --background: oklch(0.97 0.008 95); --foreground: oklch(0.20 0.025 225); --card: oklch(1 0 0); --card-foreground: oklch(0.20 0.025 225); --primary: oklch(0.20 0.025 225); --primary-foreground: oklch(0.98 0.01 95); --secondary: oklch(0.90 0.025 190); --secondary-foreground: oklch(0.20 0.025 225); --muted: oklch(0.93 0.01 95); --muted-foreground: oklch(0.47 0.025 225); --accent: oklch(0.70 0.16 58); --accent-foreground: oklch(0.20 0.025 225); --border: oklch(0.20 0.025 225 / 15%); --input: oklch(0.20 0.025 225 / 20%); --ring: oklch(0.70 0.16 58); }
+
+@theme inline { --color-background: var(--background); --color-foreground: var(--foreground); --color-card: var(--card); --color-card-foreground: var(--card-foreground); --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground); --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground); --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground); --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground); --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring); --radius-sm: 0px; --radius-md: 0px; --radius-lg: 0px; --radius-xl: 0px; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #f4f5f1; font-family: 'DM Sans', sans-serif; }
+button, select, input, textarea { font: inherit; }
+button { cursor: pointer; }
+::selection { background: #f28c28; color: #10202c; }
+
+@media (prefers-reduced-motion: no-preference) {
+  section > div { animation: reveal 700ms cubic-bezier(.23,1,.32,1) both; }
+}
+@keyframes reveal { from { opacity: .01; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+@layer base { * { @apply border-border outline-ring/50; } }
