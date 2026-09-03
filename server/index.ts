@@ -18,7 +18,7 @@ async function startServer() {
   const SMTP_HOST = process.env.SMTP_HOST || "mail.kurumsaleposta.com";
   const SMTP_PORT = parseInt(process.env.SMTP_PORT || "587", 10);
   const SMTP_USER = process.env.SMTP_USER || "info@structiva.com.tr";
-  const SMTP_PASS = process.env.SMTP_PASS || "Ak010101";
+  const SMTP_PASS = process.env.SMTP_PASS || "AdammmM001!!";
   const TARGET_EMAIL = process.env.TARGET_EMAIL || "cebrailkara@gmail.com";
 
   const transporter = nodemailer.createTransport({
