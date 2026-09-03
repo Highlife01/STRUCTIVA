@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { MessageSquare, Phone, X } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export default function WhatsAppButton() {
+  const { t } = useLanguage();
   const [tooltipVisible, setTooltipVisible] = useState(true);
   const phoneNumber = "905320550945";
   const formattedPhone = "0532 055 09 45";
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=Merhaba,%20STRUCTIVA%20%C3%A7elik%20yap%C4%B1%20ve%20hangar%20modelleriniz%20hakk%C4%B1nda%20teknik%20ve%20fiyat%20bilgisi%20almak%20istiyorum.`;
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=Hello,%20STRUCTIVA.%20I%20would%20like%20to%20request%20information%20and%20pricing%20for%20engineered%20steel%20structures.`;
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-5 duration-500">
@@ -13,7 +15,7 @@ export default function WhatsAppButton() {
       {tooltipVisible && (
         <div className="hidden sm:flex items-center gap-2 bg-[#0e1b27]/95 text-white text-xs font-semibold px-4 py-2.5 rounded-2xl border border-emerald-500/40 shadow-2xl backdrop-blur-md">
           <div className="flex flex-col text-left">
-            <span className="text-[10px] uppercase font-mono text-emerald-400 font-bold">7/24 WhatsApp Destek</span>
+            <span className="text-[10px] uppercase font-mono text-emerald-400 font-bold">{t("wp_tooltip_title")}</span>
             <span className="text-white font-mono font-bold text-xs">{formattedPhone}</span>
           </div>
           <button

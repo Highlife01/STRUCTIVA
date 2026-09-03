@@ -4,7 +4,8 @@ import { Shield, Anchor, Award, Phone, Mail, MapPin, ArrowUpRight } from "lucide
 import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const langPrefix = `/${language}`;
 
   return (
     <footer className="bg-[#0a141d] border-t border-white/10 text-slate-400 text-sm">
@@ -37,8 +38,8 @@ export default function Footer() {
                 <Anchor size={22} />
               </div>
               <div>
-                <strong className="block text-white text-xs uppercase tracking-wider">Akdeniz Liman Hub</strong>
-                <span className="text-[11px] text-slate-500">Doğrudan Küresel Konteyner İhracatı</span>
+                <strong className="block text-white text-xs uppercase tracking-wider">Mediterranean Port</strong>
+                <span className="text-[11px] text-slate-500">{t("logistics_point1_title")}</span>
               </div>
             </div>
 
@@ -48,7 +49,7 @@ export default function Footer() {
               </div>
               <div>
                 <strong className="block text-white text-xs uppercase tracking-wider">Structiva Tesisleri</strong>
-                <span className="text-[11px] text-slate-500">Adana Üretim & Mühendislik</span>
+                <span className="text-[11px] text-slate-500">{t("topbar_tagline")}</span>
               </div>
             </div>
           </div>
@@ -68,43 +69,43 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-xs leading-relaxed text-slate-400 max-w-sm mb-6">
-              {t("footer_text")}
+              {t("footer_desc")}
             </p>
             <div className="flex items-center gap-3 text-xs text-slate-400">
               <span className="inline-block h-2 w-2 rounded-full bg-emerald-400"></span>
-              <span>Üretim & İhracat: Structiva Tesisleri Adana / Türkiye</span>
+              <span>Structiva Tesisleri Adana / Türkiye · 50+ Countries</span>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-4 text-amber-400">Sistemler & Modeller</h4>
+            <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-4 text-amber-400">{t("footer_col_models")}</h4>
             <ul className="space-y-2.5 text-xs">
-              <li><Link href="/models" className="hover:text-amber-400 transition-colors">Q-Series Kemer Hangar</Link></li>
-              <li><Link href="/models" className="hover:text-amber-400 transition-colors">S-Series Düz Duvar</Link></li>
-              <li><Link href="/models" className="hover:text-amber-400 transition-colors">P-Series Eğimli Çatı</Link></li>
-              <li><Link href="/models" className="hover:text-amber-400 transition-colors">Konteyner Üstü Kanopi</Link></li>
-              <li><Link href="/models" className="hover:text-amber-400 transition-colors">Ağır Endüstriyel PEB</Link></li>
-              <li><Link href="/configurator" className="text-amber-400 font-bold hover:underline">3D Bina Hesaplayıcı →</Link></li>
+              <li><Link href={`${langPrefix}/models`} className="hover:text-amber-400 transition-colors">Q-Series Arch Hangar</Link></li>
+              <li><Link href={`${langPrefix}/models`} className="hover:text-amber-400 transition-colors">S-Series Straight Wall</Link></li>
+              <li><Link href={`${langPrefix}/models`} className="hover:text-amber-400 transition-colors">P-Series Pitched Roof</Link></li>
+              <li><Link href={`${langPrefix}/models`} className="hover:text-amber-400 transition-colors">Container Canopy Kits</Link></li>
+              <li><Link href={`${langPrefix}/models`} className="hover:text-amber-400 transition-colors">Heavy Industrial PEB</Link></li>
+              <li><Link href={`${langPrefix}/configurator`} className="text-amber-400 font-bold hover:underline">3D Configurator →</Link></li>
             </ul>
           </div>
 
           {/* Industries */}
           <div>
-            <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-4 text-amber-400">Sektörler</h4>
+            <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-4 text-amber-400">{t("footer_col_sectors")}</h4>
             <ul className="space-y-2.5 text-xs">
-              <li><Link href="/sectors" className="hover:text-amber-400 transition-colors">Tarım & Tahıl Depolama</Link></li>
-              <li><Link href="/sectors" className="hover:text-amber-400 transition-colors">Madencilik & Yığın Stok</Link></li>
-              <li><Link href="/sectors" className="hover:text-amber-400 transition-colors">Havacılık Uçak Hangarları</Link></li>
-              <li><Link href="/sectors" className="hover:text-amber-400 transition-colors">Lojistik & Antrepolar</Link></li>
-              <li><Link href="/sectors" className="hover:text-amber-400 transition-colors">Savunma & Acil Durum</Link></li>
-              <li><Link href="/sectors" className="hover:text-amber-400 transition-colors">Modüler Su Altyapısı</Link></li>
+              <li><Link href={`${langPrefix}/sectors`} className="hover:text-amber-400 transition-colors">Agriculture & Bulk Grain</Link></li>
+              <li><Link href={`${langPrefix}/sectors`} className="hover:text-amber-400 transition-colors">Mining Aggregate Stockpile</Link></li>
+              <li><Link href={`${langPrefix}/sectors`} className="hover:text-amber-400 transition-colors">Aviation & Aircraft Hangars</Link></li>
+              <li><Link href={`${langPrefix}/sectors`} className="hover:text-amber-400 transition-colors">Logistics Warehouses</Link></li>
+              <li><Link href={`${langPrefix}/sectors`} className="hover:text-amber-400 transition-colors">Defense & Rapid Shelter</Link></li>
+              <li><Link href={`${langPrefix}/knowledge`} className="hover:text-amber-400 transition-colors">{t("nav_knowledge")}</Link></li>
             </ul>
           </div>
 
           {/* Contact & Support */}
           <div>
-            <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-4 text-amber-400">Doğrudan İletişim</h4>
+            <h4 className="text-white text-xs font-bold uppercase tracking-wider mb-4 text-amber-400">{t("footer_col_contact")}</h4>
             <ul className="space-y-3 text-xs">
               <li className="flex items-center gap-2">
                 <Phone size={14} className="text-amber-400 shrink-0" />
@@ -120,7 +121,7 @@ export default function Footer() {
               </li>
               <li className="pt-2">
                 <Link href="/dashboard" className="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-bold">
-                  <span>Yönetici Paneli (Giriş)</span>
+                  <span>{t("nav_dashboard")}</span>
                   <ArrowUpRight size={12} />
                 </Link>
               </li>
@@ -129,7 +130,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/5 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <div>© {new Date().getFullYear()} STRUCTIVA — Structiva Tesisleri Adana. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} STRUCTIVA — Structiva Tesisleri Adana. {t("footer_rights")}</div>
           <div className="flex items-center gap-6">
             <span>AISC 360-16</span>
             <span>EN 1090-2:2018</span>

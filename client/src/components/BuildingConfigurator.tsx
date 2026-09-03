@@ -73,18 +73,18 @@ export default function BuildingConfigurator() {
 
   return (
     <div className="rounded-3xl bg-[#0e1b27] border border-white/10 p-6 sm:p-8 lg:p-10 text-white shadow-2xl">
-      <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
-          <div className="flex items-center gap-2 text-amber-400 text-xs font-mono uppercase tracking-widest mb-2">
-            <Calculator size={16} />
-            <span>Parametric Building Calculator</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-            Design Your <span className="text-amber-400">Clear-Span Steel Building</span>
+          <span className="text-amber-400 text-xs font-mono font-bold uppercase tracking-widest block mb-1">
+            {t("configurator_eyebrow")}
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            {t("configurator_title")}
           </h2>
         </div>
-        <p className="text-xs text-slate-400 max-w-sm">
-          Select profile geometry, tune dimensions, and receive live floor area, interior volume & export packing calculations.
+        <p className="text-xs text-slate-400 max-w-md">
+          {t("configurator_subtitle")}
         </p>
       </div>
 
@@ -94,7 +94,7 @@ export default function BuildingConfigurator() {
           {/* Model Selector Tabs */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">
-              1. Choose Building Architecture
+              1. {t("models_title")}
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
               {STEEL_MODELS.map((model) => (
@@ -123,16 +123,16 @@ export default function BuildingConfigurator() {
           {/* Dimension Controls */}
           <div className="rounded-2xl bg-white/5 border border-white/10 p-5 space-y-5">
             <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center justify-between">
-              <span>2. Dimensions & Clearance</span>
+              <span>2. {t("stat_span")} & {t("config_height")}</span>
               <span className="text-slate-400 font-normal lowercase font-mono">metric / imperial</span>
             </h4>
 
             {/* Span / Width Slider */}
             <div>
               <div className="flex justify-between text-xs font-semibold mb-2">
-                <span className="text-slate-300">Clear Span (Width):</span>
+                <span className="text-slate-300">{t("config_span")}:</span>
                 <span className="text-amber-400 font-mono font-bold text-sm">
-                  {span} meters <span className="text-slate-400 text-xs font-normal">({Math.round(span * 3.28)} ft)</span>
+                  {span} m <span className="text-slate-400 text-xs font-normal">({Math.round(span * 3.28)} ft)</span>
                 </span>
               </div>
               <input
@@ -144,19 +144,14 @@ export default function BuildingConfigurator() {
                 onChange={(e) => setSpan(Number(e.target.value))}
                 className="w-full accent-amber-500 cursor-pointer h-2 bg-slate-700 rounded-lg"
               />
-              <div className="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
-                <span>9 m (30 ft)</span>
-                <span>24 m (80 ft)</span>
-                <span>45 m (150 ft)</span>
-              </div>
             </div>
 
             {/* Length Slider */}
             <div>
               <div className="flex justify-between text-xs font-semibold mb-2">
-                <span className="text-slate-300">Building Length:</span>
+                <span className="text-slate-300">{t("config_length")}:</span>
                 <span className="text-amber-400 font-mono font-bold text-sm">
-                  {length} meters <span className="text-slate-400 text-xs font-normal">({Math.round(length * 3.28)} ft)</span>
+                  {length} m <span className="text-slate-400 text-xs font-normal">({Math.round(length * 3.28)} ft)</span>
                 </span>
               </div>
               <input
@@ -168,19 +163,14 @@ export default function BuildingConfigurator() {
                 onChange={(e) => setLength(Number(e.target.value))}
                 className="w-full accent-amber-500 cursor-pointer h-2 bg-slate-700 rounded-lg"
               />
-              <div className="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
-                <span>12 m (40 ft)</span>
-                <span>60 m (200 ft)</span>
-                <span>120 m (400 ft)</span>
-              </div>
             </div>
 
             {/* Peak Height Slider */}
             <div>
               <div className="flex justify-between text-xs font-semibold mb-2">
-                <span className="text-slate-300">Center Peak Height:</span>
+                <span className="text-slate-300">{t("config_height")}:</span>
                 <span className="text-amber-400 font-mono font-bold text-sm">
-                  {height} meters <span className="text-slate-400 text-xs font-normal">({Math.round(height * 3.28)} ft)</span>
+                  {height} m <span className="text-slate-400 text-xs font-normal">({Math.round(height * 3.28)} ft)</span>
                 </span>
               </div>
               <input
@@ -198,7 +188,7 @@ export default function BuildingConfigurator() {
           {/* Accessories Checkboxes */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-3">
-              3. Accessories & Openings
+              3. {t("config_accessories")}
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               {[
@@ -303,7 +293,7 @@ export default function BuildingConfigurator() {
                 {/* Dimension Arrows */}
                 <line x1="40" y1="172" x2="280" y2="172" stroke="#e2e8f0" strokeWidth="1" markerEnd="url(#arrow)" />
                 <text x="160" y="171" fill="#ffffff" fontSize="9" fontWeight="bold" textAnchor="middle" fontFamily="monospace">
-                  WIDTH: {span} m
+                  {span} m
                 </text>
 
                 {/* Door Graphic if chosen */}
@@ -316,19 +306,19 @@ export default function BuildingConfigurator() {
             {/* Calculated Metric Badges */}
             <div className="grid grid-cols-3 gap-2 border-t border-white/10 pt-4 text-center">
               <div className="bg-white/5 rounded-xl p-2.5">
-                <span className="block text-[10px] text-slate-400 uppercase">Clear Footprint</span>
+                <span className="block text-[10px] text-slate-400 uppercase">{t("config_area")}</span>
                 <strong className="text-base sm:text-lg font-mono font-black text-amber-400">{areaM2} m²</strong>
                 <span className="block text-[9px] text-slate-500 font-mono">({areaSqFt.toLocaleString()} sq ft)</span>
               </div>
               <div className="bg-white/5 rounded-xl p-2.5">
-                <span className="block text-[10px] text-slate-400 uppercase">Usable Volume</span>
+                <span className="block text-[10px] text-slate-400 uppercase">{t("config_volume")}</span>
                 <strong className="text-base sm:text-lg font-mono font-black text-white">{volumeM3.toLocaleString()} m³</strong>
-                <span className="block text-[9px] text-slate-500 font-mono">100% column-free</span>
+                <span className="block text-[9px] text-slate-500 font-mono">{t("stat_span_desc")}</span>
               </div>
               <div className="bg-white/5 rounded-xl p-2.5">
-                <span className="block text-[10px] text-slate-400 uppercase">40HC Shipping</span>
+                <span className="block text-[10px] text-slate-400 uppercase">{t("config_containers")}</span>
                 <strong className="text-base sm:text-lg font-mono font-black text-emerald-400">~{containersNeeded} Cont.</strong>
-                <span className="block text-[9px] text-slate-500 font-mono">Flat-pack kit</span>
+                <span className="block text-[9px] text-slate-500 font-mono">40HC Flat-pack</span>
               </div>
             </div>
           </div>
@@ -337,7 +327,7 @@ export default function BuildingConfigurator() {
           <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-3 flex items-center gap-2">
               <Send size={14} className="text-amber-400" />
-              <span>Submit for Official Quotation</span>
+              <span>{t("config_get_quote")}</span>
             </h4>
 
             {submitted ? (
@@ -345,15 +335,15 @@ export default function BuildingConfigurator() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-[#0f1d2a] mx-auto mb-2 font-black">
                   <Check size={24} strokeWidth={3} />
                 </div>
-                <h5 className="font-bold text-sm text-white">Talebiniz Başarıyla Alındı!</h5>
+                <h5 className="font-bold text-sm text-white">{t("config_submitted_title")}</h5>
                 <p className="text-xs text-slate-300 mt-1">
-                  Proje detaylarınız teknik ekibimize ve Yönetim Paneline iletildi. 24 saat içinde mühendislik teklifi iletilecektir.
+                  {t("config_submitted_desc")}
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
                   className="mt-4 text-xs font-bold text-amber-400 hover:underline"
                 >
-                  Yeni bir bina hesapla →
+                  ← {t("nav_configurator")}
                 </button>
               </div>
             ) : (
@@ -362,7 +352,7 @@ export default function BuildingConfigurator() {
                   <input
                     type="text"
                     required
-                    placeholder="Adınız Soyadınız *"
+                    placeholder={`${t("config_name")} *`}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
@@ -370,7 +360,7 @@ export default function BuildingConfigurator() {
                   <input
                     type="email"
                     required
-                    placeholder="E-posta Adresi *"
+                    placeholder={`${t("config_email")} *`}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
@@ -380,14 +370,14 @@ export default function BuildingConfigurator() {
                 <div className="grid grid-cols-2 gap-2">
                   <input
                     type="tel"
-                    placeholder="Telefon / WhatsApp"
+                    placeholder={t("config_phone")}
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     className="rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
                   />
                   <input
                     type="text"
-                    placeholder="Şirket / Ülke"
+                    placeholder={`${t("config_company")} / ${t("config_country")}`}
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
                     className="rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
@@ -396,7 +386,7 @@ export default function BuildingConfigurator() {
 
                 <textarea
                   rows={2}
-                  placeholder="Proje yeri, arazi durumu veya özel gereksinimler..."
+                  placeholder={t("config_notes")}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   className="w-full rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400 resize-none"
@@ -407,7 +397,7 @@ export default function BuildingConfigurator() {
                   disabled={loading}
                   className="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#0f1d2a] text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 active:scale-[0.98] transition-all"
                 >
-                  {loading ? "İşleniyor..." : "Teklif Talebini Gönder (Dashboard'a İlet)"}
+                  {loading ? "..." : t("config_btn_submit")}
                   <ArrowRight size={14} />
                 </button>
               </form>
