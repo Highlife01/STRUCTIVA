@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "wouter";
-import { BookOpen, Clock, ArrowRight, Sparkles, Filter, ChevronRight } from "lucide-react";
+import { Clock, ChevronRight } from "lucide-react";
 import { KNOWLEDGE_ARTICLES } from "../data/knowledgeData";
+import { useLanguage } from "../contexts/LanguageContext";
 import SEOHead from "../components/SEOHead";
 import GeoAnswerBox from "../components/GeoAnswerBox";
 
 export default function KnowledgePage({ lang = "tr" }: { lang?: string }) {
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState("all");
 
   const categories = ["all", "Planning & Engineering", "Technical Comparison", "Procurement & Commercial", "Materials & Metallurgy"];
@@ -23,7 +25,7 @@ export default function KnowledgePage({ lang = "tr" }: { lang?: string }) {
         lang={lang}
         breadcrumbs={[
           { name: "STRUCTIVA", url: `/${lang}` },
-          { name: "Knowledge Center", url: `/${lang}/knowledge` }
+          { name: t("nav_knowledge"), url: `/${lang}/knowledge` }
         ]}
       />
 
@@ -31,14 +33,13 @@ export default function KnowledgePage({ lang = "tr" }: { lang?: string }) {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-amber-400 text-xs font-mono font-bold uppercase tracking-widest block mb-2">
-            Mühendislik & Satın Alma Rehberleri
+            {t("knowledge_eyebrow")}
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-4">
-            Çelik Yapı <span className="text-amber-400">Bilgi Merkezi</span>
+            {t("knowledge_title")} <span className="text-amber-400">{t("knowledge_title_highlight")}</span>
           </h1>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Endüstriyel yatırımcılar, mühendisler ve proje yöneticileri için kolonsuz açık açıklık (clear-span) 
-            tasarımı, rüzgar/kar yükü hesapları, PEB optimizasyonu ve malzeme metalurjisi kılavuzları.
+            {t("knowledge_subtitle")}
           </p>
         </div>
 
@@ -54,7 +55,7 @@ export default function KnowledgePage({ lang = "tr" }: { lang?: string }) {
                   : "bg-white/5 border-white/10 text-slate-400 hover:text-white"
               }`}
             >
-              {cat === "all" ? "Tüm Makaleler" : cat}
+              {cat === "all" ? "All" : cat}
             </button>
           ))}
         </div>
@@ -94,7 +95,9 @@ export default function KnowledgePage({ lang = "tr" }: { lang?: string }) {
                   </p>
 
                   <div className="space-y-2 border-t border-white/10 pt-4 mb-6">
-                    <span className="text-[10px] uppercase font-bold text-amber-400 block tracking-wider">Kritik Mühendislik Notları:</span>
+                    <span className="text-[10px] uppercase font-bold text-amber-400 block tracking-wider">
+                      {t("eng_eyebrow")}
+                    </span>
                     <ul className="space-y-1.5 text-xs text-slate-400">
                       {art.keyTakeaways.slice(0, 2).map((takeaway, tIdx) => (
                         <li key={tIdx} className="flex items-start gap-2">
@@ -110,7 +113,7 @@ export default function KnowledgePage({ lang = "tr" }: { lang?: string }) {
                   href={`/${lang}/knowledge/${art.slug}`}
                   className="inline-flex items-center justify-between w-full py-3 px-4 rounded-xl bg-white/5 hover:bg-amber-500 hover:text-[#0f1d2a] text-xs font-bold uppercase tracking-wider transition-all"
                 >
-                  <span>Rehberi Okuyun</span>
+                  <span>{t("knowledge_read_more")}</span>
                   <ChevronRight size={15} />
                 </Link>
               </div>

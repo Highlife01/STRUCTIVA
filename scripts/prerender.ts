@@ -999,6 +999,100 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
     .join("\n");
 }
 
+const SHELL_NAV: Record<string, Record<string, string>> = {
+  tr: {
+    models: "Modeller",
+    sectors: "Sektörler",
+    engineering: "Mühendislik",
+    configurator: "3D Konfigüratör",
+    projects: "Projeler",
+    knowledge: "Bilgi Merkezi",
+    about: "Hakkımızda",
+    contact: "İletişim",
+    quote: "Teklif Al",
+    cta_h2: "Projeniz için 24 Saatte Hızlı Teklif Alın",
+    cta_p: "Statik fizibilite raporu, malzeme dökümü (BOM) ve FOB/CIF navlun teklifiniz aynı gün hazırlansın.",
+  },
+  en: {
+    models: "Models",
+    sectors: "Sectors",
+    engineering: "Engineering",
+    configurator: "3D Configurator",
+    projects: "Projects",
+    knowledge: "Knowledge Hub",
+    about: "About Us",
+    contact: "Contact",
+    quote: "Get Instant Quote",
+    cta_h2: "Request a Formal Engineering Proposal Within 24 Hours",
+    cta_p: "Receive static load calculations, Bill of Materials (BOM), and certified FOB/CIF shipping rates.",
+  },
+  de: {
+    models: "Modelle",
+    sectors: "Branchen",
+    engineering: "Engineering",
+    configurator: "3D-Konfigurator",
+    projects: "Projekte",
+    knowledge: "Wissenszentrum",
+    about: "Über Uns",
+    contact: "Kontakt",
+    quote: "Angebot anfordern",
+    cta_h2: "Schnellangebot innerhalb von 24 Stunden anfordern",
+    cta_p: "Statische Prüfung, Stückliste (BOM) und zertifizierte FOB/CIF-Seefrachtangebote.",
+  },
+  fr: {
+    models: "Modèles",
+    sectors: "Secteurs",
+    engineering: "Ingénierie",
+    configurator: "Configurateur 3D",
+    projects: "Projets",
+    knowledge: "Base Technique",
+    about: "À Propos",
+    contact: "Contact",
+    quote: "Demander Devis",
+    cta_h2: "Obtenez un devis technique d'ingénierie sous 24 heures",
+    cta_p: "Étude statique, nomenclature matière (BOM) et tarif fret maritime FOB/CIF.",
+  },
+  es: {
+    models: "Modelos",
+    sectors: "Sectores",
+    engineering: "Ingeniería",
+    configurator: "Configurador 3D",
+    projects: "Proyectos",
+    knowledge: "Centro Técnico",
+    about: "Nosotros",
+    contact: "Contacto",
+    quote: "Pedir Presupuesto",
+    cta_h2: "Solicite cotización técnica formal en 24 horas",
+    cta_p: "Cálculo estático, lista de materiales (BOM) y flete marítimo contenedor FOB/CIF.",
+  },
+  ar: {
+    models: "النماذج",
+    sectors: "القطاعات",
+    engineering: "الهندسة والجودة",
+    configurator: "التكوين ثلاثي الأبعاد",
+    projects: "المشاريع",
+    knowledge: "مركز المعرفة",
+    about: "من نحن",
+    contact: "اتصل بنا",
+    quote: "طلب عرض سعر",
+    cta_h2: "احصل على عرض سعر هندسي رسمي خلال 24 ساعة",
+    cta_p: "مراجعة إنشائية وقائمة كميات (BOM) وشحن بحري مباشر FOB/CIF.",
+  },
+  ru: {
+    models: "Модели",
+    sectors: "Отрасли",
+    engineering: "Инжиниринг",
+    configurator: "3D Конфигуратор",
+    projects: "Проекты",
+    knowledge: "База знаний",
+    about: "О нас",
+    contact: "Контакты",
+    quote: "Запросить КП",
+    cta_h2: "Получите коммерческое предложение за 24 часа",
+    cta_p: "Статический расчет, ведомость материалов (BOM) и расчет морского фрахта FOB/CIF.",
+  }
+};
+
 function generateSemanticHtml(page: PageConfig, lang: string): string {
   const title = page.title[lang] || page.title.en || page.title.tr;
   const h1 = page.h1[lang] || page.h1.en || page.h1.tr;
@@ -1007,6 +1101,7 @@ function generateSemanticHtml(page: PageConfig, lang: string): string {
 
   const isRtl = lang === "ar";
   const dir = isRtl ? "rtl" : "ltr";
+  const labels = SHELL_NAV[lang] || SHELL_NAV.en || SHELL_NAV.tr;
 
   return `
     <div dir="${dir}" class="min-h-screen flex flex-col bg-[#09131c] text-white selection:bg-amber-500 selection:text-[#0f1d2a]">
@@ -1018,18 +1113,18 @@ function generateSemanticHtml(page: PageConfig, lang: string): string {
             <span>STRUCTIVA<span class="text-amber-400">®</span></span>
           </a>
           <nav class="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-slate-300">
-            <a href="/${lang}/models" class="hover:text-amber-400 transition-colors">Modeller</a>
-            <a href="/${lang}/sectors" class="hover:text-amber-400 transition-colors">Sektörler</a>
-            <a href="/${lang}/engineering" class="hover:text-amber-400 transition-colors">Mühendislik</a>
-            <a href="/${lang}/configurator" class="hover:text-amber-400 transition-colors">3D Konfigüratör</a>
-            <a href="/${lang}/projects" class="hover:text-amber-400 transition-colors">Projeler</a>
-            <a href="/${lang}/knowledge" class="hover:text-amber-400 transition-colors">Bilgi Bankası</a>
-            <a href="/${lang}/about" class="hover:text-amber-400 transition-colors">Hakkımızda</a>
-            <a href="/${lang}/contact" class="hover:text-amber-400 transition-colors">İletişim</a>
+            <a href="/${lang}/models" class="hover:text-amber-400 transition-colors">${labels.models}</a>
+            <a href="/${lang}/sectors" class="hover:text-amber-400 transition-colors">${labels.sectors}</a>
+            <a href="/${lang}/engineering" class="hover:text-amber-400 transition-colors">${labels.engineering}</a>
+            <a href="/${lang}/configurator" class="hover:text-amber-400 transition-colors">${labels.configurator}</a>
+            <a href="/${lang}/projects" class="hover:text-amber-400 transition-colors">${labels.projects}</a>
+            <a href="/${lang}/knowledge" class="hover:text-amber-400 transition-colors">${labels.knowledge}</a>
+            <a href="/${lang}/about" class="hover:text-amber-400 transition-colors">${labels.about}</a>
+            <a href="/${lang}/contact" class="hover:text-amber-400 transition-colors">${labels.contact}</a>
           </nav>
           <div class="flex items-center gap-4">
             <a href="/${lang}/request-a-quote" class="px-5 py-2.5 rounded-xl bg-amber-500 text-[#0f1d2a] font-bold text-xs uppercase tracking-wider hover:bg-amber-400 transition-colors shadow-lg shadow-amber-500/20">
-              Teklif Al
+              ${labels.quote}
             </a>
           </div>
         </div>
@@ -1056,15 +1151,15 @@ function generateSemanticHtml(page: PageConfig, lang: string): string {
         <!-- Call to Action Banner -->
         <div class="mt-16 p-8 rounded-3xl bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-transparent border border-amber-500/30 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <h2 class="text-2xl font-black text-white mb-2">Projeniz için 24 Saatte Hızlı Teklif Alın</h2>
-            <p class="text-sm text-slate-300">Statik fizibilite raporu, malzeme dökümü (BOM) ve FOB/CIF navlun teklifiniz aynı gün hazırlansın.</p>
+            <h2 class="text-2xl font-black text-white mb-2">${labels.cta_h2}</h2>
+            <p class="text-sm text-slate-300">${labels.cta_p}</p>
           </div>
           <div class="flex items-center gap-4 shrink-0">
             <a href="/${lang}/configurator" class="px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white font-bold text-xs uppercase tracking-wider hover:bg-white/20 transition-all">
-              3D Konfigüratör
+              ${labels.configurator}
             </a>
             <a href="/${lang}/request-a-quote" class="px-6 py-3 rounded-xl bg-amber-500 text-[#0f1d2a] font-bold text-xs uppercase tracking-wider hover:bg-amber-400 transition-all shadow-lg shadow-amber-500/20">
-              Teklif İsteyin
+              ${labels.quote}
             </a>
           </div>
         </div>

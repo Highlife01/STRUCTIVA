@@ -27,7 +27,7 @@ export default function Navbar() {
     { href: `${langPrefix}/engineering`, label: t("nav_engineering") },
     { href: `${langPrefix}/configurator`, label: t("nav_configurator") },
     { href: `${langPrefix}/projects`, label: t("nav_projects") },
-    { href: `${langPrefix}/knowledge`, label: "Bilgi Merkezi" },
+    { href: `${langPrefix}/knowledge`, label: t("nav_knowledge") },
     { href: `${langPrefix}/about`, label: t("nav_about") },
     { href: `${langPrefix}/contact`, label: t("nav_contact") },
   ];
@@ -53,7 +53,7 @@ export default function Navbar() {
         <div className="mx-auto flex max-w-[1440px] items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="hidden sm:inline">STRUCTIVA · {COMPANY_INFO.adanaFacilities} · 50+ Ülkeye Konteyner İhracatı</span>
+            <span className="hidden sm:inline">{t("topbar_tagline")}</span>
             <span className="sm:hidden text-amber-400 font-bold">STRUCTIVA GLOBAL</span>
           </div>
           <div className="flex items-center gap-4 text-[10px] tracking-wider uppercase">

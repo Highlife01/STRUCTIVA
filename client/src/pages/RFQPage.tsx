@@ -118,15 +118,13 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-amber-400 text-xs font-mono font-bold uppercase tracking-widest block mb-2">
-            Mühendislik & İhale Başvurusu (RFQ)
+            {t("rfq_eyebrow")}
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-4">
-            Resmi Proje & <span className="text-amber-400">Teklif Talep Formu</span>
+            {t("rfq_title")} <span className="text-amber-400">{t("rfq_title_highlight")}</span>
           </h1>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Arsa ölçülerinizi, hedef kullanım amacınızı ve proje lokasyonunuzu iletin. 
-            STRUCTIVA Adana Mühendislik Departmanımız statik fizibilite, malzeme dökümü (BOM) 
-            ve CIF/FOB konteyner navlun teklifini 24 saat içinde tarafınıza sunacaktır.
+            {t("rfq_subtitle")}
           </p>
         </div>
 
@@ -135,16 +133,16 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
           <div className="lg:col-span-5 space-y-8">
             <div className="rounded-3xl bg-[#0e1b27] border border-white/10 p-6 sm:p-8 space-y-6 shadow-xl">
               <h3 className="text-xl font-bold text-white border-b border-white/10 pb-4">
-                Teklif Süreci Nasıl İşler?
+                {t("rfq_title_highlight")}
               </h3>
 
               <div className="space-y-4 text-xs sm:text-sm">
                 <div className="flex items-start gap-3">
                   <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/20 text-amber-400 font-mono font-bold">1</div>
                   <div>
-                    <strong className="block text-white font-bold">Teknik Bilgi Değerlendirmesi</strong>
+                    <strong className="block text-white font-bold">{t("rfq_step1_title")}</strong>
                     <span className="text-slate-400 leading-relaxed">
-                      Statik mühendislerimiz rüzgar hızı (EN 1991-1-4) ve kar yükü parametrelerini belirler.
+                      {t("rfq_step1_desc")}
                     </span>
                   </div>
                 </div>
@@ -152,9 +150,9 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
                 <div className="flex items-start gap-3">
                   <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/20 text-amber-400 font-mono font-bold">2</div>
                   <div>
-                    <strong className="block text-white font-bold">3D Model & Konteyner Paketleme</strong>
+                    <strong className="block text-white font-bold">{t("rfq_step2_title")}</strong>
                     <span className="text-slate-400 leading-relaxed">
-                      Bina kitinin 40HC konteyner yükleme planı ve demonte panel yerleşimi simüle edilir.
+                      {t("rfq_step2_desc")}
                     </span>
                   </div>
                 </div>
@@ -162,9 +160,9 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
                 <div className="flex items-start gap-3">
                   <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/20 text-amber-400 font-mono font-bold">3</div>
                   <div>
-                    <strong className="block text-white font-bold">24 Saatte Resmi Teklif Mektubu</strong>
+                    <strong className="block text-white font-bold">{t("rfq_step3_title")}</strong>
                     <span className="text-slate-400 leading-relaxed">
-                      FOB Mersin Port veya Hedef Liman CIF teslim detaylı ticari şartname iletilir.
+                      {t("rfq_step3_desc")}
                     </span>
                   </div>
                 </div>
@@ -212,23 +210,22 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-[#0f1d2a] mx-auto mb-4 font-black shadow-lg shadow-emerald-500/30">
                     <CheckCircle2 size={36} strokeWidth={2.5} />
                   </div>
-                  <h3 className="text-2xl font-black text-white mb-2">Teknik Başvurunuz Alındı</h3>
+                  <h3 className="text-2xl font-black text-white mb-2">{t("config_submitted_title")}</h3>
                   <p className="text-sm text-slate-300 leading-relaxed max-w-lg mx-auto mb-6">
-                    Proje detaylarınız güvenle kaydedildi ve Adana Tesisleri Mühendislik Departmanımıza iletildi. 
-                    Mühendislerimiz 24 saat içerisinde teknik fizibilite ve proforma teklif dosyasıyla sizinle iletişime geçecektir.
+                    {t("config_submitted_desc")}
                   </p>
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
                     <a
                       href={`https://wa.me/905320550945?text=${encodeURIComponent(
-                        `Merhaba STRUCTIVA, ${name} (${company || "Kurumsal Müşteri"}) adına ${selectedModel} model projem için teklif talebi gönderdim. Proje lokasyonu: ${projectCity ? projectCity + ", " : ""}${projectCountry || country}. Hızlı teknik değerlendirme rica ederim.`
+                        `Hello STRUCTIVA, RFQ submission from ${name} (${company || "Corporate Client"}) for ${selectedModel}. Project location: ${projectCity ? projectCity + ", " : ""}${projectCountry || country}.`
                       )}`}
                       target="_blank"
                       rel="noreferrer"
                       className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black uppercase tracking-wider shadow-lg shadow-emerald-600/30 transition-all hover:scale-105"
                     >
                       <Send size={15} />
-                      <span>WhatsApp'tan Mühendisle Hemen Görüş (Öncelikli Hat)</span>
+                      <span>WhatsApp Engineering Desk</span>
                     </a>
                   </div>
 
@@ -236,7 +233,7 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
                     onClick={() => setSubmitted(false)}
                     className="text-xs font-bold text-slate-400 hover:text-amber-400 underline transition-colors"
                   >
-                    ← Yeni Bir Teklif Talebi Oluştur
+                    ← OK
                   </button>
                 </div>
               ) : (
@@ -244,14 +241,14 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
                   {/* Contact Info */}
                   <div>
                     <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-3">
-                      1. Yetkili & İletişim Bilgileri
+                      1. {t("config_name")} & {t("contact_email_title")}
                     </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <input
                           type="text"
                           required
-                          placeholder="Adınız Soyadınız *"
+                          placeholder={`${t("config_name")} *`}
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-2.5 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
@@ -261,7 +258,7 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
                         <input
                           type="email"
                           required
-                          placeholder="Kurumsal E-posta *"
+                          placeholder={`${t("config_email")} *`}
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-2.5 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
@@ -271,7 +268,7 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
                         <input
                           type="tel"
                           required
-                          placeholder="Telefon / WhatsApp *"
+                          placeholder={`${t("config_phone")} *`}
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-2.5 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
@@ -280,7 +277,7 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
                       <div>
                         <input
                           type="text"
-                          placeholder="Şirket / Kuruluş Adı"
+                          placeholder={t("config_company")}
                           value={company}
                           onChange={(e) => setCompany(e.target.value)}
                           className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-2.5 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
@@ -431,17 +428,17 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
                   {/* Notes & File upload info */}
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                      5. Proje Notları & Özel Kriterler
+                      {t("config_notes")}
                     </label>
                     <textarea
                       rows={3}
-                      placeholder="Vinç kapasitesi, zemin özellikleri, yangın duvarı veya özel yalıtım beklentileri..."
+                      placeholder={t("config_notes")}
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                       className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-2.5 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400 resize-none"
                     />
                     <span className="text-[11px] text-slate-500 mt-1 block">
-                      * DWG, DXF veya PDF statik projelerinizi form sonrası doğrudan <strong>info@structiva.com.tr</strong> adresimize de iletebilirsiniz.
+                      * DWG, DXF, IFC CAD: <strong>info@structiva.com.tr</strong>
                     </span>
                   </div>
 
@@ -455,7 +452,7 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
                         className="mt-0.5 accent-amber-500"
                       />
                       <span>
-                        Proje bilgilerimin teknik inceleme amacıyla STRUCTIVA Adana mühendislik ekibi tarafından işlenmesini ve teklif sunulmasını onaylıyorum.
+                        {t("rfq_consent_label")}
                       </span>
                     </label>
 
@@ -464,7 +461,7 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
                       disabled={loading}
                       className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-[#0f1d2a] font-black text-xs uppercase tracking-wider shadow-2xl shadow-amber-500/25 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                     >
-                      {loading ? "İşleniyor..." : "Resmi Teklif Başvurusunu Gönder (24 Saat İçinde Dönüş)"}
+                      {loading ? "..." : t("config_btn_submit")}
                       <Send size={15} />
                     </button>
                   </div>

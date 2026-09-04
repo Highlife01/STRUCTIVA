@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "wouter";
-import { STEEL_MODELS, BuildingModel } from "../data/modelsData";
-import { Check, Shield, Wind, Snowflake, Layers, ArrowRight } from "lucide-react";
+import { STEEL_MODELS } from "../data/modelsData";
+import { Check, ArrowRight } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import SEOHead from "../components/SEOHead";
 
@@ -19,21 +19,20 @@ export default function ModelsPage({ lang = "tr" }: { lang?: string }) {
         lang={lang}
         breadcrumbs={[
           { name: "STRUCTIVA", url: `/${lang}` },
-          { name: "Models", url: `/${lang}/models` }
+          { name: t("nav_models"), url: `/${lang}/models` }
         ]}
       />
       <div className="mx-auto max-w-[1440px]">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-amber-400 text-xs font-mono font-bold uppercase tracking-widest block mb-2">
-            Mühendislik Serileri
+            {t("models_eyebrow")}
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-4">
-            Kemerli ve Ağır Yapısal <span className="text-amber-400">Çelik Bina Modelleri</span>
+            {t("models_title")} <span className="text-amber-400">{t("models_title_highlight")}</span>
           </h1>
           <p className="text-sm text-slate-300 leading-relaxed">
-            EN 1090-2 EXC4 ve uluslararası mühendislik standartlarında cıvatalı, kolonsuz açık açıklık (clear-span) sunan 
-            yüksek mukavemetli çelik binalar. Projenizin mimari ve iklim şartlarına en uygun modeli seçin.
+            {t("models_subtitle")}
           </p>
         </div>
 
@@ -72,22 +71,22 @@ export default function ModelsPage({ lang = "tr" }: { lang?: string }) {
               {/* Specs Badges */}
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 border-y border-white/10 py-5">
                 <div>
-                  <span className="text-[10px] text-slate-400 uppercase block">Açıklık (Genişlik)</span>
+                  <span className="text-[10px] text-slate-400 uppercase block">{t("model_span_label")}</span>
                   <strong className="font-mono text-sm text-white">{currentModel.spanRange}</strong>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-400 uppercase block">Rüzgar Sertifikası</span>
+                  <span className="text-[10px] text-slate-400 uppercase block">{t("model_wind_label")}</span>
                   <strong className="font-mono text-sm text-emerald-400">{currentModel.windLoad}</strong>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-400 uppercase block">Kar Yükü Direnci</span>
+                  <span className="text-[10px] text-slate-400 uppercase block">{t("model_snow_label")}</span>
                   <strong className="font-mono text-sm text-sky-400">{currentModel.snowLoad}</strong>
                 </div>
               </div>
 
               {/* Features List */}
               <div className="space-y-2.5">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-200 block">Öne Çıkan Özellikler:</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-200 block">{t("model_features_label")}</span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
                   {currentModel.features.map((feat, idx) => (
                     <div key={idx} className="flex items-start gap-2">
@@ -100,17 +99,17 @@ export default function ModelsPage({ lang = "tr" }: { lang?: string }) {
 
               <div className="pt-4 flex flex-wrap gap-4">
                 <Link
-                  href="/configurator"
+                  href={`/${lang}/configurator`}
                   className="flex items-center gap-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#0f1d2a] px-6 py-3 text-xs font-black uppercase tracking-wider transition-all"
                 >
-                  <span>Bu Modeli Konfigüre Et</span>
+                  <span>{t("model_configure_btn")}</span>
                   <ArrowRight size={14} />
                 </Link>
                 <Link
-                  href="/contact"
+                  href={`/${lang}/request-a-quote`}
                   className="flex items-center gap-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white transition-all"
                 >
-                  <span>Fiyat Teklifi İste</span>
+                  <span>{t("model_quote_btn")}</span>
                 </Link>
               </div>
             </div>
@@ -128,8 +127,8 @@ export default function ModelsPage({ lang = "tr" }: { lang?: string }) {
               {/* Schematic Profile Vector Rendering */}
               <div className="rounded-2xl bg-black/40 border border-white/10 p-4 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] font-mono text-slate-400 uppercase block">Kesit Şematiği</span>
-                  <strong className="text-xs text-amber-400 font-bold">{currentModel.name} Kesit Geometrisi</strong>
+                  <span className="text-[10px] font-mono text-slate-400 uppercase block">{t("eng_eyebrow")}</span>
+                  <strong className="text-xs text-amber-400 font-bold">{currentModel.name} Profile</strong>
                 </div>
                 <div className="h-12 w-28">
                   <svg viewBox="0 0 180 100" className="h-full w-full stroke-amber-400 fill-amber-400/15 stroke-[3]">
@@ -154,11 +153,11 @@ export default function ModelsPage({ lang = "tr" }: { lang?: string }) {
                 <p className="text-xs text-slate-400 leading-relaxed mb-4">{model.tagline}</p>
                 <div className="border-t border-white/5 pt-3 mb-4 space-y-1 text-xs text-slate-300">
                   <div className="flex justify-between">
-                    <span>Açıklık:</span>
+                    <span>{t("model_span_label")}:</span>
                     <strong className="font-mono text-white">{model.spanRange}</strong>
                   </div>
                   <div className="flex justify-between">
-                    <span>Rüzgar:</span>
+                    <span>{t("model_wind_label")}:</span>
                     <strong className="font-mono text-emerald-400">{model.windLoad}</strong>
                   </div>
                 </div>
@@ -171,7 +170,7 @@ export default function ModelsPage({ lang = "tr" }: { lang?: string }) {
                 }}
                 className="w-full py-2.5 rounded-xl bg-white/5 hover:bg-amber-500 hover:text-[#0f1d2a] text-xs font-bold uppercase tracking-wider text-slate-200 transition-colors text-center"
               >
-                İncele & Karşılaştır
+                {t("models_btn_details")}
               </button>
             </div>
           ))}

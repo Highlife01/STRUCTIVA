@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Phone, Mail, MapPin, Send, CheckCircle2, MessageSquare, Clock, Globe2 } from "lucide-react";
+import { Phone, Mail, MapPin, Send, CheckCircle2, Clock } from "lucide-react";
 import { saveInquiry } from "../services/messageService";
 import { STEEL_MODELS } from "../data/modelsData";
 import { useLanguage } from "../contexts/LanguageContext";
@@ -50,20 +50,19 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
         lang={lang}
         breadcrumbs={[
           { name: "STRUCTIVA", url: `/${lang}` },
-          { name: "Contact", url: `/${lang}/contact` }
+          { name: t("nav_contact"), url: `/${lang}/contact` }
         ]}
       />
       <div className="mx-auto max-w-[1440px]">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-amber-400 text-xs font-mono font-bold uppercase tracking-widest block mb-2">
-            İletişim & Proje Başvurusu
+            {t("contact_eyebrow")}
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-4">
-            Projenizi <span className="text-amber-400">Hemen Başlatın</span>
+            {t("contact_title")} <span className="text-amber-400">{t("contact_title_highlight")}</span>
           </h1>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Arsa ölçülerinizi, hedef kullanım amacınızı veya ihtiyacınız olan çelik yapıyı bize iletin. 
-            Mühendislik ekibimiz talebinizi inceleyip 24 saat içinde detaylı teknik şartname ve fiyat teklifi ile dönecektir.
+            {t("contact_subtitle")}
           </p>
         </div>
 
@@ -72,17 +71,17 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
           <div className="lg:col-span-5 space-y-8">
             <div className="rounded-2xl bg-[#0e1b27] border border-white/10 p-6 sm:p-8 space-y-6">
               <h3 className="text-xl font-bold text-white border-b border-white/10 pb-4">
-                Doğrudan İletişim Bilgileri
+                {t("footer_col_contact")}
               </h3>
 
               <div className="space-y-4 text-xs sm:text-sm">
                 <div className="flex items-start gap-3">
                   <Phone size={18} className="text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-white font-bold">Telefon & WhatsApp:</strong>
+                    <strong className="block text-white font-bold">{t("contact_phone_title")}:</strong>
                     <a href="tel:+905320550945" className="text-amber-400 font-mono font-bold hover:underline block text-sm">+90 532 055 09 45</a>
-                    <a href="https://wa.me/905320550945?text=Merhaba,%20STRUCTIVA%20%C3%A7elik%20yap%C4%B1%20ve%20hangar%20modelleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noreferrer" className="text-emerald-400 hover:underline inline-flex items-center gap-1 text-xs mt-1 font-semibold">
-                      💬 Doğrudan WhatsApp ile Yazın
+                    <a href="https://wa.me/905320550945?text=Hello,%20I%20would%20like%20information%20about%20STRUCTIVA%20steel%20structures." target="_blank" rel="noreferrer" className="text-emerald-400 hover:underline inline-flex items-center gap-1 text-xs mt-1 font-semibold">
+                      💬 WhatsApp
                     </a>
                   </div>
                 </div>
@@ -90,21 +89,18 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                 <div className="flex items-start gap-3">
                   <Mail size={18} className="text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-white font-bold">E-posta:</strong>
+                    <strong className="block text-white font-bold">{t("contact_email_title")}:</strong>
                     <a href="mailto:info@structiva.com.tr" className="text-slate-300 hover:text-amber-400 block">info@structiva.com.tr</a>
-                    <span className="text-slate-400 block text-xs">7/24 Teknik ve İhracat Destek</span>
+                    <span className="text-slate-400 block text-xs">24/7 Global Desk</span>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
                   <MapPin size={18} className="text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-white font-bold">Fabrika & Merkez Adres:</strong>
+                    <strong className="block text-white font-bold">{t("contact_address_title")}:</strong>
                     <span className="text-slate-300 leading-relaxed block">
-                      Mersin Tarsus Organize Sanayi Bölgesi (MTOSB), Akdeniz, Mersin / Türkiye
-                    </span>
-                    <span className="text-slate-500 text-xs mt-1 block">
-                      (Mersin Uluslararası Konteyner Limanı'na 15 km)
+                      {t("contact_address_val")}
                     </span>
                   </div>
                 </div>
@@ -112,9 +108,9 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                 <div className="flex items-start gap-3">
                   <Clock size={18} className="text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="block text-white font-bold">Çalışma Saatleri:</strong>
-                    <span className="text-slate-300 block">Pazartesi – Cumartesi: 08:00 – 18:00 (GMT+3)</span>
-                    <span className="text-amber-400 text-xs block">İhracat departmanı 7/24 aktif</span>
+                    <strong className="block text-white font-bold">{t("topbar_standards")}:</strong>
+                    <span className="text-slate-300 block">EN 1090-2 EXC4 · CE · AISC 360-16</span>
+                    <span className="text-amber-400 text-xs block">ISO 9001 · ASTM A792</span>
                   </div>
                 </div>
               </div>
@@ -122,9 +118,9 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
 
             {/* Quality Assurance Card */}
             <div className="rounded-2xl bg-gradient-to-br from-amber-500/15 via-amber-500/5 to-transparent border border-amber-500/30 p-6">
-              <h4 className="text-sm font-bold text-amber-400 uppercase tracking-wider mb-2">Hızlı Teklif Süreci</h4>
+              <h4 className="text-sm font-bold text-amber-400 uppercase tracking-wider mb-2">{t("rfq_title_highlight")}</h4>
               <p className="text-xs text-slate-300 leading-relaxed">
-                Tüm başvurular doğrudan Yönetim Paneline düşer. Mühendislerimiz rüzgar/kar yükü hesapları ve konteyner navlunu ile birlikte eksiksiz şartname hazırlar.
+                {t("rfq_subtitle")}
               </p>
             </div>
           </div>
@@ -132,9 +128,9 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
           {/* Right Form Column */}
           <div className="lg:col-span-7">
             <div className="rounded-3xl bg-[#0e1b27] border border-white/10 p-8 lg:p-10 shadow-2xl">
-              <h2 className="text-2xl font-black text-white mb-2">Proje Bilgi Formu</h2>
+              <h2 className="text-2xl font-black text-white mb-2">{t("contact_form_title")}</h2>
               <p className="text-xs text-slate-400 mb-6">
-                Lütfen projenizin temel ölçülerini veya kullanım amacını belirtin.
+                {t("rfq_step1_desc")}
               </p>
 
               {submitted ? (
@@ -142,16 +138,15 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-[#0f1d2a] mx-auto mb-4 font-black">
                     <CheckCircle2 size={36} strokeWidth={2.5} />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">Mesajınız Alındı!</h3>
+                  <h3 className="text-xl font-bold text-white mb-2">{t("config_submitted_title")}</h3>
                   <p className="text-sm text-slate-300 leading-relaxed max-w-md mx-auto mb-6">
-                    Talebiniz başarıyla kaydedildi ve Yönetim Paneline iletildi. 
-                    Mühendislerimiz en kısa sürede sizinle iletişime geçecektir.
+                    {t("config_submitted_desc")}
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
                     className="py-2.5 px-6 rounded-xl bg-amber-500 text-[#0f1d2a] text-xs font-bold uppercase tracking-wider"
                   >
-                    Yeni Bir Mesaj Gönder
+                    ✓ OK
                   </button>
                 </div>
               ) : (
@@ -159,12 +154,12 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Adınız Soyadınız *
+                        {t("config_name")} *
                       </label>
                       <input
                         type="text"
                         required
-                        placeholder="Örn: Ahmet Yılmaz"
+                        placeholder={t("config_name")}
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
@@ -172,12 +167,12 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                     </div>
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        E-posta Adresiniz *
+                        {t("config_email")} *
                       </label>
                       <input
                         type="email"
                         required
-                        placeholder="Örn: ahmet@sirket.com"
+                        placeholder={t("config_email")}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
@@ -188,11 +183,11 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Telefon / WhatsApp
+                        {t("config_phone")}
                       </label>
                       <input
                         type="tel"
-                        placeholder="+90 5XX XXX XX XX"
+                        placeholder="+XX XXX XXX XX XX"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
@@ -200,11 +195,11 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                     </div>
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Şirket / Kurum
+                        {t("config_company")}
                       </label>
                       <input
                         type="text"
-                        placeholder="Şirket veya Kurum Adı"
+                        placeholder={t("config_company")}
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
                         className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
@@ -215,11 +210,11 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        Ülke / Şehir
+                        {t("config_country")}
                       </label>
                       <input
                         type="text"
-                        placeholder="Örn: Türkiye, Mersin"
+                        placeholder={t("config_country")}
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
                         className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
@@ -227,7 +222,7 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                     </div>
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                        İlgilendiğiniz Model
+                        {t("nav_models")}
                       </label>
                       <select
                         value={model}
@@ -245,12 +240,12 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
 
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
-                      Proje Notları & Boyut Bilgisi *
+                      {t("config_notes")} *
                     </label>
                     <textarea
                       rows={4}
                       required
-                      placeholder="Tahmini arsa genişliği, bina uzunluğu, istenen kapı tipi veya projenizin kullanım amacı..."
+                      placeholder={t("config_notes")}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400 resize-none"
@@ -262,7 +257,7 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                     disabled={loading}
                     className="w-full py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-[#0f1d2a] text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-amber-500/20 active:scale-[0.98] transition-all"
                   >
-                    {loading ? "İletiliyor..." : "Talebi Gönder (Dashboard'a Kaydet)"}
+                    {loading ? "..." : t("contact_form_submit")}
                     <Send size={15} />
                   </button>
                 </form>
