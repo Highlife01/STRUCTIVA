@@ -169,11 +169,131 @@ const PAGES: PageConfig[] = [
           </ul>
         </div>
       `,
-      de: `<div class="py-8"><p class="text-slate-300">Säulenfreie Bogen-Stahlhallen und Hangars gefertigt in Adana nach EN 1090-2 EXC4 Standard.</p></div>`,
-      fr: `<div class="py-8"><p class="text-slate-300">Hangars et entrepôts métalliques autoportants en acier Galvalume Plus® certifiés CE et Eurocode 3.</p></div>`,
-      es: `<div class="py-8"><p class="text-slate-300">Estructuras y hangares de acero sin columnas intermedias, fabricados bajo estándares internacionales en Adana.</p></div>`,
-      ar: `<div class="py-8"><p class="text-slate-300">هياكل ومستودعات فولاذية مقوسة بدون أعمدة داخلية مصنعة وفق أعلى معايير الجودة العالمية في أضنة، تركيا.</p></div>`,
-      ru: `<div class="py-8"><p class="text-slate-300">Бескаркасные стальные ангары и склады без внутренних колонн от производителя STRUCTIVA в Турции.</p></div>`
+      de: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">9m – 45m</span>
+              <p class="text-sm text-slate-300">100% stützenfreie Spannweite ohne interne Pfeiler.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">240 km/h</span>
+              <p class="text-sm text-slate-300">Zertifizierte Wind- und Erdbebenstabilität nach Eurocode 3.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">15 km</span>
+              <p class="text-sm text-slate-300">Direkte Nähe zum Tiefsee-Containerhafen Mersin.</p>
+            </div>
+          </div>
+          <h2 class="text-2xl font-bold text-white mb-4">Warum STRUCTIVA stützenfreie Bogenhallen?</h2>
+          <ul class="space-y-3 text-slate-300 text-sm mb-8 list-disc pl-5">
+            <li><strong>Maximales Raumvolumen:</strong> Keine Träger oder Zwischenstützen für uneingeschränkte Gabelstapler- und Flugzeugmanöver.</li>
+            <li><strong>Galvalume Plus® AZ180 Legierung:</strong> 55% Al-Zn Beschichtung bietet bis zu 4-fachen Korrosionsschutz gegenüber herkömmlicher Verzinkung.</li>
+            <li><strong>Schnelle Schraubmontage:</strong> Präzise vorgebohrte Bauteile erfordern kein Schweißen auf der Baustelle.</li>
+            <li><strong>Globaler 40HC Container-Versand:</strong> 350-400 m² Hallenfläche kompakt verpackt in einem Standard-Überseecontainer.</li>
+          </ul>
+        </div>
+      `,
+      fr: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">9m – 45m</span>
+              <p class="text-sm text-slate-300">Portée libre à 100% sans poteaux ni piliers intérieurs.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">240 km/h</span>
+              <p class="text-sm text-slate-300">Résistance certifiée aux vents d'ouragan selon l'Eurocode 3.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">15 km</span>
+              <p class="text-sm text-slate-300">Proximité immédiate du port international de Mersin.</p>
+            </div>
+          </div>
+          <h2 class="text-2xl font-bold text-white mb-4">Pourquoi choisir les hangars en acier arqués STRUCTIVA ?</h2>
+          <ul class="space-y-3 text-slate-300 text-sm mb-8 list-disc pl-5">
+            <li><strong>Volume Intérieur Maximisé:</strong> Aucun encombrement intérieur pour la manœuvre d'aéronefs, chariots et ponts roulants.</li>
+            <li><strong>Acier Galvalume Plus® AZ180:</strong> Alliage 55% Aluminium-Zinc résistant 4 fois plus longtemps à la corrosion que l'acier galvanisé standard.</li>
+            <li><strong>Assemblage Boulonné Sans Soudure:</strong> Montage rapide par boulons à haute résistance sans permis de feu sur chantier.</li>
+            <li><strong>Expédition Conteneurisée Flat-Pack:</strong> 350 à 400 m² de structure logés dans un unique conteneur 40HC.</li>
+          </ul>
+        </div>
+      `,
+      es: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">9m – 45m</span>
+              <p class="text-sm text-slate-300">Luz libre 100% diáfana sin columnas interiores intermedias.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">240 km/h</span>
+              <p class="text-sm text-slate-300">Resistencia estática certificada a vientos y sismos según Eurocódigo 3.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">15 km</span>
+              <p class="text-sm text-slate-300">Ubicación estratégica a 15 km del Puerto Internacional de Mersin.</p>
+            </div>
+          </div>
+          <h2 class="text-2xl font-bold text-white mb-4">¿Por qué elegir los hangares de acero autoportantes STRUCTIVA?</h2>
+          <ul class="space-y-3 text-slate-300 text-sm mb-8 list-disc pl-5">
+            <li><strong>Aprovechamiento Espacial Total:</strong> Sin columnas intermedias que obstaculicen la maquinaria pesada o el acopio a granel.</li>
+            <li><strong>Aleación Galvalume Plus® AZ180:</strong> 55% Aluminio-Zinc con durabilidad 4 veces superior al galvanizado común.</li>
+            <li><strong>Montaje Empernado Rápido:</strong> Conexiones atornilladas de precisión sin requerir soldaduras en obra.</li>
+            <li><strong>Logística en Contenedor 40HC:</strong> Entre 350 y 400 m² de estructura embalados en flat-pack por contenedor.</li>
+          </ul>
+        </div>
+      `,
+      ar: `
+        <div class="prose max-w-4xl mx-auto py-8" dir="rtl">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">9م – 45م</span>
+              <p class="text-sm text-slate-300">بحور مفتوحة 100% بدون أي أعمدة أو عوائق داخلية.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">240 كم/س</span>
+              <p class="text-sm text-slate-300">مقاومة استاتيكية معتمدة للأعاصير والزلازل وفق كود Eurocode 3.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">15 كم</span>
+              <p class="text-sm text-slate-300">قرب استراتيجي من ميناء مرسين للحاويات للشحن الدولي المباشر.</p>
+            </div>
+          </div>
+          <h2 class="text-2xl font-bold text-white mb-4">لماذا تختار هناجر ستركستيفا المقوسة الخالية من الأعمدة؟</h2>
+          <ul class="space-y-3 text-slate-300 text-sm mb-8 list-disc pr-5">
+            <li><strong>مساحة داخلية مفتوحة بالكامل:</strong> بدون أعمدة وسيطة تتيح حركة حرة للرافعات الشوكية وطائرات الطيران المدني والعسكري.</li>
+            <li><strong>سبيكة Galvalume Plus® AZ180:</strong> طلاء 55% ألومنيوم وزنك يوفر مقاومة تآكل تفوق الجلفنة العادية بـ 4 أضعاف.</li>
+            <li><strong>تركيب ميكانيكي بالبراغي:</strong> تجميع دقيق بالمسامير المقواة دون الحاجة لأعمال لحام بالموقع.</li>
+            <li><strong>شحن مسطح في حاويات 40 قدم:</strong> تعبئة 350-400 م² من الهيكل الفولاذي في حاوية واحدة عالية السقف (40HC).</li>
+          </ul>
+        </div>
+      `,
+      ru: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">9м – 45м</span>
+              <p class="text-sm text-slate-300">100% полезного пространства без внутренних колонн и балок.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">240 км/ч</span>
+              <p class="text-sm text-slate-300">Сертифицированная стойкость к ветру и сейсмике по Еврокоду 3.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">15 км</span>
+              <p class="text-sm text-slate-300">15 км до глубоководного контейнерного порта Мерсин.</p>
+            </div>
+          </div>
+          <h2 class="text-2xl font-bold text-white mb-4">Почему выбирают стальные арочные ангары STRUCTIVA?</h2>
+          <ul class="space-y-3 text-slate-300 text-sm mb-8 list-disc pl-5">
+            <li><strong>Максимум полезного объема:</strong> Отсутствие промежуточных опор позволяет свободно работать складской и авиационной технике.</li>
+            <li><strong>Сплав Galvalume Plus® AZ180:</strong> 55% алюминия и цинка обеспечивают коррозионную стойкость в 4 раза выше обычной оцинковки.</li>
+            <li><strong>Болтовой монтаж без сварки:</strong> Высокоточная заводская перфорация обеспечивает быстрый монтаж без сварочных работ.</li>
+            <li><strong>Логистика в 40HC контейнерах:</strong> 350-400 м² конструкций компактно упаковываются в один морской контейнер.</li>
+          </ul>
+        </div>
+      `
     }
   },
   {
@@ -264,11 +384,111 @@ const PAGES: PageConfig[] = [
           </div>
         </div>
       `,
-      de: `<div class="py-8"><p class="text-slate-300">Überblick über unsere Modellreihen Q-Serie, S-Serie und P-Serie für industrielle Nutzung.</p></div>`,
-      fr: `<div class="py-8"><p class="text-slate-300">Aperçu des gammes de bâtiments en acier arqués Série Q, Série S et Série P.</p></div>`,
-      es: `<div class="py-8"><p class="text-slate-300">Modelos de hangares y estructuras de acero de las Series Q, S y P para uso industrial y comercial.</p></div>`,
-      ar: `<div class="py-8"><p class="text-slate-300">تفاصيل نماذج الهناجر الفولاذية سلسلة Q و S و P لتلبية مختلف الاحتياجات الصناعية والتجارية.</p></div>`,
-      ru: `<div class="py-8"><p class="text-slate-300">Характеристики и параметры арочных стальных моделей серии Q, серии S и серии P.</p></div>`
+      de: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">Q-Serie (Vollbogen)</h3>
+              <p class="text-sm text-slate-300 mb-3">Spannweite: 9m – 45m | Firsthöhe: 4.5m – 18m</p>
+              <p class="text-xs text-slate-400 leading-relaxed">Das tragfähigste Bogenprofil der Welt. 100% stützenfreies Innenvolumen für Getreidelager, Minen und Flugzeughangars.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">S-Serie (Gerade Seitenwand)</h3>
+              <p class="text-sm text-slate-300 mb-3">Spannweite: 10m – 30m | Traufhöhe: 5m – 12m</p>
+              <p class="text-xs text-slate-400 leading-relaxed">Vertikale Wände ermöglichen Palettenhochregallager und optimale Gabelstapler-Fahrwege.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">P-Serie (Satteldach)</h3>
+              <p class="text-sm text-slate-300 mb-3">Spannweite: 8m – 24m | Höhe: 4m – 9m</p>
+              <p class="text-xs text-slate-400 leading-relaxed">Kombiniert traditionelle Dacharchitektur mit schneller industrieller Schraubmontage für Werkstätten.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      fr: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">Série Q (Arche Complète)</h3>
+              <p class="text-sm text-slate-300 mb-3">Portée: 9m – 45m | Hauteur: 4.5m – 18m</p>
+              <p class="text-xs text-slate-400 leading-relaxed">La géométrie en arche la plus robuste au monde. 100% de volume utile pour hangars d'aviation, grains et stockage minier.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">Série S (Parois Droites)</h3>
+              <p class="text-sm text-slate-300 mb-3">Portée: 10m – 30m | Hauteur: 5m – 12m</p>
+              <p class="text-xs text-slate-400 leading-relaxed">Parois verticales pour rayonnages à palettes et circulation optimale des chariots élévateurs.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">Série P (Toit en Pente)</h3>
+              <p class="text-sm text-slate-300 mb-3">Portée: 8m – 24m | Hauteur: 4m – 9m</p>
+              <p class="text-xs text-slate-400 leading-relaxed">Combine le profil traditionnel à deux pans avec la rapidité du montage boulonné industriel.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      es: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">Serie Q (Arco Completo)</h3>
+              <p class="text-sm text-slate-300 mb-3">Luz: 9m – 45m | Altura: 4.5m – 18m</p>
+              <p class="text-xs text-slate-400 leading-relaxed">La geometría de arco más resistente. 100% de volumen interior diáfano sin pérdida estructural para aviación y acopio.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">Serie S (Pared Recta)</h3>
+              <p class="text-sm text-slate-300 mb-3">Luz: 10m – 30m | Altura: 5m – 12m</p>
+              <p class="text-xs text-slate-400 leading-relaxed">Paredes laterales verticales para estanterías de palets y tránsito de carretillas elevadoras.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">Serie P (Dos Aguas)</h3>
+              <p class="text-sm text-slate-300 mb-3">Luz: 8m – 24m | Altura: 4m – 9m</p>
+              <p class="text-xs text-slate-400 leading-relaxed">Diseño tradicional a dos aguas con ingeniería de paneles empernados de rápido montaje.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      ar: `
+        <div class="prose max-w-4xl mx-auto py-8" dir="rtl">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">سلسلة Q (قوس كامل)</h3>
+              <p class="text-sm text-slate-300 mb-3">البحر: 9م – 45م | الارتفاع: 4.5م – 18م</p>
+              <p class="text-xs text-slate-400 leading-relaxed">أقوى شكل هندسي مقوس في العالم. استغلال كامل للحجم بنسبة 100% بدون أي فقد إنشائي لهناجر الطائرات وتخزين الحبوب.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">سلسلة S (جدران مستقيمة)</h3>
+              <p class="text-sm text-slate-300 mb-3">البحر: 10م – 30م | الارتفاع: 5م – 12م</p>
+              <p class="text-xs text-slate-400 leading-relaxed">جدران جانبية عمودية توفر أعلى ارتفاع على الأطراف للأرفف الصناعية وحركة الرافعات الشوكية.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">سلسلة P (سقف جملوني)</h3>
+              <p class="text-sm text-slate-300 mb-3">البحر: 8م – 24م | الارتفاع: 4م – 9م</p>
+              <p class="text-xs text-slate-400 leading-relaxed">تجمع بين المظهر المعماري الجملوني التقليدي والتركيب السريع بالبراغي للورش والمستودعات التجارية.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      ru: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">Серия Q (Полукруглый свод)</h3>
+              <p class="text-sm text-slate-300 mb-3">Пролет: 9м – 45м | Высота: 4.5м – 18м</p>
+              <p class="text-xs text-slate-400 leading-relaxed">Самая прочная арочная геометрия в мире. 100% полезного объема для авиационных ангаров, зернохранилищ и сыпучих грузов.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">Серия S (Прямые стены)</h3>
+              <p class="text-sm text-slate-300 mb-3">Пролет: 10м – 30м | Высота: 5м – 12м</p>
+              <p class="text-xs text-slate-400 leading-relaxed">Вертикальные прямые стены обеспечивают максимальную высоту у стен для паллетных стеллажей и погрузчиков.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">Серия P (Двускатная кровля)</h3>
+              <p class="text-sm text-slate-300 mb-3">Пролет: 8м – 24м | Высота: 4м – 9м</p>
+              <p class="text-xs text-slate-400 leading-relaxed">Сочетает классический силуэт двускатной крыши со скоростью болтовой сборки для мастерских и гаражей.</p>
+            </div>
+          </div>
+        </div>
+      `
     }
   },
   {
@@ -351,11 +571,116 @@ const PAGES: PageConfig[] = [
           </div>
         </div>
       `,
-      de: `<div class="py-8"><p class="text-slate-300">Detaillierte Branchenlösungen für Agrarwirtschaft, Luftfahrt, Bergbau und Logistik.</p></div>`,
-      fr: `<div class="py-8"><p class="text-slate-300">Applications sectorielles pour l'agriculture, l'aéronautique, les mines et les entrepôts.</p></div>`,
-      es: `<div class="py-8"><p class="text-slate-300">Soluciones para agricultura, hangares aeronáuticos, minería y centros de distribución.</p></div>`,
-      ar: `<div class="py-8"><p class="text-slate-300">تطبيقات المباني الفولاذية في قطاعات الزراعة، الطيران، التعدين، والتخزين اللوجستي.</p></div>`,
-      ru: `<div class="py-8"><p class="text-slate-300">Отраслевые решения для агросектора, авиации, добывающей промышленности и складов.</p></div>`
+      de: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🌾 Landwirtschaft & Getreidelagerung</h3>
+              <p class="text-sm text-slate-300">Stützenfreie Bogenhallen ermöglichen lückenloses Aufschütten von Weizen, Mais und Düngemitteln bis an die Außenwand ohne Vogelnester.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">✈️ Flugzeughangars & Aviation</h3>
+              <p class="text-sm text-slate-300">Spannweiten bis 42m mit hydraulischen Falt- oder Schiebetoren für Jets, Turboprops und Hubschrauber.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">⛏️ Bergbau & Schüttguthallen</h3>
+              <p class="text-sm text-slate-300">Schützt Förderbänder und Halden vor Witterung; Galvalume Plus® widersteht aggressiven Stäuben und Gasen.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📦 Logistik & Umschlagzentren</h3>
+              <p class="text-sm text-slate-300">360-Grad-Rangierfreiheit für LKW und Flurförderzeuge; optimale Isolieroptionen für Temperaturkontrolle.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      fr: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🌾 Agriculture & Stockage de Grains</h3>
+              <p class="text-sm text-slate-300">La structure autoportante sans piliers permet un stockage en vrac continu jusqu'au ras des parois sans recoins.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">✈️ Hangars d'Aviation & Hélicoptères</h3>
+              <p class="text-sm text-slate-300">Portées libres jusqu'à 42 m intégrant de grands portails pliants ou coulissants pour jets d'affaires et aéronefs.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">⛏️ Mines & Matières Premières</h3>
+              <p class="text-sm text-slate-300">Confinement des poussières et couverture de convoyeurs avec haute résistance anticorrosion Galvalume Plus®.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📦 Plateformes Logistiques & Entrepôts</h3>
+              <p class="text-sm text-slate-300">Circulation fluide à 360° pour engins et semi-remorques sans piliers gênants; isolation thermique complète.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      es: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🌾 Agricultura y Silos de Grano</h3>
+              <p class="text-sm text-slate-300">El diseño arqueado sin columnas permite el apilamiento de trigo, maíz y fertilizantes de pared a pared con máxima higiene.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">✈️ Hangares de Aviación y Helicópteros</h3>
+              <p class="text-sm text-slate-300">Luces libres de hasta 42 metros con puertas hidráulicas seccionales o corredizas para jets privados y aviones de carga.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">⛏️ Minería y Acopio de Áridos</h3>
+              <p class="text-sm text-slate-300">Control de polvos y protección de cintas transportadoras con protección galvánica superior en ambientes agresivos.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📦 Logística y Centros de Distribución</h3>
+              <p class="text-sm text-slate-300">Maniobrabilidad total para camiones y carretillas sin columnas intermedias, con opciones de aislamiento térmico.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      ar: `
+        <div class="prose max-w-4xl mx-auto py-8" dir="rtl">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🌾 الزراعة وتخزين الحبوب السائبة</h3>
+              <p class="text-sm text-slate-300">تصميم مقوس خالٍ من الأعمدة يتيح تكديس القمح والذرة والأسمدة إلى أقصى الجوانب بأعلى درجات النظافة والحماية من الطيور.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">✈️ هناجر الطائرات والمروحيات</h3>
+              <p class="text-sm text-slate-300">بحور مفتوحة تصل إلى 42 متراً مع أبواب هيدروليكية أو منزلقة عملاقة لصيانة وإيواء الطائرات الخاصة والتجارية.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">⛏️ قطاع التعدين وتشوين المواد</h3>
+              <p class="text-sm text-slate-300">تغطية خطوط السيور ومنع انتشار الغبار مع حماية فائقة ضد التآكل الكيميائي بفضل سبيكة جالفالوم بلس.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📦 المراكز اللوجستية ومستودعات التوزيع</h3>
+              <p class="text-sm text-slate-300">حرية دوران كاملة 360 درجة للشاحنات ومعدات المناولة دون أعمدة تعيق الحركة مع إمكانية العزل الحراري الكامل.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      ru: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🌾 Сельское хозяйство и зернохранилища</h3>
+              <p class="text-sm text-slate-300">Арочная конструкция без колонн позволяет насыпать зерно от стены до стены без потерь площади и скопления птиц.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">✈️ Авиационные ангары и вертолетные площадки</h3>
+              <p class="text-sm text-slate-300">Чистые пролеты до 42 метров с установкой подъемно-складных или откатных ворот для самолетов и вертолетов.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">⛏️ Горнодобывающая отрасль и склады сырья</h3>
+              <p class="text-sm text-slate-300">Укрытие конвейеров и защита от пыли; сталь Galvalume Plus® выдерживает воздействие агрессивных минеральных сред.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📦 Логистические центры и склады</h3>
+              <p class="text-sm text-slate-300">Полная свобода перемещения погрузчиков и фур внутри здания без помех от колонн; опции утепления минераловатными матами.</p>
+            </div>
+          </div>
+        </div>
+      `
     }
   },
   {
@@ -444,11 +769,111 @@ const PAGES: PageConfig[] = [
           </div>
         </div>
       `,
-      de: `<div class="py-8"><p class="text-slate-300">Statische Nachweise und europäische Zulassungen nach EN 1090-2 und Eurocode 3.</p></div>`,
-      fr: `<div class="py-8"><p class="text-slate-300">Normes de conception structurale et métallurgie Galvalume Plus® AZ180.</p></div>`,
-      es: `<div class="py-8"><p class="text-slate-300">Cumplimiento de normas técnicas europeas y americanas para hangares de acero.</p></div>`,
-      ar: `<div class="py-8"><p class="text-slate-300">المعايير الهندسية والحسابات الإنشائية المطابقة للأكواد الدولية الأوروبية والأمريكية.</p></div>`,
-      ru: `<div class="py-8"><p class="text-slate-300">Инженерные нормативы, антикоррозийная защита Galvalume Plus® и ветроустойчивость.</p></div>`
+      de: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📋 Internationale Baunormen</h3>
+              <ul class="text-sm text-slate-300 space-y-2 list-disc pl-4">
+                <li><strong>Eurocode 1 (EN 1991):</strong> Wind- und Schneelastberechnungen.</li>
+                <li><strong>Eurocode 3 (EN 1993):</strong> Bemessung und Konstruktion von Stahlbauten.</li>
+                <li><strong>EN 1090-2:</strong> Ausführungsklasse EXC3 &amp; EXC4 für tragende Bauteile.</li>
+                <li><strong>AISC 360-16:</strong> Amerikanische Stahlbaunorm für globale Projekte.</li>
+              </ul>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🛡️ Galvalume Plus® AZ180 Metallurgie</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                ASTM A792 Beschichtung mit 55% Al, 43,4% Zn und 1,6% Si. Bietet selbstheilenden kathodischen Schutz mit 4-facher Lebensdauer im Vergleich zu normaler Verzinkung.
+              </p>
+            </div>
+          </div>
+        </div>
+      `,
+      fr: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📋 Conformité aux Normes Internationales</h3>
+              <ul class="text-sm text-slate-300 space-y-2 list-disc pl-4">
+                <li><strong>Eurocode 1 (EN 1991):</strong> Actions sur les structures (vent et neige).</li>
+                <li><strong>Eurocode 3 (EN 1993):</strong> Calcul des structures en acier.</li>
+                <li><strong>EN 1090-2:</strong> Contrôle de production en usine (Classe d'exécution EXC4).</li>
+                <li><strong>AISC 360-16:</strong> Norme américaine pour charpente métallique.</li>
+              </ul>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🛡️ Métallurgie Galvalume Plus® AZ180</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Revêtement ASTM A792 avec 55% Al, 43,4% Zn et 1,6% Si. Offre une protection cathodique sacrificielle qui surpasse l'acier galvanisé traditionnel par un facteur 4.
+              </p>
+            </div>
+          </div>
+        </div>
+      `,
+      es: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📋 Cumplimiento de Códigos Internacionales</h3>
+              <ul class="text-sm text-slate-300 space-y-2 list-disc pl-4">
+                <li><strong>Eurocódigo 1 (EN 1991):</strong> Parámetros de cargas de viento y acumulación de nieve.</li>
+                <li><strong>Eurocódigo 3 (EN 1993):</strong> Diseño y cálculo de elementos estructurales de acero.</li>
+                <li><strong>EN 1090-2:</strong> Certificación de fabricación de estructuras (Clase de Ejecución EXC4).</li>
+                <li><strong>AISC 360-16:</strong> Especificación norteamericana de construcción en acero.</li>
+              </ul>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🛡️ Metalurgia Galvalume Plus® AZ180</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Recubrimiento ASTM A792 con 55% Al, 43.4% Zn y 1.6% Si. Brinda protección galvánica auto-regenerable superando al galvanizado común por 4 a 6 veces en durabilidad.
+              </p>
+            </div>
+          </div>
+        </div>
+      `,
+      ar: `
+        <div class="prose max-w-4xl mx-auto py-8" dir="rtl">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📋 مطابقة المعايير والأكواد العالمية</h3>
+              <ul class="text-sm text-slate-300 space-y-2 list-disc pr-4">
+                <li><strong>Eurocode 1 (EN 1991):</strong> حسابات سرعة الرياح وتراكم أحمال الثلوج.</li>
+                <li><strong>Eurocode 3 (EN 1993):</strong> تصميم وتدقيق عناصر المنشآت الفولاذية.</li>
+                <li><strong>EN 1090-2:</strong> شهادة ضبط جودة التصنيع بالمصنع (فئة التنفيذ EXC4).</li>
+                <li><strong>AISC 360-16:</strong> كود الإنشاءات الفولاذية الأمريكي للمشاريع الدولية.</li>
+              </ul>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🛡️ الخصائص المعدنية لسبيكة جالفالوم بلس AZ180</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                طلاء ASTM A792 بنسبة 55% ألومنيوم و 43.4% زنك و 1.6% سيليكون. يوفر حماية كاثودية تلقائية تحمي المقاطع من الصدأ وتدوم 4 إلى 6 أضعاف عمر الجلفنة العادية.
+              </p>
+            </div>
+          </div>
+        </div>
+      `,
+      ru: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📋 Международные инженерные стандарты</h3>
+              <ul class="text-sm text-slate-300 space-y-2 list-disc pl-4">
+                <li><strong>Еврокод 1 (EN 1991):</strong> Расчет ветровых и снеговых нагрузок.</li>
+                <li><strong>Еврокод 3 (EN 1993):</strong> Проектирование стальных несущих конструкций.</li>
+                <li><strong>EN 1090-2:</strong> Заводской контроль качества производства (класс EXC4).</li>
+                <li><strong>AISC 360-16:</strong> Американский стандарт для стальных конструкций.</li>
+              </ul>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🛡️ Металлургия Galvalume Plus® AZ180</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Покрытие по ASTM A792 (55% Al, 43.4% Zn, 1.6% Si) обеспечивает самовосстанавливающуюся катодную защиту, служащую в 4-6 раз дольше обычной оцинковки.
+              </p>
+            </div>
+          </div>
+        </div>
+      `
     }
   },
   {
@@ -762,11 +1187,96 @@ const PAGES: PageConfig[] = [
           </div>
         </div>
       `,
-      de: `<div class="py-8"><p class="text-slate-300">Über unser Unternehmen, Produktionsstandort in Adana und weltweite Logistik.</p></div>`,
-      fr: `<div class="py-8"><p class="text-slate-300">Notre histoire, notre usine à Adana et notre réseau logistique mondial.</p></div>`,
-      es: `<div class="py-8"><p class="text-slate-300">Nuestra historia, capacidad productiva en Adana y alcance logístico global.</p></div>`,
-      ar: `<div class="py-8"><p class="text-slate-300">نبذة عن مصنعنا، طاقتنا الإنتاجية السنوية في أضنة ومزايانا اللوجستية التنافسية.</p></div>`,
-      ru: `<div class="py-8"><p class="text-slate-300">О заводе STRUCTIVA в Адане, мощностях и логистических возможностях.</p></div>`
+      de: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🏭 Mega-Produktionswerk Adana</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Mit einer Jahreskapazität von 25.000 Tonnen Stahlverarbeitung, automatisierten CNC-Rollformanlagen und Roboterschweißsystemen garantieren wir höchste Präzision.
+              </p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🚢 15 km zum Tiefseehafen Mersin</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Direkter Zugang zu den internationalen Mittelmeer-Terminals senkt Logistikkosten und ermöglicht weltweit konkurrenzlos günstige FOB- und CIF-Raten.
+              </p>
+            </div>
+          </div>
+        </div>
+      `,
+      fr: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🏭 Usine de Fabrication Haute Capacité à Adana</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Capacité annuelle de 25 000 tonnes de charpente métallique, profileuses CNC automatisées et découpe robotisée garantissant une tolérance inframillimétrique.
+              </p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🚢 15 km du Port International de Mersin</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Liaison directe avec les grands terminaux maritimes méditerranéens pour des expéditions par conteneurs 40HC au meilleur tarif FOB ou CIF.
+              </p>
+            </div>
+          </div>
+        </div>
+      `,
+      es: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🏭 Centro de Fabricación en Adana</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Capacidad anual de 25.000 toneladas de acero estructural, líneas continuas de perfilado CNC y perforación automatizada bajo normas europeas.
+              </p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🚢 A 15 km del Puerto de Mersin</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Conexión marítima directa que elimina trámites terrestres y permite despachos en flat-pack 40HC a los mejores costos FOB y CIF del mercado.
+              </p>
+            </div>
+          </div>
+        </div>
+      `,
+      ar: `
+        <div class="prose max-w-4xl mx-auto py-8" dir="rtl">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🏭 مجمع التصنيع العملاق في أضنة</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                طاقة إنتاجية سنوية تبلغ 25,000 طن متري من الهياكل الفولاذية، مع خطوط درفلة CNC آلية وتثقيب روبوتي بدقة مليمترية فائقة.
+              </p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🚢 15 كم عن ميناء مرسين للمياه العميقة</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                نفاذ بحري مباشر لمحطات الحاويات الدولية في البحر الأبيض المتوسط يوفر أقل تكاليف نولون شحن FOB و CIF لجميع دول العالم.
+              </p>
+            </div>
+          </div>
+        </div>
+      `,
+      ru: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🏭 Завод STRUCTIVA в Адане</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Производственная мощность 25 000 тонн стали в год, автоматические прокатные линии CNC и роботизированная резка с гарантией субмиллиметровой точности.
+              </p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">🚢 15 км до глубоководного порта Мерсин</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Прямой выход к международным терминалам Средиземного моря гарантирует самые выгодные условия фрахта FOB и CIF по всему миру.
+              </p>
+            </div>
+          </div>
+        </div>
+      `
     }
   },
   {
@@ -855,11 +1365,111 @@ const PAGES: PageConfig[] = [
           </div>
         </div>
       `,
-      de: `<div class="py-8"><p class="text-slate-300">Kontaktieren Sie uns telefonisch oder per E-Mail für technische Beratungen.</p></div>`,
-      fr: `<div class="py-8"><p class="text-slate-300">Nos coordonnées et adresse de l'usine pour toute demande technique ou commerciale.</p></div>`,
-      es: `<div class="py-8"><p class="text-slate-300">Canales de contacto y ubicación de la planta de producción en Adana.</p></div>`,
-      ar: `<div class="py-8"><p class="text-slate-300">أرقام التواصل الرسمية وعنوان مصنعنا في المنطقة الصناعية بأضنة، تركيا.</p></div>`,
-      ru: `<div class="py-8"><p class="text-slate-300">Контактные телефоны, email и адрес завода металлоконструкций в Адане.</p></div>`
+      de: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📍 Werksadresse</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Organisierte Industriezone Adana (AOSB), Steel Fabrication St. No:12, Adana, Türkei<br>
+                <em>(15 km zum Tiefseehafen Mersin)</em>
+              </p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📞 Direkte Ansprechpartner</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Telefon: <a href="tel:+905320550945" class="text-amber-400 hover:underline">+90 532 055 09 45</a><br>
+                WhatsApp: <a href="https://wa.me/905320550945" class="text-emerald-400 hover:underline">+90 532 055 09 45</a><br>
+                E-Mail: <a href="mailto:info@structiva.com.tr" class="text-amber-400 hover:underline">info@structiva.com.tr</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      `,
+      fr: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📍 Adresse de l'Usine</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Zone Industrielle Organisée d'Adana (AOSB), Rue de la Charpente Métallique N°12, Adana, Turquie<br>
+                <em>(à 15 km du port de conteneurs de Mersin)</em>
+              </p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📞 Contacts Directs</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Téléphone: <a href="tel:+905320550945" class="text-amber-400 hover:underline">+90 532 055 09 45</a><br>
+                WhatsApp: <a href="https://wa.me/905320550945" class="text-emerald-400 hover:underline">+90 532 055 09 45</a><br>
+                E-mail: <a href="mailto:info@structiva.com.tr" class="text-amber-400 hover:underline">info@structiva.com.tr</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      `,
+      es: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📍 Dirección de la Planta</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Zona Industrial Organizada de Adana (AOSB), Calle Fabricación de Acero N°12, Adana, Turquía<br>
+                <em>(a 15 km del Puerto de Mersin)</em>
+              </p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📞 Canales Directos</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Teléfono: <a href="tel:+905320550945" class="text-amber-400 hover:underline">+90 532 055 09 45</a><br>
+                WhatsApp: <a href="https://wa.me/905320550945" class="text-emerald-400 hover:underline">+90 532 055 09 45</a><br>
+                Email: <a href="mailto:info@structiva.com.tr" class="text-amber-400 hover:underline">info@structiva.com.tr</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      `,
+      ar: `
+        <div class="prose max-w-4xl mx-auto py-8" dir="rtl">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📍 عنوان المصنع والإنتاج</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                المنطقة الصناعية المنظمة في أضنة (AOSB)، شارع تصنيع الصلب رقم 12، أضنة، تركيا<br>
+                <em>(يبعد 15 كم فقط عن ميناء مرسين الدولي للحاويات)</em>
+              </p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📞 قنوات الاتصال المباشرة</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                الهاتف: <a href="tel:+905320550945" class="text-amber-400 hover:underline">+90 532 055 09 45</a><br>
+                واتساب: <a href="https://wa.me/905320550945" class="text-emerald-400 hover:underline">+90 532 055 09 45</a><br>
+                البريد: <a href="mailto:info@structiva.com.tr" class="text-amber-400 hover:underline">info@structiva.com.tr</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      `,
+      ru: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📍 Адрес производственного комплекса</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Организованная промышленная зона Аданы (AOSB), ул. Сталепрокатная №12, Адана, Турция<br>
+                <em>(15 км от международного контейнерного порта Мерсин)</em>
+              </p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <h3 class="text-xl font-bold text-amber-400 mb-2">📞 Прямые контакты</h3>
+              <p class="text-sm text-slate-300 leading-relaxed">
+                Телефон: <a href="tel:+905320550945" class="text-amber-400 hover:underline">+90 532 055 09 45</a><br>
+                WhatsApp: <a href="https://wa.me/905320550945" class="text-emerald-400 hover:underline">+90 532 055 09 45</a><br>
+                Email: <a href="mailto:info@structiva.com.tr" class="text-amber-400 hover:underline">info@structiva.com.tr</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      `
     }
   },
   {
@@ -942,11 +1552,96 @@ const PAGES: PageConfig[] = [
           </div>
         </div>
       `,
-      de: `<div class="py-8"><p class="text-slate-300">Erhalten Sie in 3 einfachen Schritten Ihr individuelles Angebot.</p></div>`,
-      fr: `<div class="py-8"><p class="text-slate-300">Recevez votre devis détaillé en 3 étapes simples sous 24 heures.</p></div>`,
-      es: `<div class="py-8"><p class="text-slate-300">Obtenga su presupuesto de ingeniería en 3 sencillos pasos.</p></div>`,
-      ar: `<div class="py-8"><p class="text-slate-300">احصل على عرض أسعار هندسي مفصل في 3 خطوات بسيطة خلال 24 ساعة.</p></div>`,
-      ru: `<div class="py-8"><p class="text-slate-300">Получите расчет стоимости стального ангара за 3 простых шага.</p></div>`
+      de: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">Schritt 1</span>
+              <p class="text-sm text-slate-300">Geben Sie Spannweite, Länge und Standortparameter an.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">Schritt 2</span>
+              <p class="text-sm text-slate-300">Unsere Ingenieure führen statische Analysen nach Eurocode 3 durch.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">Schritt 3</span>
+              <p class="text-sm text-slate-300">Erhalten Sie Stückliste (BOM) und FOB/CIF-Angebot in 24 Stunden.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      fr: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">Étape 1</span>
+              <p class="text-sm text-slate-300">Indiquez la portée, la longueur et le port de destination.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">Étape 2</span>
+              <p class="text-sm text-slate-300">Nos ingénieurs valident la faisabilité statique sous Eurocode 3.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">Étape 3</span>
+              <p class="text-sm text-slate-300">Recevez la nomenclature (BOM) et l'offre FOB/CIF sous 24h.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      es: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">Paso 1</span>
+              <p class="text-sm text-slate-300">Indique las dimensiones requeridas y el puerto de entrega.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">Paso 2</span>
+              <p class="text-sm text-slate-300">Nuestros calculistas verifican cargas de viento y nieve según Eurocódigo 3.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">Paso 3</span>
+              <p class="text-sm text-slate-300">Reciba el desglose de materiales (BOM) y presupuesto formal en 24h.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      ar: `
+        <div class="prose max-w-4xl mx-auto py-8" dir="rtl">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">الخطوة 1</span>
+              <p class="text-sm text-slate-300">حدد عرض البحر والطول وميناء الوصول المستهدف.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">الخطوة 2</span>
+              <p class="text-sm text-slate-300">يقوم مهندسونا بحساب الأحمال وفق كود Eurocode / AISC المعتمد.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">الخطوة 3</span>
+              <p class="text-sm text-slate-300">استلم جدول الكميات (BOM) وعرض أسعار FOB/CIF الرسمي خلال 24 ساعة.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      ru: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">Шаг 1</span>
+              <p class="text-sm text-slate-300">Укажите ширину пролета, длину и порт доставки.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">Шаг 2</span>
+              <p class="text-sm text-slate-300">Инженеры выполняют статический расчет по Еврокоду 3.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-amber-400 font-bold block mb-1">Шаг 3</span>
+              <p class="text-sm text-slate-300">Получите ведомость материалов (BOM) и КП FOB/CIF за 24 часа.</p>
+            </div>
+          </div>
+        </div>
+      `
     }
   },
   {
@@ -1604,6 +2299,104 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
         question: "How are STRUCTIVA steel building kits shipped internationally?",
         answer: "All building components are demountable and flat-packed into standard 40ft High-Cube (40HC) containers at our Adana facility (~350–400 m² per container) and dispatched worldwide via Mersin Deep-Water Port (15 km away)."
       }
+    ],
+    de: [
+      {
+        question: "Welche Spannweiten und Windlasten unterstützen STRUCTIVA Bogenhallen?",
+        answer: "STRUCTIVA stützenfreie Bogen-Stahlhallen werden von 9m bis 45m Spannweite ohne Zwischensäulen gefertigt, zertifiziert nach Eurocode 3 und AISC 360-16 für Windgeschwindigkeiten bis 240 km/h und Schneelasten bis 350 kg/m²."
+      },
+      {
+        question: "Was unterscheidet Galvalume Plus® AZ180 von normalem verzinktem Stahl?",
+        answer: "Galvalume Plus® AZ180 (55% Al, 43,4% Zn, 1,6% Si nach ASTM A792) bietet selbstheilenden kathodischen Schutz, hält 4- bis 6-mal länger als Standardverzinkung und reflektiert 80% der Sonnenwärme über 40-50 Jahre wartungsfrei."
+      },
+      {
+        question: "Wie erfolgt der internationale Übersee-Versand der Hallen?",
+        answer: "Alle Komponenten werden im Werk Adana zerlegt und kompakt in 40HC Seecontainer verpackt (ca. 350-400 m² Hallenfläche pro Container) und über den 15 km entfernten Tiefseehafen Mersin weltweit verschifft."
+      }
+    ],
+    fr: [
+      {
+        question: "Quelles sont les portées libres et résistances au vent des hangars STRUCTIVA ?",
+        answer: "Les hangars arqués en acier STRUCTIVA offrent des portées libres de 9m à 45m sans poteaux intérieurs, certifiés selon l'Eurocode 3 et AISC 360-16 pour des vents jusqu'à 240 km/h et charges de neige jusqu'à 350 kg/m²."
+      },
+      {
+        question: "Pourquoi l'acier Galvalume Plus® AZ180 est-il supérieur à l'acier galvanisé ordinaire ?",
+        answer: "L'alliage Galvalume Plus® AZ180 (55% Al, 43,4% Zn, 1,6% Si selon ASTM A792) assure une protection cathodique sacrificielle durant 4 à 6 fois plus longtemps que la galvanisation classique, sans entretien pendant 40 à 50 ans avec 80% de réflectance solaire."
+      },
+      {
+        question: "Comment les structures métalliques sont-elles expédiées à l'international ?",
+        answer: "Tous les éléments sont préfabriqués en kit démontable et chargés en flat-pack dans des conteneurs maritimes 40HC (environ 350 à 400 m² par conteneur) depuis Adana via le port de haute mer de Mersin (15 km)."
+      }
+    ],
+    es: [
+      {
+        question: "¿Qué luces libres y resistencia al viento soportan los hangares STRUCTIVA?",
+        answer: "Los hangares arqueados de acero STRUCTIVA se fabrican de 9m a 45m de luz libre sin columnas intermedias, certificados bajo Eurocódigo 3 y AISC 360-16 para vientos de hasta 240 km/h y nieve de 350 kg/m²."
+      },
+      {
+        question: "¿Qué ventaja tiene el acero Galvalume Plus® AZ180 frente al galvanizado estándar?",
+        answer: "Galvalume Plus® AZ180 (55% Al, 43.4% Zn, 1.6% Si bajo norma ASTM A792) brinda protección galvánica auto-reparable que dura de 4 a 6 veces más que el galvanizado convencional, garantizando 40-50 años sin mantenimiento y 80% de reflectancia térmica solar."
+      },
+      {
+        question: "¿Cómo se transportan las estructuras de acero al extranjero?",
+        answer: "Todos los perfiles son desmontables y se embalan en flat-pack dentro de contenedores marítimos 40HC (350-400 m² por contenedor) desde la planta en Adana a través del Puerto de aguas profundas de Mersin (a 15 km)."
+      }
+    ],
+    ar: [
+      {
+        question: "ما هي البحور المفتوحة ومقاومة الرياح التي تدعمها هناجر STRUCTIVA الفولاذية؟",
+        answer: "تصنع هناجر STRUCTIVA المقوسة ببحور مفتوحة تتراوح من 9 إلى 45 متراً بدون أي أعمدة داخلية، وهي معتمدة وفق كود Eurocode 3 و AISC 360-16 لمقاومة رياح الأعاصير حتى 240 كم/س وأحمال ثلوج حتى 350 كجم/م²."
+      },
+      {
+        question: "ما الذي يميز طلاء Galvalume Plus® AZ180 عن الجلفنة التقليدية؟",
+        answer: "سبيكة جالفالوم بلس AZ180 (55% ألومنيوم و 43.4% زنك و 1.6% سيليكون وفق ASTM A792) توفر حماية كاثودية تلقائية تدوم من 4 إلى 6 أضعاف الجلفنة العادية، مع عمر افتراضي 40-50 سنة دون صيانة وانعكاس حراري شمسي بنسبة 80%."
+      },
+      {
+        question: "كيف يتم شحن حزم المباني الفولاذية دولياً؟",
+        answer: "يتم تحميل جميع مكونات المبنى مفككة ومحزومة بنظام flat-pack داخل حاويات شحن بحرية قياسية 40 قدم عالية السقف 40HC (حوالي 350-400 م² لكل حاوية) من مصنع أضنة عبر ميناء مرسين الدولي (على بعد 15 كم)."
+      }
+    ],
+    ru: [
+      {
+        question: "Каковы доступные пролеты и ветровые нагрузки арочных ангаров STRUCTIVA?",
+        answer: "Стальные арочные ангары STRUCTIVA производятся с пролетами от 9 до 45 метров без внутренних опор, сертифицированы по Еврокоду 3 и AISC 360-16 на ветровую стойкость до 240 км/ч и снеговые нагрузки до 350 кг/м²."
+      },
+      {
+        question: "В чем преимущества покрытия Galvalume Plus® AZ180 перед обычной оцинковкой?",
+        answer: "Сплав Galvalume Plus® AZ180 (55% Al, 43.4% Zn, 1.6% Si по ASTM A792) обеспечивает катодную самовосстанавливающуюся защиту, служащую в 4-6 раз дольше стандартной оцинковки, не требуя покраски 40-50 лет и отражая 80% солнечного тепла."
+      },
+      {
+        question: "Как осуществляется международная доставка стальных ангаров?",
+        answer: "Все элементы конструкции являются сборно-разборными и упаковываются в морские контейнеры 40HC (около 350-400 м² ангара на один контейнер) на заводе в Адане с отправкой через глубоководный порт Мерсин (15 км)."
+      }
+    ],
+    it: [
+      {
+        question: "Quali luci libere e carichi di vento sopportano gli hangar in acciaio STRUCTIVA?",
+        answer: "Gli hangar ad arco autoportanti STRUCTIVA offrono luci libere da 9m a 45m senza pilastri interni, certificati Eurocode 3 e AISC 360-16 per resistere a venti fino a 240 km/h e carichi neve fino a 350 kg/m²."
+      },
+      {
+        question: "Qual è il vantaggio dell'acciaio Galvalume Plus® AZ180 rispetto alla zincatura comune?",
+        answer: "Galvalume Plus® AZ180 (55% Al, 43,4% Zn, 1,6% Si secondo ASTM A792) garantisce una protezione catodica attiva che dura da 4 a 6 volte più a lungo della zincatura standard, con 40-50 anni di vita utile senza manutenzione e l'80% di riflettanza solare."
+      },
+      {
+        question: "Come avvengono le spedizioni marittime internazionali?",
+        answer: "Tutti i componenti prefabbricati sono imballati flat-pack in container marittimi 40HC (~350-400 m² per container) direttamente nello stabilimento di Adana e spediti tramite il vicino porto di Mersin (15 km)."
+      }
+    ],
+    zh: [
+      {
+        question: "STRUCTIVA无立柱拱形钢结构机库的跨度与抗风等级是多少？",
+        answer: "STRUCTIVA拱形钢结构无立柱机库跨度为9米至45米，内部完全无障碍。符合欧洲规范Eurocode 3和AISC 360-16标准，最高抗风速达240公里/小时，抗雪压达350公斤/平方米。"
+      },
+      {
+        question: "相比普通镀锌钢板，Galvalume Plus® AZ180合金有何优势？",
+        answer: "Galvalume Plus® AZ180（按ASTM A792标准，含55%铝、43.4%锌和1.6%硅）提供自愈性阴极电化学保护，防腐耐用寿命为普通镀锌的4至6倍，40至50年免维护并反射80%太阳热辐射。"
+      },
+      {
+        question: "STRUCTIVA钢结构建筑套件如何进行全球海运集装箱交付？",
+        answer: "所有建筑预制构件均可在土耳其阿达纳工厂扁平化紧凑装入40英尺高柜(40HC)海运集装箱（单个集装箱约容纳350–400平方米建筑），经由距离工厂仅15公里的梅尔辛深水港直发全球各主要港口。"
+      }
     ]
   };
 
@@ -1918,9 +2711,13 @@ function generateSemanticHtml(page: PageConfig, lang: string): string {
   const subheading = page.subheading[lang] || page.subheading.en || page.subheading.tr;
   const bodyHtml = page.bodyHtml[lang] || page.bodyHtml.en || page.bodyHtml.tr;
 
-  const isRtl = lang === "ar";
+  const isRtl = lang === "ar" || lang === "fa" || lang === "he";
   const dir = isRtl ? "rtl" : "ltr";
   const labels = SHELL_NAV[lang] || SHELL_NAV.en || SHELL_NAV.tr;
+
+  const footerDesc = lang === "tr"
+    ? "Adana Tesisleri — 9-45m net açıklıklı, Galvalume Plus® alaşımlı kemerli çelik hangarlar ve endüstriyel yapılar.<br>Mersin Limanı'na 15 km mesafede flat-pack konteyner ihracatı."
+    : "Adana Fabrication Plant — 9m-45m clear-span Galvalume Plus® arch steel hangars & PEB structures.<br>Direct flat-pack container export via Mersin Deep-Water Port (15 km away).";
 
   return `
     <div dir="${dir}" class="min-h-screen flex flex-col bg-[#09131c] text-white selection:bg-amber-500 selection:text-[#0f1d2a]">
@@ -1988,36 +2785,35 @@ function generateSemanticHtml(page: PageConfig, lang: string): string {
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-xs">
           <div>
             <span class="text-white font-black text-base block mb-3">STRUCTIVA®</span>
-            <p class="leading-relaxed mb-4">Adana Tesisleri — 9-45m net açıklıklı, Galvalume Plus® alaşımlı kemerli çelik hangarlar ve endüstriyel yapılar.</p>
-            <p class="text-slate-300">Mersin Limanı'na 15 km mesafede flat-pack konteyner ihracatı.</p>
+            <p class="leading-relaxed mb-4">${footerDesc}</p>
           </div>
           <div>
-            <span class="text-white font-bold uppercase tracking-wider block mb-3">Modeller</span>
+            <span class="text-white font-bold uppercase tracking-wider block mb-3">${labels.models}</span>
             <ul class="space-y-2">
-              <li><a href="/${lang}/models" class="hover:text-amber-400">Q-Serisi Kemer Hangar</a></li>
-              <li><a href="/${lang}/models" class="hover:text-amber-400">S-Serisi Düz Duvar</a></li>
-              <li><a href="/${lang}/models" class="hover:text-amber-400">P-Serisi Beşik Çatı</a></li>
-              <li><a href="/${lang}/models" class="hover:text-amber-400">Konteyner Kanopisi</a></li>
+              <li><a href="/${lang}/models" class="hover:text-amber-400">Q-Series / Q-Serisi</a></li>
+              <li><a href="/${lang}/models" class="hover:text-amber-400">S-Series / S-Serisi</a></li>
+              <li><a href="/${lang}/models" class="hover:text-amber-400">P-Series / P-Serisi</a></li>
+              <li><a href="/${lang}/models" class="hover:text-amber-400">Container Canopy</a></li>
             </ul>
           </div>
           <div>
-            <span class="text-white font-bold uppercase tracking-wider block mb-3">Mühendislik</span>
+            <span class="text-white font-bold uppercase tracking-wider block mb-3">${labels.engineering}</span>
             <ul class="space-y-2">
-              <li><a href="/${lang}/engineering" class="hover:text-amber-400">Eurocode 3 Statik Hesap</a></li>
-              <li><a href="/${lang}/engineering" class="hover:text-amber-400">EN 1090-2 EXC4 Sertifikası</a></li>
-              <li><a href="/${lang}/knowledge" class="hover:text-amber-400">Teknik Bilgi Bankası</a></li>
-              <li><a href="/${lang}/about" class="hover:text-amber-400">Adana Üretim Tesisi</a></li>
+              <li><a href="/${lang}/engineering" class="hover:text-amber-400">Eurocode 3 &amp; AISC 360-16</a></li>
+              <li><a href="/${lang}/engineering" class="hover:text-amber-400">EN 1090-2 EXC4 CE</a></li>
+              <li><a href="/${lang}/knowledge" class="hover:text-amber-400">${labels.knowledge}</a></li>
+              <li><a href="/${lang}/about" class="hover:text-amber-400">${labels.about}</a></li>
             </ul>
           </div>
           <div>
-            <span class="text-white font-bold uppercase tracking-wider block mb-3">İletişim & Fabrika</span>
+            <span class="text-white font-bold uppercase tracking-wider block mb-3">${labels.contact}</span>
             <p class="leading-relaxed mb-2">${ADDRESS}</p>
             <p class="mb-1">Tel: <a href="tel:+905320550945" class="text-amber-400 hover:underline">${PHONE}</a></p>
             <p>E-posta: <a href="mailto:${EMAIL}" class="text-amber-400 hover:underline">${EMAIL}</a></p>
           </div>
         </div>
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-8 border-t border-white/5 text-center text-[11px] text-slate-500">
-          © ${new Date().getFullYear()} STRUCTIVA Çelik Yapı Sanayi A.Ş. Tüm hakları saklıdır.
+          © ${new Date().getFullYear()} STRUCTIVA Çelik Yapı Sanayi A.Ş. All rights reserved / Tüm hakları saklıdır.
         </div>
       </footer>
     </div>
@@ -2054,8 +2850,8 @@ function prerender() {
       // Construct tailored HTML
       let html = baseTemplate;
 
-      // Update lang attribute on html tag
-      html = html.replace(/<html\s+lang="[^"]*"/, `<html lang="${lang.code}" dir="${lang.dir}"`);
+      // Update lang and dir attribute on html tag
+      html = html.replace(/<html[^>]*>/, `<html lang="${lang.code}" dir="${lang.dir}">`);
 
       // Update <title>
       html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`);
@@ -2066,9 +2862,9 @@ function prerender() {
         `<meta name="description" content="${description}" />`
       );
 
-      // Update canonical link
+      // Update canonical link and replace template's alternate hreflangs with page-specific ones
       html = html.replace(
-        /<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/,
+        /<link\s+rel="canonical"[\s\S]*?<link\s+rel="alternate"\s+hreflang="x-default"\s+href="[^"]*"\s*\/?>/,
         `<link rel="canonical" href="${langCanonicalUrl}" />\n${hreflangs}`
       );
 
@@ -2187,7 +2983,7 @@ function generate404Page(baseTemplate: string) {
   `;
 
   let html = baseTemplate;
-  html = html.replace(/<html\s+lang="[^"]*"/, `<html lang="tr" dir="ltr"`);
+  html = html.replace(/<html[^>]*>/, `<html lang="tr" dir="ltr">`);
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>404 — Sayfa Bulunamadı | STRUCTIVA®</title>`);
   html = html.replace(
     /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/,
