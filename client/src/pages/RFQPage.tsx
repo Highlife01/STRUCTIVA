@@ -19,9 +19,11 @@ import { STEEL_MODELS } from "../data/modelsData";
 import SEOHead from "../components/SEOHead";
 import GeoAnswerBox from "../components/GeoAnswerBox";
 import { useLanguage } from "../contexts/LanguageContext";
+import { getPageSEO } from "../data/seoData";
 
 export default function RFQPage({ lang = "tr" }: { lang?: string }) {
   const { t } = useLanguage();
+  const seo = getPageSEO("rfq", lang);
 
   // Form State
   const [name, setName] = useState("");
@@ -104,13 +106,13 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
   return (
     <div className="bg-[#09131c] text-white py-16 px-4 sm:px-6 lg:px-8">
       <SEOHead
-        title="Request a Technical Quotation (RFQ) | STRUCTIVA Steel Structures"
-        description="Submit your structural steel project specifications, clear span dimensions, and site requirements for an official engineering review and commercial quote within 24 hours."
+        title={seo.title}
+        description={seo.description}
         canonicalPath={`/${lang}/request-a-quote`}
         lang={lang}
         breadcrumbs={[
           { name: "STRUCTIVA", url: `/${lang}` },
-          { name: "Request a Quote", url: `/${lang}/request-a-quote` }
+          { name: t("cta_quote") || "Request a Quote", url: `/${lang}/request-a-quote` }
         ]}
       />
 

@@ -8,6 +8,63 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "/tr",
+        "type": 302
+      },
+      {
+        "source": "/models",
+        "destination": "/tr/models",
+        "type": 301
+      },
+      {
+        "source": "/sectors",
+        "destination": "/tr/sectors",
+        "type": 301
+      },
+      {
+        "source": "/engineering",
+        "destination": "/tr/engineering",
+        "type": 301
+      },
+      {
+        "source": "/configurator",
+        "destination": "/tr/configurator",
+        "type": 301
+      },
+      {
+        "source": "/projects",
+        "destination": "/tr/projects",
+        "type": 301
+      },
+      {
+        "source": "/knowledge",
+        "destination": "/tr/knowledge",
+        "type": 301
+      },
+      {
+        "source": "/knowledge/:slug",
+        "destination": "/tr/knowledge/:slug",
+        "type": 301
+      },
+      {
+        "source": "/about",
+        "destination": "/tr/about",
+        "type": 301
+      },
+      {
+        "source": "/contact",
+        "destination": "/tr/contact",
+        "type": 301
+      },
+      {
+        "source": "/request-a-quote",
+        "destination": "/tr/request-a-quote",
+        "type": 301
+      }
+    ],
     "rewrites": [
       {
         "source": "**",

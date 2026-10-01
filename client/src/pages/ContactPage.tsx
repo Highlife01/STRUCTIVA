@@ -3,10 +3,12 @@ import { Phone, Mail, MapPin, Send, CheckCircle2, Clock } from "lucide-react";
 import { saveInquiry } from "../services/messageService";
 import { STEEL_MODELS } from "../data/modelsData";
 import { useLanguage } from "../contexts/LanguageContext";
+import { getPageSEO } from "../data/seoData";
 import SEOHead from "../components/SEOHead";
 
 export default function ContactPage({ lang = "tr" }: { lang?: string }) {
   const { t } = useLanguage();
+  const seo = getPageSEO("contact", lang);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -44,8 +46,8 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
   return (
     <div className="bg-[#09131c] text-white py-16 px-4 sm:px-6 lg:px-8">
       <SEOHead
-        title="Contact STRUCTIVA Global Export & Engineering Desk"
-        description="Connect directly with STRUCTIVA Adana structural engineers and sales directors for custom building quotes, CAD specifications, and international container deliveries."
+        title={seo.title}
+        description={seo.description}
         canonicalPath={`/${lang}/contact`}
         lang={lang}
         breadcrumbs={[

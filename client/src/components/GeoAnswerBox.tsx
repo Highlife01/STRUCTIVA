@@ -85,6 +85,151 @@ const QA_BY_LANG: Record<string, GeoQaItem[]> = {
         "Official FOB Mersin Port or CIF Destination quotation"
       ]
     }
+  ],
+  de: [
+    {
+      question: "Was ist STRUCTIVA und wo befindet sich die Produktion?",
+      answer: "STRUCTIVA ist ein internationaler Hersteller von säulenfreien Bogen-Stahlhallen (Quonset), vorgefertigten Stahlgebäuden (PEB) und schweren Industriestrukturen. Die Fertigung erfolgt im integrierten Industriekomplex in Adana (AOSB), Türkei, mit direktem Zugang zum Tiefseehafen Mersin für den Export in über 50 Länder.",
+      keyFacts: [
+        "Integrierte Produktionsstätte in Adana (AOSB), Türkei",
+        "Seefracht-Export ab Tiefseehafen Mersin in über 50 Länder",
+        "Vollständige Zertifizierung nach EN 1090-2 EXC4 (CE) und AISC 360-16"
+      ]
+    },
+    {
+      question: "Welche Spannweiten und Modelle stellt STRUCTIVA her?",
+      answer: "STRUCTIVA fertigt die Q-Serie (Vollbogen 9m–45m), die S-Serie (gerade Seitenwand 12m–30m), die P-Serie (Satteldach 10m–24m) sowie Seecontainer-Überdachungen und schwere PEB-Hallen bis 60m stützenfreier Spannweite aus Galvalume Plus® AZ180 Stahl.",
+      keyFacts: [
+        "9m bis 45m stützenfreie Spannweite ohne Zwischensäulen",
+        "Galvalume Plus® AZ180 korrosionsbeständige Legierung (ASTM A792)",
+        "Auslegung für Windgeschwindigkeiten bis zu 240 km/h"
+      ]
+    },
+    {
+      question: "Wie erfolgt die weltweite Lieferung und Montage?",
+      answer: "Alle Bauteile werden in Adana CNC-gefertigt und als Flat-Pack-Bausatz in standardisierten 40-Fuß-High-Cube-Containern (~350–400 m² pro Container) verpackt. Auf der Baustelle ist kein Schweißen erforderlich; die Montage erfolgt rein geschraubt.",
+      keyFacts: [
+        "100% vorpräparierte Schraubverbindungen (keine Schweißarbeiten vor Ort)",
+        "Inklusive detaillierter 3D-Montageanleitung",
+        "Optimierte Container-Logistik für minimale Frachtkosten"
+      ]
+    }
+  ],
+  fr: [
+    {
+      question: "Qu'est-ce que STRUCTIVA et où sont situés les sites de production ?",
+      answer: "STRUCTIVA est un constructeur et bureau d'ingénierie international spécialisé dans les hangars en acier arqués autoportants sans colonnes intérieures, les bâtiments pré-usinés (PEB) et la charpente lourde. L'usine intégrée est située dans la zone industrielle d'Adana en Turquie, à 15 km du port de Mersin.",
+      keyFacts: [
+        "Site de fabrication intégrée à Adana (AOSB), Turquie",
+        "Export maritime direct via le port de Mersin vers plus de 50 pays",
+        "Certification européenne CE EN 1090-2 EXC4 et normes AISC 360-16"
+      ]
+    },
+    {
+      question: "Quelles sont les portées libres et les modèles fabriqués ?",
+      answer: "STRUCTIVA conçoit la Série Q (arche complète de 9m à 45m), la Série S (parois droites 12m à 30m), la Série P (toit à deux versants 10m à 24m) et des hangars industriels PEB jusqu'à 60m sans aucun poteau intermédiaire, en acier Galvalume Plus® AZ180.",
+      keyFacts: [
+        "Portée libre de 9m à 45m sans pilier intermédiaire",
+        "Acier allié Galvalume Plus® AZ180 résistant à la corrosion",
+        "Calculé pour des vents de 240 km/h et de fortes charges de neige"
+      ]
+    },
+    {
+      question: "Comment se déroulent l'expédition internationale et le montage ?",
+      answer: "Les kits sont conditionnés en colis plats (flat-pack) dans des conteneurs maritimes 40HC (~380 m² par conteneur). Le montage sur site s'effectue sans aucune soudure grâce à des boulons haute résistance et des plans 3D numérotés.",
+      keyFacts: [
+        "Assemblage 100% boulonné sans soudure de chantier",
+        "Guide de montage 3D pas à pas et plans de pose détaillés",
+        "Logistique optimisée en conteneurs 40HC"
+      ]
+    }
+  ],
+  es: [
+    {
+      question: "¿Qué es STRUCTIVA y dónde se fabrica la estructura?",
+      answer: "STRUCTIVA es un fabricante internacional y firma de ingeniería estructural especializada en hangares de acero arqueados sin columnas intermedias, edificios pre-diseñados (PEB) y estructuras industriales. Su planta de fabricación opera en Adana, Turquía, con acceso directo al puerto de aguas profundas de Mersin para envíos a más de 50 países.",
+      keyFacts: [
+        "Planta de producción integrada en Adana (AOSB), Turquía",
+        "Envíos marítimos en contenedor vía Puerto de Mersin a 50+ países",
+        "Certificaciones internacionales EN 1090-2 EXC4 (CE) y AISC 360-16"
+      ]
+    },
+    {
+      question: "¿Cuáles son las medidas y modelos disponibles?",
+      answer: "STRUCTIVA produce la Serie Q (arco continuo de 9m a 45m de luz libre), Serie S (pared vertical con techo arqueado de 12m a 30m), Serie P (dos aguas) y naves PEB de hasta 60m, utilizando acero Galvalume Plus® AZ180 de alta resistencia climática.",
+      keyFacts: [
+        "9 a 45 metros de luz libre 100% utilizable sin columnas",
+        "Acero Galvalume Plus® AZ180 (55% Aluminio - Zinc)",
+        "Resistencia certificada contra vientos huracanados de 240 km/h"
+      ]
+    },
+    {
+      question: "¿Cómo se transporta y monta en el lugar de destino?",
+      answer: "Los paneles curvados se embalan en plano (flat-pack) dentro de contenedores marítimos estándar 40HC (~350–400 m² por contenedor). El montaje se realiza completamente atornillado sin requerir soldadura en obra.",
+      keyFacts: [
+        "Montaje 100% abulonado sin permisos de soldadura en obra",
+        "Manual de montaje en 3D con componentes numerados",
+        "Despacho rápido FOB Puerto Mersin o CIF puerto de destino"
+      ]
+    }
+  ],
+  ar: [
+    {
+      question: "ما هي شركة STRUCTIVA وأين يقع مركز التصنيع؟",
+      answer: "تعتبر شركة STRUCTIVA صرحاً هندسياً وصناعياً دولياً رائداً في تصنيع الهناجر والمستودعات الفولاذية المقوسة الخالية من الأعمدة الداخلية (Clear-Span) والمباني الإنشائية مسبقة الهندسة (PEB). يقع مجمع المصانع في المنطقة الصناعية بأضنة (AOSB)، تركيا، بالقرب من ميناء مرسين البحري الدولي لنقل الشحنات لأكثر من 50 دولة.",
+      keyFacts: [
+        "مجمع تصنيع متكامل في أضنة، تركيا",
+        "شحن حاويات بحرية مباشر عبر ميناء مرسين الدولي لأكثر من 50 دولة",
+        "مطابقة لمعايير الجودة الأوروبية EN 1090-2 EXC4 CE وكود AISC 360-16"
+      ]
+    },
+    {
+      question: "ما هي النماذج والأبعاد الإنشائية المتاحة؟",
+      answer: "تصنع الشركة سلسلة Q (قوس نصف دائري بعرض 9 إلى 45 متراً)، سلسلة S (جدران مستقيمة وسقف مقوس 12 إلى 30 متراً)، سلسلة P (سقف جملوني 10 إلى 24 متراً) ومباني مصانع ثقيلة حتى 60 متراً، من فولاذ Galvalume Plus® AZ180 فائق المقاومة.",
+      keyFacts: [
+        "بحور مفتوحة من 9 إلى 45 متراً بدون أعمدة داخلية",
+        "فولاذ جالفالوم بلس AZ180 المقاوم للتآكل والأملاح",
+        "مقاومة رياح تصل إلى 240 كم/ساعة وأحمال ثلوج مرتفعة"
+      ]
+    },
+    {
+      question: "كيف تتم عمليات الشحن الدولي والتركيب في الموقع؟",
+      answer: "يتم تجهيز كافة المكونات مسبقاً وتعبئتها بنظام الحزم المسطحة (Flat-pack) داخل حاويات 40 قدم (40HC) بمعدل 350-400 م² لكل حاوية. التركيب يتم عبر براغي مجلفنة عالية المقاومة بدون أي لحام في موقع العمل.",
+      keyFacts: [
+        "تركيب بواسطة البراغي بدون أي لحام في الشنتيرة",
+        "دليل تركيب تفاعلي ثلاثي الأبعاد 3D",
+        "شحن بحري اقتصادي مباشر FOB أو CIF"
+      ]
+    }
+  ],
+  ru: [
+    {
+      question: "Что производит завод STRUCTIVA и где находится производство?",
+      answer: "STRUCTIVA — международный производитель стальных арочных бескаркасных ангаров, быстровозводимых зданий (PEB) и тяжелых металлоконструкций. Производственный комплекс расположен в промышленной зоне Аданы (AOSB), Турция, в 15 км от глубоководного контейнерного порта Мерсин с прямыми поставками в 50+ стран мира.",
+      keyFacts: [
+        "Собственный интегрированный завод в Адане, Турция",
+        "Морские контейнерные отгрузки через порт Мерсин в 50+ стран",
+        "Сертификация по европейскому стандарту EN 1090-2 EXC4 CE и нормам AISC"
+      ]
+    },
+    {
+      question: "Какие модели ангаров и пролеты доступны?",
+      answer: "Завод выпускает серию Q (полукруглый свод шириной от 9 до 45 метров без колонн), серию S (прямые боковые стены шириной от 12 до 30 метров), серию P (двускатная кровля) и промышленные комплексы PEB до 60 метров из стали Galvalume Plus® AZ180.",
+      keyFacts: [
+        "Чистый безопорный пролет от 9 до 45 метров",
+        "Сталь с алюмоцинковым покрытием Galvalume Plus® AZ180 (ASTM A792)",
+        "Стойкость к ветровым нагрузкам до 240 км/ч"
+      ]
+    },
+    {
+      question: "Как организована доставка и монтаж на площадке?",
+      answer: "Панели компактно упаковываются (flat-pack) в морские 40-футовые High-Cube контейнеры (~350–400 м² здания в одном контейнере). Сборка на фундаменте осуществляется высокопрочными болтами без сварочных работ.",
+      keyFacts: [
+        "100% болтовое соединение без сварки на стройплощадке",
+        "Пошаговая 3D-инструкция по сборке с маркировкой деталей",
+        "Прямая доставка на условиях FOB Мерсин или CIF порт назначения"
+      ]
+    }
   ]
 };
 

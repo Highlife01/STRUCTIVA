@@ -54,21 +54,34 @@ export async function saveInquiry(data: Omit<Inquiry, "id" | "createdAt" | "stat
     console.warn("Firestore sync optional note:", firebaseErr);
   }
 
-  // 3. Dispatch Email Notification to engineering desk
+  // 3. Dispatch Email Notification to engineering desk.
+  // NOTE: Firebase Hosting is static-only — /api/* only exists when the app runs
+  // behind the Express server (npm start / self-hosted Node). On static hosting
+  // the rewrite would return index.html, so we check the content-type before
+  // treating the response as a successful email dispatch.
   try {
     fetch("/api/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newInquiry),
-    }).then((res) => {
-      if (res.ok) {
-        console.log("[Notification] Lead notification queued to engineering desk");
-      } else {
-        console.warn("[Notification Note] API email dispatch returned status:", res.status);
-      }
-    }).catch((netErr) => {
-      console.warn("[Notification Note] Message safely stored in Firestore/Dashboard:", netErr);
-    });
+    })
+      .then(async (res) => {
+        const contentType = res.headers.get("content-type") || "";
+        if (res.ok && contentType.includes("application/json")) {
+          console.log("[Notification] Lead notification queued to engineering desk");
+        } else {
+          console.warn(
+            "[Notification Note] Email API unavailable on static hosting — lead safely stored in Firestore/Dashboard. (status:",
+            res.status,
+            "type:",
+            contentType || "n/a",
+            ")"
+          );
+        }
+      })
+      .catch((netErr) => {
+        console.warn("[Notification Note] Message safely stored in Firestore/Dashboard:", netErr);
+      });
   } catch (err) {
     console.warn("Email dispatch error:", err);
   }

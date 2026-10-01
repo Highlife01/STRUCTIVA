@@ -1,12 +1,15 @@
 import React from "react";
-import { Link, useRoute } from "wouter";
-import { ArrowLeft, Clock, Calendar, CheckCircle2, Share2, MoveRight, BookOpen } from "lucide-react";
+import { Link } from "wouter";
+import { ArrowLeft, Clock, Calendar, CheckCircle2, MoveRight } from "lucide-react";
 import { KNOWLEDGE_ARTICLES } from "../data/knowledgeData";
 import SEOHead from "../components/SEOHead";
 import GeoAnswerBox from "../components/GeoAnswerBox";
+import NotFound from "./NotFound";
 
 export default function ArticleDetailPage({ lang = "tr", slug }: { lang?: string; slug?: string }) {
-  const article = KNOWLEDGE_ARTICLES.find((a) => a.slug === slug) || KNOWLEDGE_ARTICLES[0];
+  const article = KNOWLEDGE_ARTICLES.find((a) => a.slug === slug);
+
+  if (!article) return <NotFound />;
 
   return (
     <div className="bg-[#09131c] text-white py-16 px-4 sm:px-6 lg:px-8">
@@ -17,6 +20,11 @@ export default function ArticleDetailPage({ lang = "tr", slug }: { lang?: string
         lang={lang}
         ogImage={article.image}
         ogType="article"
+        articleMeta={{
+          publishedTime: article.publishedDate,
+          category: article.category,
+          author: "STRUCTIVA Structural Engineering Bureau"
+        }}
         breadcrumbs={[
           { name: "STRUCTIVA", url: `/${lang}` },
           { name: "Knowledge Center", url: `/${lang}/knowledge` },

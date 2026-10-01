@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Link } from "wouter";
-import { STEEL_MODELS } from "../data/modelsData";
+import { getLocalizedModels } from "../data/modelsData";
 import { Check, ArrowRight } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
+import { getPageSEO } from "../data/seoData";
 import SEOHead from "../components/SEOHead";
 
 export default function ModelsPage({ lang = "tr" }: { lang?: string }) {
   const { t } = useLanguage();
-  const [selectedId, setSelectedId] = useState(STEEL_MODELS[0].id);
-  const currentModel = STEEL_MODELS.find((m) => m.id === selectedId) || STEEL_MODELS[0];
+  const models = useMemo(() => getLocalizedModels(lang), [lang]);
+  const [selectedId, setSelectedId] = useState(models[0].id);
+  const currentModel = models.find((m) => m.id === selectedId) || models[0];
+  const seo = getPageSEO("models", lang);
 
   return (
     <div className="bg-[#09131c] text-white py-16 px-4 sm:px-6 lg:px-8">
       <SEOHead
-        title="Arched & Pre-Engineered Steel Building Models | STRUCTIVA"
-        description="Explore Q-Series, S-Series, P-Series, Container Canopies and Heavy PEB steel structures. Clear-span widths from 9m to 45m with certified 240 km/h wind resistance."
+        title={seo.title}
+        description={seo.description}
         canonicalPath={`/${lang}/models`}
         lang={lang}
         breadcrumbs={[
@@ -38,7 +41,7 @@ export default function ModelsPage({ lang = "tr" }: { lang?: string }) {
 
         {/* Model Selector Bar */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-12 border-b border-white/10">
-          {STEEL_MODELS.map((model) => (
+          {models.map((model) => (
             <button
               key={model.id}
               onClick={() => setSelectedId(model.id)}
@@ -142,7 +145,7 @@ export default function ModelsPage({ lang = "tr" }: { lang?: string }) {
 
         {/* All Models Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {STEEL_MODELS.map((model) => (
+          {models.map((model) => (
             <div
               key={model.id}
               className="rounded-2xl bg-[#0e1b27] border border-white/10 p-6 flex flex-col justify-between"

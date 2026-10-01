@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "wouter";
 import { Check, X, ShieldCheck, Zap, TrendingUp, Sparkles, Building, Layers } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 
 export default function ComparisonTable() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const comparisonData = [
     {
@@ -146,13 +147,13 @@ export default function ComparisonTable() {
               </span>
             </div>
 
-            <a
-              href="/request-a-quote"
+            <Link
+              href={`/${language}/request-a-quote`}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#0f1d2a] font-black uppercase tracking-wider text-xs transition-all shadow-lg shadow-amber-500/20 active:scale-95 shrink-0"
             >
-              <span>Fizibilite & Fiyat Teklifi Al</span>
+              <span>{t("cta_quote") || "Fizibilite & Fiyat Teklifi Al"}</span>
               <span>→</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

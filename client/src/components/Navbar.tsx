@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Globe2, Menu, X, ArrowUpRight, Shield, Calculator, LayoutDashboard, Sparkles, BookOpen } from "lucide-react";
+import { Globe2, Menu, X, ArrowUpRight, Shield, Calculator, LayoutDashboard, Sparkles, BookOpen, Search } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { SUPPORTED_LANGUAGES, COMPANY_INFO } from "../config/siteConfig";
+import GlobalSearchModal from "./GlobalSearchModal";
 
 export default function Navbar() {
   const [location, setLocation] = useLocation();
   const { language, setLanguage, t, currentLangObj } = useLanguage();
   const [langModalOpen, setLangModalOpen] = useState(false);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Global Ctrl+K / Cmd+K shortcut
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchModalOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   // Determine current lang prefix from URL or context
   // e.g. /en/models -> prefix = /en, subpath = /models
@@ -101,6 +115,21 @@ export default function Navbar() {
 
           {/* Right Action Bar */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Multilingual Global Search Button */}
+            <button
+              onClick={() => setSearchModalOpen(true)}
+              className="flex items-center gap-2 rounded-lg bg-white/5 border border-white/15 px-2.5 sm:px-3 py-2 text-xs font-semibold hover:bg-white/10 hover:border-amber-400/50 transition-all text-slate-200 group"
+              title="Search / Arama (Ctrl + K)"
+            >
+              <Search size={14} className="text-amber-400 group-hover:scale-110 transition-transform" />
+              <span className="hidden md:inline text-slate-300">
+                {language === "tr" ? "Ara" : language === "de" ? "Suche" : "Search"}
+              </span>
+              <kbd className="hidden lg:inline-flex items-center px-1.5 py-0.5 text-[9px] font-mono text-slate-400 bg-white/10 rounded border border-white/10">
+                ⌘K
+              </kbd>
+            </button>
+
             {/* 30-Language Selector Button */}
             <button
               onClick={() => setLangModalOpen(true)}
@@ -220,6 +249,12 @@ export default function Navbar() {
           </div>
         </div>
       )}
+
+      {/* Global Multilingual Search Modal */}
+      <GlobalSearchModal
+        isOpen={searchModalOpen}
+        onClose={() => setSearchModalOpen(false)}
+      />
     </>
   );
 }

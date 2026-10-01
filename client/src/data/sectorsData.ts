@@ -101,3 +101,129 @@ export const SECTORS: SectorItem[] = [
     image: "/images/engineering-detail.jpg"
   }
 ];
+
+const LOCALIZED_SECTOR_DATA: Record<string, Record<string, Partial<SectorItem>>> = {
+  tr: {
+    agriculture: {
+      title: "Tarım & Dökme Tahıl Depolama",
+      subtitle: "Hasat rekoltenizi neme, zararlılara ve şiddetli hava koşullarına karşı koruyun.",
+      description: "Kolonsuz kemer yapılar; buğday, mısır, arpa, gübre ve pamuğun kör nokta veya engelleyici kolonlar olmadan uçtan uca depolanmasını sağlar.",
+      advantages: [
+        "Dökme tahıl yığınları için doğal yan itme yükü emilimi",
+        "Tarımsal kimyasal buharlarına dayanıklı Galvalume Plus çeliği",
+        "Kuş ve kemirgen girişini engelleyen sızdırmaz kemer geometrisi",
+        "Ön yükleyiciler ve damperli kamyonlar için rahat sürüş alanı"
+      ],
+      metrics: "50.000 tona kadar tahıl depolama kapasitesi"
+    },
+    mining: {
+      title: "Madencilik, Agrega & Cevher Depolama",
+      subtitle: "Aşındırıcı tozlu zorlu ortamlar ve ağır yük stok sahaları için tasarlandı.",
+      description: "Konveyör bantları, cevher stok sahaları, kırıcılar ve kimyasal stok sahalarını örtmek için geliştirilmiştir. Aerodinamik kemer formu rüzgar direncini ve toz yayılımını minimize eder.",
+      advantages: [
+        "Tek bir orta kolon olmadan 45 metreye kadar net açıklık",
+        "Yüksek tuz, kükürt ve kimyasal emisyonlara mukavemet",
+        "Damperli kamyonların boşaltma açılarına uygun yüksek tepe tavanı",
+        "Kalıcı veya sökülebilir taşınabilir kurulum alternatifleri"
+      ],
+      metrics: "240 km/h rüzgar ve sismik sertifikalı"
+    },
+    aviation: {
+      title: "Havacılık & Uçak/Helikopter Hangarları",
+      subtitle: "Sabit ve döner kanatlı hava filoları için geniş, engelsiz açıklıklar.",
+      description: "15m ila 42m arası kolonsuz net açıklık; özel jetler, turboprop uçaklar, helikopterler ve kargo filoları için tam manevra güvenliği sağlar.",
+      advantages: [
+        "Tam genişlikte hidrolik katlanır veya çok raylı sürme kapı uyumu",
+        "Kuşların tünemesini engelleyen makassız iç yüzey — uçak gövde boyasını korur",
+        "Yanmaz çelik yapı sayesinde düşük havacılık sigorta primleri",
+        "Epoksi zemin kaplamaları ve entegre zemin ankrajı uyumu"
+      ],
+      metrics: "42 metreye kadar (138 ft) net açıklık"
+    },
+    logistics: {
+      title: "Lojistik, Antrepo & Dağıtım Merkezleri",
+      subtitle: "Tedarik zincirleri için yüksek tavan ve modüler aks genişleme kabiliyeti.",
+      description: "S-Series düz dikey yan duvarlı modeller; 4 katlı palet raf sistemleri, yükleme körükleri ve otonom forklift trafiğini eksiksiz destekler.",
+      advantages: [
+        "Modüler genişleme: Envanter büyüdükçe yeni akslar ekleme kolaylığı",
+        "Çift bindirmeli sızdırmaz cıvata kilitleri hassas ambalajlı ürünleri korur",
+        "-20°C soğuk hava deposu standartlarına kadar termal yalıtım opsiyonları",
+        "Geleneksel betonarme yapılara kıyasla 4 kat daha hızlı kurulum"
+      ],
+      metrics: "%100 taban alanı kullanım verimliliği"
+    },
+    military: {
+      title: "Savunma, Kamu & Acil Durum Tesisleri",
+      subtitle: "Hızlı konuşlandırılabilir, balistik dirençli ve yüksek güvenlikli yapılar.",
+      description: "Askeri araç garajları, mühimmat depoları, afet müdahale lojistiği ve ileri operasyon üsleri için dünya çapında tercih edilmektedir.",
+      advantages: [
+        "Hava veya deniz yoluyla nakliyeye uygun standart 40HC konteyner yükleme planı",
+        "Yerel iş gücü ve standart el aletleriyle birkaç günde montaj",
+        "Patlama ve şarapnel koruması için toprak tahkimat uyumu",
+        "Sahada kanıtlanmış NATO ve BM operasyon geçmişi"
+      ],
+      metrics: "48 saatte flat-pack konuşlandırma"
+    },
+    infrastructure: {
+      title: "Modüler Su Depoları & Silolar",
+      subtitle: "STRUCTIVA'nın ölçeklenebilir endüstriyel sıvı depolama çözümleri.",
+      description: "Tarımsal sulama, yangın rezervi, içme suyu ve endüstriyel arıtma için cıvatalı prizmatik ve silindirik çelik depolama sistemleri.",
+      advantages: [
+        "İçme suyuna uygun WRAS ve gıda sertifikalı membran astar",
+        "Her tank için 10 m³'ten 5.000+ m³'e kadar kapasite",
+        "Sıcak daldırma galvanizli ve UV sızdırmaz paneller",
+        "Şantiyede sıfır kaynak gerektiren cıvatalı montaj"
+      ],
+      metrics: "10 ila 5.000 m³ kapasite aralığı"
+    }
+  },
+  de: {
+    agriculture: {
+      title: "Landwirtschaft & Getreidelagerung",
+      subtitle: "Schutz der Ernte vor Feuchtigkeit, Schädlingen und extremen Währungsbedingungen.",
+      description: "Säulenfreie Bogenhallen ermöglichen die vollständige Schüttgutlagerung von Getreide, Mais und Düngemitteln.",
+      metrics: "Bis zu 50.000 Tonnen Getreidekapazität"
+    },
+    mining: {
+      title: "Bergbau & Schüttgutdepots",
+      subtitle: "Ausgelegt für anspruchsvolle staubige Umgebungen und schwere Halden.",
+      description: "Aerodynamische Bogengeometrie schützt Förderbänder und Halden vor Windverwehungen.",
+      metrics: "240 km/h windzertifiziert"
+    },
+    aviation: {
+      title: "Luftfahrt & Flugzeughallen",
+      subtitle: "Weite, säulenfreie Spannweiten für Jets und Hubschrauber.",
+      description: "Ungehinderte Durchfahrten von 15m bis 42m für höchste Manövriersicherheit.",
+      metrics: "Spannweiten bis 42m"
+    },
+    logistics: {
+      title: "Logistik & Vertriebszentren",
+      subtitle: "Hohe lichte Höhe für Hochregallager und Staplerverkehr.",
+      description: "S-Serie mit geraden Wänden bietet maximale Raumausnutzung für Palettenregale.",
+      metrics: "100% Flächeneffizienz"
+    }
+  }
+};
+
+/**
+ * Returns sectors localized for the given language.
+ */
+export function getLocalizedSectors(lang: string = "tr"): SectorItem[] {
+  const normLang = (lang || "tr").toLowerCase().split("-")[0];
+  const localizedSet = LOCALIZED_SECTOR_DATA[normLang] || LOCALIZED_SECTOR_DATA["en"] || {};
+
+  return SECTORS.map((sector) => {
+    const loc = localizedSet[sector.id];
+    if (!loc) return sector;
+
+    return {
+      ...sector,
+      title: loc.title || sector.title,
+      subtitle: loc.subtitle || sector.subtitle,
+      description: loc.description || sector.description,
+      advantages: loc.advantages || sector.advantages,
+      metrics: loc.metrics || sector.metrics,
+    };
+  });
+}
+

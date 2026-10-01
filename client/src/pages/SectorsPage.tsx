@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Link } from "wouter";
-import { SECTORS } from "../data/sectorsData";
+import { getLocalizedSectors } from "../data/sectorsData";
 import { CheckCircle2, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
+import { getPageSEO } from "../data/seoData";
 import SEOHead from "../components/SEOHead";
 
 export default function SectorsPage({ lang = "tr" }: { lang?: string }) {
   const { t } = useLanguage();
+  const sectors = useMemo(() => getLocalizedSectors(lang), [lang]);
+  const seo = getPageSEO("sectors", lang);
 
   return (
     <div className="bg-[#09131c] text-white py-16 px-4 sm:px-6 lg:px-8">
       <SEOHead
-        title="Industrial Steel Building Applications by Industry | STRUCTIVA"
-        description="Engineered clear-span and PEB solutions for agriculture & grain storage, aviation hangars, mining aggregates, logistics warehouses, and defense installations."
+        title={seo.title}
+        description={seo.description}
         canonicalPath={`/${lang}/sectors`}
         lang={lang}
         breadcrumbs={[
@@ -36,7 +39,7 @@ export default function SectorsPage({ lang = "tr" }: { lang?: string }) {
 
         {/* Sectors Detailed Cards */}
         <div className="space-y-12 mb-20">
-          {SECTORS.map((sector, idx) => (
+          {sectors.map((sector, idx) => (
             <div
               key={sector.id}
               className={`rounded-3xl bg-[#0e1b27] border border-white/10 p-8 lg:p-12 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center ${

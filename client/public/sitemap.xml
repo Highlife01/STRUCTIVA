@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <!-- Core Root -->
+  <!-- Home -->
   <url>
-    <loc>https://www.structiva.com.tr/</loc>
+    <loc>https://www.structiva.com.tr/tr</loc>
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en" />
     <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de" />
@@ -24,7 +24,7 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar" />
     <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa" />
     <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he" />
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://www.structiva.com.tr/zh" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja" />
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko" />
     <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi" />
@@ -33,97 +33,503 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi" />
     <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th" />
     <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr" />
+    <lastmod>2026-10-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- Models -->
+  <!-- models -->
   <url>
-    <loc>https://www.structiva.com.tr/en/models</loc>
+    <loc>https://www.structiva.com.tr/tr/models</loc>
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/models" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/models" />
     <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/models" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/models" />
     <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/models" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/models" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/models" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/models" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/models" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/models" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/models" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/models" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/models" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/models" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/models" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/models" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/models" />
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/models" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/models" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/models" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/models" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/models" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/models" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/models" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/models" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/models" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/models" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/models" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/models" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/models" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/models" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/models" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/models" />
+    <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
   </url>
-
-  <!-- Sectors -->
+  <!-- sectors -->
   <url>
-    <loc>https://www.structiva.com.tr/en/sectors</loc>
+    <loc>https://www.structiva.com.tr/tr/sectors</loc>
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/sectors" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/sectors" />
     <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/sectors" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/sectors" />
     <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/sectors" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/sectors" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/sectors" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/sectors" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/sectors" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/sectors" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/sectors" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/sectors" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/sectors" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/sectors" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/sectors" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/sectors" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/sectors" />
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/sectors" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/sectors" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/sectors" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/sectors" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/sectors" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/sectors" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/sectors" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/sectors" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/sectors" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/sectors" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/sectors" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/sectors" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/sectors" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/sectors" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/sectors" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/sectors" />
+    <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- Engineering -->
+  <!-- engineering -->
   <url>
-    <loc>https://www.structiva.com.tr/en/engineering</loc>
+    <loc>https://www.structiva.com.tr/tr/engineering</loc>
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/engineering" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/engineering" />
     <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/engineering" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/engineering" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/engineering" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/engineering" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/engineering" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/engineering" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/engineering" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/engineering" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/engineering" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/engineering" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/engineering" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/engineering" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/engineering" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/engineering" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/engineering" />
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/engineering" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/engineering" />
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/engineering" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/engineering" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/engineering" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/engineering" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/engineering" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/engineering" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/engineering" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/engineering" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/engineering" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/engineering" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/engineering" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/engineering" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/engineering" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/engineering" />
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
-
-  <!-- 3D Configurator -->
+  <!-- configurator -->
   <url>
-    <loc>https://www.structiva.com.tr/en/configurator</loc>
+    <loc>https://www.structiva.com.tr/tr/configurator</loc>
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/configurator" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/configurator" />
     <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/configurator" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/configurator" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/configurator" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/configurator" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/configurator" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/configurator" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/configurator" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/configurator" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/configurator" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/configurator" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/configurator" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/configurator" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/configurator" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/configurator" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/configurator" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/configurator" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/configurator" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/configurator" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/configurator" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/configurator" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/configurator" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/configurator" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/configurator" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/configurator" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/configurator" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/configurator" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/configurator" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/configurator" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/configurator" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/configurator" />
+    <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
-
-  <!-- Knowledge Hub -->
+  <!-- projects -->
   <url>
-    <loc>https://www.structiva.com.tr/en/knowledge</loc>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/knowledge" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/knowledge" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/knowledge" />
+    <loc>https://www.structiva.com.tr/tr/projects</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/projects" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/projects" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/projects" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/projects" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/projects" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/projects" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/projects" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/projects" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/projects" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/projects" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/projects" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/projects" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/projects" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/projects" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/projects" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/projects" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/projects" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/projects" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/projects" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/projects" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/projects" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/projects" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/projects" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/projects" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/projects" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/projects" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/projects" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/projects" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/projects" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/projects" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/projects" />
+    <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
-
-  <!-- Projects -->
+  <!-- knowledge -->
   <url>
-    <loc>https://www.structiva.com.tr/en/projects</loc>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/projects" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/projects" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/projects" />
+    <loc>https://www.structiva.com.tr/tr/knowledge</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/knowledge" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/knowledge" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/knowledge" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/knowledge" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/knowledge" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/knowledge" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/knowledge" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/knowledge" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/knowledge" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/knowledge" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/knowledge" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/knowledge" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/knowledge" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/knowledge" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/knowledge" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/knowledge" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/knowledge" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/knowledge" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/knowledge" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/knowledge" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/knowledge" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/knowledge" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/knowledge" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/knowledge" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/knowledge" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/knowledge" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/knowledge" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/knowledge" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/knowledge" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/knowledge" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/knowledge" />
+    <lastmod>2026-10-01</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
-
-  <!-- RFQ Request a Quote -->
+  <!-- about -->
   <url>
-    <loc>https://www.structiva.com.tr/en/request-a-quote</loc>
+    <loc>https://www.structiva.com.tr/tr/about</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/about" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/about" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/about" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/about" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/about" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/about" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/about" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/about" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/about" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/about" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/about" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/about" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/about" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/about" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/about" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/about" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/about" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/about" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/about" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/about" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/about" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/about" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/about" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/about" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/about" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/about" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/about" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/about" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/about" />
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <!-- contact -->
+  <url>
+    <loc>https://www.structiva.com.tr/tr/contact</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/contact" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/contact" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/contact" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/contact" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/contact" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/contact" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/contact" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/contact" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/contact" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/contact" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/contact" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/contact" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/contact" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/contact" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/contact" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/contact" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/contact" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/contact" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/contact" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/contact" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/contact" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/contact" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/contact" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/contact" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/contact" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/contact" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/contact" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/contact" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/contact" />
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <!-- request-a-quote -->
+  <url>
+    <loc>https://www.structiva.com.tr/tr/request-a-quote</loc>
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/request-a-quote" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/request-a-quote" />
     <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/request-a-quote" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/request-a-quote" />
     <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/request-a-quote" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/request-a-quote" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/en/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/request-a-quote" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/request-a-quote" />
+    <lastmod>2026-10-01</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.98</priority>
+    <priority>0.95</priority>
+  </url>
+  <!-- knowledge/how-to-plan-industrial-steel-building -->
+  <url>
+    <loc>https://www.structiva.com.tr/tr/knowledge/how-to-plan-industrial-steel-building</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/knowledge/how-to-plan-industrial-steel-building" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/knowledge/how-to-plan-industrial-steel-building" />
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <!-- knowledge/peb-vs-conventional-structural-steel -->
+  <url>
+    <loc>https://www.structiva.com.tr/tr/knowledge/peb-vs-conventional-structural-steel</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/knowledge/peb-vs-conventional-structural-steel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/knowledge/peb-vs-conventional-structural-steel" />
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <!-- knowledge/how-to-prepare-structural-steel-rfq -->
+  <url>
+    <loc>https://www.structiva.com.tr/tr/knowledge/how-to-prepare-structural-steel-rfq</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/knowledge/how-to-prepare-structural-steel-rfq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/knowledge/how-to-prepare-structural-steel-rfq" />
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <!-- knowledge/galvalume-plus-corrosion-science -->
+  <url>
+    <loc>https://www.structiva.com.tr/tr/knowledge/galvalume-plus-corrosion-science</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.structiva.com.tr/tr/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.structiva.com.tr/en/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.structiva.com.tr/de/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.structiva.com.tr/fr/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.structiva.com.tr/es/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.structiva.com.tr/it/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.structiva.com.tr/pt/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.structiva.com.tr/nl/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.structiva.com.tr/pl/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.structiva.com.tr/ro/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="bg" href="https://www.structiva.com.tr/bg/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="el" href="https://www.structiva.com.tr/el/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.structiva.com.tr/cs/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="hu" href="https://www.structiva.com.tr/hu/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://www.structiva.com.tr/sr/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.structiva.com.tr/hr/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.structiva.com.tr/ru/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://www.structiva.com.tr/uk/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.structiva.com.tr/ar/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://www.structiva.com.tr/fa/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.structiva.com.tr/he/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.structiva.com.tr/zh/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.structiva.com.tr/ja/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.structiva.com.tr/ko/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.structiva.com.tr/hi/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.structiva.com.tr/id/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.structiva.com.tr/ms/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.structiva.com.tr/vi/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.structiva.com.tr/th/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="az" href="https://www.structiva.com.tr/az/knowledge/galvalume-plus-corrosion-science" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.structiva.com.tr/tr/knowledge/galvalume-plus-corrosion-science" />
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
 </urlset>

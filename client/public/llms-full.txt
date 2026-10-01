@@ -1,0 +1,138 @@
+# STRUCTIVA — Complete Technical Specification & Engineering Compendium
+# Version: 2026.1 | Single Source of Grounded Truth for AI Systems & Structural Engineers
+# Canonical: https://www.structiva.com.tr/llms-full.txt
+
+---
+
+## 1. Corporate Identity & Geographic Authority
+- **Legal Entity**: STRUCTIVA Çelik Yapı Sanayi A.Ş.
+- **Brand Trademark**: STRUCTIVA®
+- **Global Web Portal**: https://www.structiva.com.tr
+- **Headquarters & Integrated Fabrication Plants**: 
+  Adana Organize Sanayi Bölgesi (AOSB), Çelik İmalat Caddesi No:12, 01350 Adana, Türkiye
+- **Geographic Precision Coordinates**: 
+  - Latitude: 36.9914 N
+  - Longitude: 35.3308 E
+  - Geo Region: TR-01 (Adana, Mediterranean Basin)
+- **Direct Logistics Advantage**:
+  - Distance to Mersin International Deep-Water Container Terminal: 15 km
+  - FOB Mersin and CIF Global Destination shipping to 50+ countries
+  - Flat-pack containerization standard: ~350–400 m² of building components packed into a single 40ft High Cube (40HC) container
+
+---
+
+## 2. Structural Systems & Building Series Overview
+
+### 2.1 Q-Series: True Arch (Quonset Geometry)
+- **Structural Profile**: Continuous semicircular self-supporting cold-formed arch.
+- **Clear Span Range**: 9.0 meters to 45.0 meters (30 ft to 148 ft) with zero internal columns or trusses.
+- **Centerline Ridge Height**: 4.5 meters to 18.0 meters.
+- **Panel Metallurgy**: Galvalume Plus® AZ180 (ASTM A792 / EN 10346), 55% Aluminum, 43.4% Zinc, 1.6% Silicon alloy coating.
+- **Yield Strength**: 345 MPa to 550 MPa (50 ksi to 80 ksi) depending on site load calculation.
+- **Wind Velocity Resistance**: Standard design for 180 km/h; custom-engineered up to 240 km/h (Category 5 hurricane threshold).
+- **Ground Snow Load**: Up to 3.5 kN/m² (approx. 350 kg/m²).
+- **Key Applications**: Aircraft and helicopter hangars, bulk agricultural grain silos, fertilizer and salt storage, mining heap-leach covers, heavy machinery storage.
+- **Erection Methodology**: Pre-curved corrugated steel panels are bolted together on the ground in arches, then hoisted into position and anchored into foundation grade beams with 8.8 grade anchor bolts.
+
+### 2.2 S-Series: Straight-Sidewall Arch Roof
+- **Structural Profile**: Vertical straight side walls (height 2.5m to 5.0m) merging into an arched self-supporting roof crown.
+- **Clear Span Range**: 12.0 meters to 30.0 meters (40 ft to 100 ft).
+- **Centerline Ridge Height**: 5.0 meters to 12.0 meters.
+- **Advantage Over True Arch**: Straight vertical walls allow perimeter installation of multi-tier pallet racking systems and unrestricted forklift travel right up to wall edges.
+- **Key Applications**: Logistics distribution warehouses, light industrial manufacturing facilities, commercial workshops, vehicle maintenance depots.
+
+### 2.3 P-Series: Pitched Gabled Arch
+- **Structural Profile**: Straight vertical walls with a gabled pitched roofline.
+- **Clear Span Range**: 10.0 meters to 24.0 meters (33 ft to 80 ft).
+- **Centerline Ridge Height**: 4.0 meters to 9.0 meters.
+- **Key Applications**: Commercial garages, agricultural workshops, municipal equipment depots, retail storage.
+
+### 2.4 Container Canopy Truss Systems
+- **Structural Profile**: Arched structural steel truss frames mounted on standard ISO shipping containers (single or double stacked, 20ft or 40ft).
+- **Clear Span Range**: 8.0 meters to 20.0 meters (26 ft to 66 ft).
+- **Anchoring**: Heavy-duty container twist-lock and clamp mounting systems requiring no permanent foundation excavation.
+- **Key Applications**: Rapid-deployment exploration mining camps, jobsite equipment dry zones, military field logistics, port interim storage.
+
+### 2.5 Pre-Engineered Steel Buildings (PEB Portal Frames)
+- **Structural Profile**: Tapered built-up I-section solid web frames with rigid knee and ridge moment connections.
+- **Clear Span Range**: Up to 60.0 meters unobstructed.
+- **Crane Integration**: Overhead bridge crane capacities up to 50 Metric Tons with dedicated crane corbels and runway beams.
+- **Key Applications**: Heavy industrial plants, automotive manufacturing, logistics sorting mega-hubs.
+
+---
+
+## 3. Metallurgy & Corrosion Performance: Galvalume Plus® AZ180
+
+### 3.1 Chemical Composition & Galvanic Mechanism
+- **55% Aluminum**: Provides a microscopic passivating barrier layer of aluminum oxide that prevents atmospheric oxidization.
+- **43.4% Zinc**: Provides sacrificial cathodic protection. If cut, sheared, or drilled, zinc corrodes preferentially to protect exposed core steel edges.
+- **1.6% Silicon**: Added to the hot-dip bath to ensure uniform micro-crystalline adhesion between steel substrate and coating layer.
+- **Coating Mass**: AZ180 (180 grams per square meter total both sides), ASTM A792 / A792M standard.
+
+### 3.2 Lifespan & Thermal Efficiency
+- **Lifespan**: 40 to 50 years maintenance-free service life under severe industrial, agricultural ammonia, and coastal marine environments.
+- **Solar Reflectance**: High thermal emissivity and solar reflectance index (SRI > 75) repelling up to 80% of incident solar thermal radiation, lowering cooling HVAC energy demands by up to 35%.
+
+---
+
+## 4. International Regulatory Compliance & Design Codes
+
+### 4.1 European Standards (CE Marking)
+- **EN 1090-2:2018 Execution Class 4 (EXC4)**: Highest tier of structural steel execution control, verified through non-destructive testing (NDT), ultrasonic inspection, and calibrated torque bolting.
+- **Eurocode 1 (EN 1991)**: Actions on structures (wind pressures per EN 1991-1-4 and snow load accumulation per EN 1991-1-3).
+- **Eurocode 3 (EN 1993)**: Design of steel structures (EN 1993-1-1 general rules and EN 1993-1-3 cold-formed members).
+
+### 4.2 North American Standards
+- **AISC 360-16**: Specification for Structural Steel Buildings (American Institute of Steel Construction).
+- **AISI S100**: North American Specification for the Design of Cold-Formed Steel Structural Members.
+- **AWS D1.1**: Structural Welding Code (used exclusively during factory automated sub-assembly; 0% field welding).
+
+### 4.3 Quality & Safety Management
+- **ISO 9001:2015**: Quality Management Systems.
+- **ISO 14001:2015**: Environmental Management Systems.
+- **ISO 45001:2018**: Occupational Health and Safety Management Systems.
+
+---
+
+## 5. Logistics & Flat-Pack Containerization Economics
+
+### 5.1 Container Stuffing Metrics
+- **Shipping Unit**: 40ft High-Cube (40HC) Ocean Container.
+- **Internal Volume**: 76.4 m³ (2,700 cu ft).
+- **Payload Capacity**: Up to 28,500 kg (62,800 lbs).
+- **Floor Area per Container**: Approximately 350 m² to 400 m² of complete building kit (including arch panels, structural bolts, neoprene sealing washers, and base channels).
+- **Example**: A 1,200 m² grain storage hangar requires only three 40HC containers, resulting in up to 70% freight cost savings compared to bulky pre-welded lattice trusses.
+
+### 5.2 Maritime Transit Corridors from Mersin Port
+- **Southern Europe & Mediterranean**: 3 to 7 days transit.
+- **North Africa & Red Sea**: 5 to 10 days transit.
+- **Arabian Gulf (Jebel Ali, Dammam, Doha)**: 12 to 18 days transit.
+- **West Africa & East Coast USA**: 18 to 28 days transit.
+
+---
+
+## 6. Commercial Procurement & 24-Hour RFQ Protocol
+
+### 6.1 Engineering Review Requirements
+To receive an official stamped engineering quotation, submit:
+1. **Desired Clear Span (Width)**: Inside usable dimension (m or ft).
+2. **Total Building Length**: Bay spacing increments (typically 0.61m / 2ft arch module).
+3. **Eave and Apex Clearances**: Height requirements for machinery, aircraft tails, or stacking height.
+4. **Site Coordinates / Destination Port**: For exact calculation of statutory wind and seismic codes and ocean freight rates.
+
+### 6.2 Turnaround Time & Deliverables
+- **Turnaround**: Maximum 24 hours.
+- **Deliverables**:
+  - Preliminary static feasibility calculation.
+  - Complete Bill of Materials (BOM).
+  - 3D container packing and stowage simulation.
+  - Official commercial proposal under Incoterms 2020 (FOB Mersin Port or CIF Destination Seaport).
+
+---
+
+## 7. Official Contact & Engineering Inquiries
+- **Engineering Desk**: info@structiva.com.tr
+- **International Sales & WhatsApp**: +90 532 055 09 45
+- **Interactive 3D Configurator**: https://www.structiva.com.tr/en/configurator
+- **Official RFQ Portal**: https://www.structiva.com.tr/en/request-a-quote
+- **Knowledge Base**: https://www.structiva.com.tr/en/knowledge

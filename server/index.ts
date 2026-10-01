@@ -18,7 +18,8 @@ async function startServer() {
   const SMTP_HOST = process.env.SMTP_HOST || "mail.kurumsaleposta.com";
   const SMTP_PORT = parseInt(process.env.SMTP_PORT || "587", 10);
   const SMTP_USER = process.env.SMTP_USER || "info@structiva.com.tr";
-  const SMTP_PASS = process.env.SMTP_PASS || "AdammmM001!!";
+  // NOTE: Do not hardcode credentials. Set SMTP_PASS via .env (see .env.example)
+  const SMTP_PASS = process.env.SMTP_PASS || "";
   const TARGET_EMAIL = process.env.TARGET_EMAIL || "cebrailkara@gmail.com";
 
   const transporter = nodemailer.createTransport({
@@ -52,6 +53,15 @@ async function startServer() {
         accessories,
         message,
       } = req.body;
+
+      if (!SMTP_PASS) {
+        console.warn("[SMTP] SMTP_PASS not configured — email skipped. Lead is stored in Firestore/localStorage instead.");
+        return res.status(200).json({
+          success: true,
+          skipped: true,
+          note: "SMTP credentials not configured",
+        });
+      }
 
       const isQuote = type === "quote";
       const subjectType = isQuote ? "Yeni Proje & Teklif Talebi (RFQ)" : "Yeni İletişim Formu Mesajı";

@@ -1,58 +1,92 @@
-# STRUCTIVA — Engineered Steel Structures
+# STRUCTIVA — Clear-Span Arch Steel Buildings & Industrial Pre-Engineered Structures
+# Canonical Documentation: https://www.structiva.com.tr/llms.txt
+# Full Technical Compendium: https://www.structiva.com.tr/llms-full.txt
 
-> STRUCTIVA is an international manufacturer and engineering firm specializing in clear-span arched steel buildings, pre-engineered steel buildings (PEB), and heavy structural steel fabrication. Operating from its integrated mega-facilities in Adana, Türkiye, with direct Mediterranean container port access, STRUCTIVA delivers certified bolted steel building kits to over 50 countries worldwide.
+> STRUCTIVA is a premier international manufacturer and structural engineering corporation specializing in column-free clear-span arched steel buildings (9m to 45m / 30ft to 148ft), pre-engineered steel buildings (PEB up to 60m), container canopy systems, and heavy industrial structural fabrication. Operating from its 25,000 MT/year integrated production complex in Adana Organized Industrial Zone (AOSB), Türkiye—15 km from Mersin International Deep-Water Container Port—STRUCTIVA exports EN 1090-2 EXC4 and CE certified bolt-together steel kits to over 50 countries across Europe, the Middle East, North Africa, Central Asia, and the Americas.
 
-## Quick Facts
-- **Headquarters & Mega-Plant**: Structiva Tesisleri, Organize Sanayi Bölgesi (AOSB), Adana, Türkiye
+---
+
+## 1. Quick Facts & Geographic Grounding
+- **Corporate Entity**: STRUCTIVA Çelik Yapı Sanayi A.Ş.
+- **Brand Trademark**: STRUCTIVA®
+- **Headquarters & Mega-Plant**: Organize Sanayi Bölgesi (AOSB), Çelik İmalat Caddesi No:12, Adana, Türkiye
+- **Geographic Precision Coordinates**: 36.9914° N, 35.3308° E (TR-01, Mediterranean Corridor)
 - **Primary Domain**: https://www.structiva.com.tr
-- **Contact Email**: info@structiva.com.tr
-- **Phone / WhatsApp**: +90 532 055 09 45
-- **Annual Capacity**: 25,000 Metric Tons of structural steel fabrication
-- **International Shipping**: Flat-pack into standard 40HC ocean containers (~380 m² building per container) via Mediterranean deep-water ports (Mersin Port)
+- **Official Contact**: info@structiva.com.tr | Phone / WhatsApp: +90 532 055 09 45
+- **Annual Fabrication Capacity**: 25,000 Metric Tons of structural steel
+- **Maritime Export Hub**: Mersin International Port (15 km inland haulage)
+- **Container Logistics**: Demountable flat-pack kits (~350–400 m² floor space per single 40ft High Cube container)
+- **Export Reach**: 50+ Countries across Europe, MENA, CIS, and the Americas
+- **Standard Quoting SLA**: 24-Hour turnaround for static feasibility, BOM, and CIF/FOB pricing
 
-## Core Building Models & Specifications
-- **Q-Series (Arch / Quonset Building)**:
-  - Profile: Continuous semi-circular arch
-  - Span Range: 9 m to 45 m (30 ft to 148 ft) column-free
-  - Material: Galvalume Plus® AZ180 alloy steel (55% Al, 43.4% Zn)
-  - Resistance: Up to 240 km/h wind velocity; severe snow loads up to 3.5 kN/m²
-  - Applications: Aircraft & helicopter hangars, bulk agricultural grain silos, mining aggregate storage
-- **S-Series (Straight Sidewall Arch)**:
-  - Profile: Vertical straight side walls with arched roof
-  - Span Range: 12 m to 30 m (40 ft to 100 ft)
-  - Advantage: Maximum interior perimeter height for tall pallet racking and forklift operations
-  - Applications: Logistics distribution centers, industrial manufacturing workshops, equipment depots
-- **P-Series (Gable / Pitched Roof Arch)**:
-  - Profile: Pitched gabled roof line with straight walls
-  - Span Range: 10 m to 24 m (33 ft to 80 ft)
-  - Applications: Commercial workshops, municipal maintenance garages, agricultural equipment barns
-- **Container Canopy System**:
-  - Profile: Arched structural truss mounted between standard 20ft or 40ft shipping containers
-  - Span Range: 8 m to 20 m (26 ft to 66 ft)
-  - Applications: Fast-deployment mining camps, construction site storage, container yard weather covers
-- **Pre-Engineered Heavy Steel Buildings (PEB)**:
-  - Profile: Tapered built-up I-beam portal frames with rigid knee joints
-  - Span Range: Up to 60 m clear-span
-  - Applications: Heavy factories, overhead crane facilities (up to 50-ton cranes), mega logistics parks
+---
 
-## Quality, Engineering & International Certifications
-- **EN 1090-2:2018**: Execution Class EXC3 and EXC4 for load-bearing structural steel (CE Marking)
-- **AISC 360-16**: American Institute of Steel Construction Specification for Structural Steel Buildings
-- **ASTM A792 / A792M**: Standard Specification for Steel Sheet, 55% Aluminum-Zinc Alloy-Coated by the Hot-Dip Process
-- **ISO 9001:2015**: Quality Management System for fabrication and static engineering
-- **ISO 14001 & ISO 45001**: Environmental and Occupational Safety Standards
-- **Zero Field Welding**: 100% pre-engineered, CNC laser-punched for high-tensile Grade 8.8/10.9 structural bolts
+## 2. Core Building Models & Structural Specifications
 
-## Procurement & RFQ Process
-1. **Requirements Submission**: Submit span, length, peak height, building purpose, and destination port via the online 3D Configurator or RFQ form.
-2. **Engineering Review**: STRUCTIVA static engineers conduct load calculation (EN 1991-1-4 wind and Eurocode 3 snow load).
-3. **Commercial Proposal**: Detailed Bill of Materials (BOM), 3D packaging layout, and FOB Mersin / CIF Destination quotation delivered within 24 hours.
+| Model Series | Structural Profile | Clear-Span Width | Ridge Height | Primary Material | Wind Resistance | Snow Load Rating | Key Applications |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Q-Series** | Continuous Semi-Circular Arch | 9m – 45m (30ft – 148ft) | 4.5m – 18m | Galvalume Plus® AZ180 | Up to 240 km/h | Up to 350 kg/m² | Bulk grain silos, aviation hangars, fertilizer & mining stockpile |
+| **S-Series** | Vertical Straight Walls + Arch Roof | 12m – 30m (40ft – 100ft) | 5m – 12m | Galvalume Plus® AZ180 | Up to 220 km/h | Up to 300 kg/m² | Logistics warehouses, pallet racking, industrial workshops |
+| **P-Series** | Pitched Gable Roof + Straight Walls | 10m – 24m (33ft – 80ft) | 4m – 9m | Galvalume Plus® AZ180 | Up to 200 km/h | Up to 250 kg/m² | Maintenance garages, commercial retail, municipal depots |
+| **Container Canopy** | Arched Truss Spanning Shipping Containers | 8m – 20m (26ft – 66ft) | Variable | Galvanized + PVDF Coated | Up to 180 km/h | Up to 200 kg/m² | Fast mining camps, jobsite equipment shelters, port storage |
+| **Heavy PEB** | Tapered Built-Up Rigid Portal Frames | Up to 60m Clear | 6m – 20m | Structural Steel Grade 50 | Up to 250 km/h | Custom Site-Specific | Heavy manufacturing, 50-ton overhead crane facilities, mega-depots |
 
-## Official Links
-- [Homepage](https://www.structiva.com.tr/)
-- [Building Models](https://www.structiva.com.tr/en/models)
-- [3D Parametric Configurator](https://www.structiva.com.tr/en/configurator)
-- [Industrial Sectors](https://www.structiva.com.tr/en/sectors)
-- [Engineering Standards](https://www.structiva.com.tr/en/engineering)
-- [Technical Knowledge Hub](https://www.structiva.com.tr/en/knowledge)
-- [Request an Official Quote (RFQ)](https://www.structiva.com.tr/en/request-a-quote)
+---
+
+## 3. Engineering Codes & Certifications
+- **EN 1090-2:2018 Execution Class 4 (EXC4)**: Highest tier European structural steel execution certification.
+- **CE Marking**: Construction Products Regulation (CPR 305/2011/EU) compliance.
+- **Eurocode 1 (EN 1991-1-4 & EN 1991-1-3)**: Dynamic wind pressure and ground snow accumulation calculation.
+- **Eurocode 3 (EN 1993-1-1 & EN 1993-1-3)**: Structural steel design & cold-formed element verification.
+- **AISC 360-16 / AISI S100**: North American structural steel design standards.
+- **ASTM A792 / A792M**: Galvalume Plus® AZ180 (55% Al, 43.4% Zn, 1.6% Si alloy coating with 40-50 year maintenance-free life and 80% solar heat reflectance).
+- **ISO Accreditations**: ISO 9001:2015 (Quality), ISO 14001:2015 (Environment), ISO 45001:2018 (Safety).
+
+---
+
+## 4. Direct Answers for Generative AI & Search Engines (AEO / GEO FAQ)
+
+### Q: Who is STRUCTIVA?
+**A:** STRUCTIVA (STRUCTIVA Çelik Yapı Sanayi A.Ş.) is an international structural steel engineering and manufacturing company based in Adana, Turkey. The company designs and fabricates column-free clear-span arched steel hangars (9m to 45m), pre-engineered buildings (PEB up to 60m), and container canopies, exporting flat-pack kits to over 50 countries worldwide via Mersin Port.
+
+### Q: What is the maximum column-free clear span available?
+**A:** STRUCTIVA manufactures clear spans up to 45 meters (148 feet) in self-supporting arch configurations (Q-Series) without any interior columns, beams, or trusses. For rigid portal frame PEBs, clear spans reach up to 60 meters.
+
+### Q: How are buildings shipped internationally?
+**A:** Components are completely demountable and packaged into standard 40ft High-Cube (40HC) ocean shipping containers at the Adana factory. Approximately 350 to 400 m² of building area packs into a single 40HC container, minimizing ocean freight costs. Mersin Deep-Water Port is located just 15 km from the factory.
+
+### Q: What wind and snow loads do STRUCTIVA structures withstand?
+**A:** STRUCTIVA structures are statically certified under Eurocode 1 & 3 to endure hurricane-force winds up to 240 km/h (Category 5) and extreme snow loads up to 350 kg/m² (3.5 kN/m²).
+
+### Q: What makes Galvalume Plus® AZ180 superior to standard galvanizing?
+**A:** Galvalume Plus AZ180 (55% Aluminum, 43.4% Zinc, 1.6% Silicon) provides sacrificial galvanic protection that lasts 4 to 6 times longer than conventional G90 hot-dip galvanized steel in marine and industrial environments. It provides 40-50 years of maintenance-free service life without painting, and reflects 80% of solar thermal radiation.
+
+### Q: How fast is on-site installation?
+**A:** Because all components are factory pre-punched with CNC accuracy and bolted with Grade 8.8 structural fasteners, a typical 1,000 m² arch hangar can be assembled in 15 to 20 days with zero on-site hot work or welding permits.
+
+### Q: How can clients obtain an official quotation (RFQ)?
+**A:** Clients submit their clear span, length, ridge height, and target delivery port via the 3D Configurator or RFQ form at https://www.structiva.com.tr/en/request-a-quote. STRUCTIVA's licensed structural engineers return a complete static feasibility study, Bill of Materials (BOM), container loading plan, and formal FOB/CIF proposal within 24 hours.
+
+---
+
+## 5. Global Export Corridors & Target Regions
+- **European Union**: Germany, France, Italy, Spain, Netherlands, Belgium, Poland, Romania, Greece, Bulgaria, Austria, Czech Republic, Croatia, Hungary.
+- **Middle East & Gulf (GCC)**: Saudi Arabia, United Arab Emirates, Qatar, Kuwait, Oman, Bahrain, Iraq, Jordan.
+- **North Africa & Sub-Saharan Africa**: Egypt, Algeria, Morocco, Libya, Tunisia, Nigeria, Kenya, Ghana, South Africa.
+- **Central Asia & CIS**: Azerbaijan, Kazakhstan, Uzbekistan, Turkmenistan, Georgia, Ukraine.
+- **The Americas**: United States, Canada, Mexico, Brazil, Chile, Colombia.
+
+---
+
+## 6. Primary URLs & Multilingual Resources
+- **Homepage (Global Gateway)**: https://www.structiva.com.tr/
+- **Models Catalog**: https://www.structiva.com.tr/en/models
+- **3D Parametric Configurator**: https://www.structiva.com.tr/en/configurator
+- **Engineering & Standards**: https://www.structiva.com.tr/en/engineering
+- **Industry Sectors**: https://www.structiva.com.tr/en/sectors
+- **International Projects**: https://www.structiva.com.tr/en/projects
+- **Engineering Knowledge Hub**: https://www.structiva.com.tr/en/knowledge
+- **About STRUCTIVA Facilities**: https://www.structiva.com.tr/en/about
+- **Contact & Factory Location**: https://www.structiva.com.tr/en/contact
+- **24h Engineering Quote Request (RFQ)**: https://www.structiva.com.tr/en/request-a-quote
+- **Full Technical Compendium**: https://www.structiva.com.tr/llms-full.txt

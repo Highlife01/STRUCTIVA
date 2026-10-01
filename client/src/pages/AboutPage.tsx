@@ -1,16 +1,18 @@
 import React from "react";
 import { Factory, ShieldCheck, Anchor } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
+import { getPageSEO } from "../data/seoData";
 import SEOHead from "../components/SEOHead";
 
 export default function AboutPage({ lang = "tr" }: { lang?: string }) {
   const { t } = useLanguage();
+  const seo = getPageSEO("about", lang);
 
   return (
     <div className="bg-[#09131c] text-white py-16 px-4 sm:px-6 lg:px-8">
       <SEOHead
-        title="About STRUCTIVA — Structiva Tesisleri Adana & Engineering Heritage"
-        description="Operating from its integrated steel fabrication hub in Adana, STRUCTIVA delivers certified structural steel buildings, clear-span arch hangars, and PEB kits globally."
+        title={seo.title}
+        description={seo.description}
         canonicalPath={`/${lang}/about`}
         lang={lang}
         breadcrumbs={[

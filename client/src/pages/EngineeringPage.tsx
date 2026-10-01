@@ -2,16 +2,18 @@ import React from "react";
 import { Link } from "wouter";
 import { Award, Wind, Zap, Flame, ArrowRight } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
+import { getPageSEO } from "../data/seoData";
 import SEOHead from "../components/SEOHead";
 
 export default function EngineeringPage({ lang = "tr" }: { lang?: string }) {
   const { t } = useLanguage();
+  const seo = getPageSEO("engineering", lang);
 
   return (
     <div className="bg-[#09131c] text-white py-16 px-4 sm:px-6 lg:px-8">
       <SEOHead
-        title="Structural Steel Engineering Standards & Quality | STRUCTIVA"
-        description="EN 1090-2 Execution Class 4, CE marking, AISC 360-16, and Galvalume Plus® AZ180 metallurgy engineered for 240 km/h wind resilience and seismic safety."
+        title={seo.title}
+        description={seo.description}
         canonicalPath={`/${lang}/engineering`}
         lang={lang}
         breadcrumbs={[

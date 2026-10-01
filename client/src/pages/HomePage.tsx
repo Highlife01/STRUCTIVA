@@ -21,6 +21,7 @@ import ComparisonTable from "../components/ComparisonTable";
 import SEOHead from "../components/SEOHead";
 import GeoAnswerBox from "../components/GeoAnswerBox";
 import { useLanguage } from "../contexts/LanguageContext";
+import { getPageSEO } from "../data/seoData";
 
 const GALLERY_IMAGES = [
   {
@@ -52,12 +53,13 @@ const GALLERY_IMAGES = [
 export default function HomePage({ lang = "tr" }: { lang?: string }) {
   const { t } = useLanguage();
   const [activePhoto, setActivePhoto] = useState<string | null>(null);
+  const seo = getPageSEO("home", lang);
 
   return (
     <div className="bg-[#09131c] text-white">
       <SEOHead
-        title="STRUCTIVA — Kolonsuz Kemerli Çelik Yapılar & Hangar Sistemleri"
-        description="Structiva Tesisleri Adana — 9-45m net açıklıklı, Galvalume Plus® alaşımlı kemerli çelik hangarlar, depolar ve ağır sanayi yapıları. 50+ ülkeye doğrudan ihracat."
+        title={seo.title}
+        description={seo.description}
         canonicalPath={`/${lang}`}
         lang={lang}
       />

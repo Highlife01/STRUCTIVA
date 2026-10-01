@@ -1,32 +1,116 @@
-# STRUCTIVA — Global Production Robots Policy
+# STRUCTIVA — Global Production Robots & AI Engine Crawling Policy
+# Primary Domain: https://www.structiva.com.tr
+# Global Headquarters: Adana Organize Sanayi Bölgesi (AOSB), Türkiye
+# Export Logistics: Mersin International Deep-Water Container Port (15 km)
+
 User-agent: *
 Allow: /
 Disallow: /dashboard
 Disallow: /admin
 Disallow: /api/
 
-# Search & AI Engine Crawlers
+# Major Global Search Engine Crawlers
 User-agent: Googlebot
 Allow: /
 
+User-agent: Googlebot-Image
+Allow: /images/
+
 User-agent: Bingbot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: YandexImages
+Allow: /images/
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Baiduspider-image
+Allow: /images/
+
+User-agent: DuckDuckBot
 Allow: /
 
 User-agent: Applebot
 Allow: /
 
+User-agent: Applebot-Extended
+Allow: /
+
+# Generative Engine Optimization (GEO) & AI Search Agents
 User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
 Allow: /
 
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
 User-agent: CCBot
 Allow: /
 
+User-agent: Diffbot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: DeepSeekBot
+Allow: /
+
+User-agent: Timpibot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: AI2Bot
+Allow: /
+
+User-agent: img2dataset
+Allow: /
+
+# Host Directive for Regional & Global Search Engines
+Host: https://www.structiva.com.tr
+
+# Comprehensive Global Multilingual & Image Sitemap
 Sitemap: https://www.structiva.com.tr/sitemap.xml
 
-# LLM & AI Engine Content Discovery
-# See https://llmstxt.org/ for specification
+# LLM & Generative Engine Discovery Standards (https://llmstxt.org/)
 User-agent: *
 Allow: /llms.txt
+Allow: /llms-full.txt

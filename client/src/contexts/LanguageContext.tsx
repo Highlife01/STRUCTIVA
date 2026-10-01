@@ -1,5 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useCallback, useContext, useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import { LANGUAGES, LanguageOption, getTranslation } from "../data/translations";
+import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, getLanguage } from "../config/siteConfig";
 
 interface LanguageContextType {
   language: string;
@@ -12,26 +14,33 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<string>(() => {
-    return localStorage.getItem("structiva_lang") || "tr";
-  });
+  const [location] = useLocation();
+  const pathLanguage = location.split("/")[1];
+  const urlLanguage = SUPPORTED_LANGUAGES.some((lang) => lang.code === pathLanguage)
+    ? pathLanguage
+    : DEFAULT_LANGUAGE;
+  const [language, setLanguageState] = useState<string>(urlLanguage);
 
   const currentLangObj = LANGUAGES.find((l) => l.code === language) || LANGUAGES[0];
   const isRTL = currentLangObj.dir === "rtl";
 
-  const setLanguage = (lang: string) => {
+  const setLanguage = useCallback((lang: string) => {
+    if (!SUPPORTED_LANGUAGES.some((supported) => supported.code === lang)) return;
     setLanguageState(lang);
-    localStorage.setItem("structiva_lang", lang);
-    const targetObj = LANGUAGES.find((l) => l.code === lang);
-    if (targetObj) {
-      document.documentElement.dir = targetObj.dir;
-      document.documentElement.lang = targetObj.code;
+    try {
+      localStorage.setItem("structiva_lang", lang);
+    } catch {
+      // Language navigation also works when browser storage is unavailable.
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    setLanguage(urlLanguage);
+  }, [urlLanguage, setLanguage]);
 
   useEffect(() => {
     document.documentElement.dir = isRTL ? "rtl" : "ltr";
-    document.documentElement.lang = language;
+    document.documentElement.lang = getLanguage(language).hreflang;
   }, [language, isRTL]);
 
   const t = (key: string) => {
