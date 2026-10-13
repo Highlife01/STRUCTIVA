@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
 import NotFound from "./pages/NotFound";
+import { captureAndStoreUtm } from "./lib/analytics";
 
 // Code-split lazy pages for ultra-fast initial load
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -78,6 +79,10 @@ function LegacyRedirect() {
 }
 
 export default function App() {
+  useEffect(() => {
+    captureAndStoreUtm();
+  }, []);
+
   return (
     <LanguageProvider>
       <div className="min-h-screen flex flex-col bg-[#09131c] text-white selection:bg-amber-500 selection:text-[#0f1d2a]">

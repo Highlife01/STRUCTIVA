@@ -252,7 +252,7 @@ export default function SEOHead({
     // Organization and local business details shared with the site configuration.
     const orgSchema = {
       "@context": "https://schema.org",
-      "@type": ["Corporation", "Organization", "LocalBusiness", "Manufacturer"],
+      "@type": ["Corporation", "Organization", "LocalBusiness"],
       "@id": `${PRODUCTION_CANONICAL_HOST}/#organization`,
       "name": COMPANY_INFO.brandName,
       "legalName": COMPANY_INFO.legalName,
@@ -262,9 +262,9 @@ export default function SEOHead({
       "slogan": COMPANY_INFO.tagline,
       "logo": {
         "@type": "ImageObject",
-        "url": `${PRODUCTION_CANONICAL_HOST}/images/arched-steel-hangar-hd.jpg`,
-        "width": 1200,
-        "height": 630
+        "url": `${PRODUCTION_CANONICAL_HOST}/images/structiva-logo.svg`,
+        "width": 600,
+        "height": 140
       },
       "geo": {
         "@type": "GeoCoordinates",
@@ -486,47 +486,21 @@ export default function SEOHead({
       });
     }
 
-    // Standard high-intent engineering FAQ items if none provided
-    const effectiveFaqItems = faqItems && faqItems.length > 0 ? faqItems : [
-      {
-        question: currentLangObj.code === "tr"
-          ? "STRUCTIVA çelik hangarları hangi açıklık ve rüzgar yükü değerlerine sahiptir?"
-          : "What clear-span widths and wind loads do STRUCTIVA arch steel hangars support?",
-        answer: currentLangObj.code === "tr"
-          ? "STRUCTIVA kemerli çelik hangarları 9 metreden 45 metreye kadar iç kolonsuz net açıklıkla üretilir. Eurocode 3 ve AISC standartlarında 240 km/h rüzgar hızına ve 350 kg/m² kar yüküne dayanıklıdır."
-          : "STRUCTIVA clear-span arch steel hangars are engineered from 9m to 45m without interior columns, certified under Eurocode 3 and AISC 360-16 for wind resistance up to 240 km/h and snow loads up to 350 kg/m²."
-      },
-      {
-        question: currentLangObj.code === "tr"
-          ? "Galvalume Plus® AZ180 kaplamanın geleneksel galvanizli çeliğe göre avantajı nedir?"
-          : "What makes Galvalume Plus® AZ180 superior to standard galvanized steel?",
-        answer: currentLangObj.code === "tr"
-          ? "%55 Alüminyum, %43.4 Çinko ve %1.6 Silikon alaşımı (ASTM A792), standart galvanize göre 4-6 kat daha uzun korozyon ömrü sunar. 40-50 yıl bakım gerektirmez ve güneş ışınlarının %80'ini yansıtır."
-          : "Galvalume Plus® AZ180 (55% Al, 43.4% Zn, 1.6% Si per ASTM A792) provides self-healing galvanic protection outlasting standard G90 galvanizing by 4 to 6 times, delivering 40-50 years of maintenance-free service with 80% solar heat reflectance."
-      },
-      {
-        question: currentLangObj.code === "tr"
-          ? "Uluslararası deniz aşırı sevkiyat nasıl yapılır?"
-          : "How are STRUCTIVA steel building kits shipped internationally?",
-        answer: currentLangObj.code === "tr"
-          ? "Tüm yapılar Adana fabrikamızda 40HC deniz konteynerlerine flat-pack olarak yüklenir. Yaklaşık 350-400 m² bina tek bir konteynere sığar. Mersin Limanı'na 15 km mesafeden 50+ ülkeye sevk edilir."
-          : "All building components are demountable and flat-packed into standard 40ft High-Cube (40HC) containers at our Adana facility (~350–400 m² per container) and dispatched worldwide via Mersin Deep-Water Port (15 km away)."
-      }
-    ];
-
-    // FAQ schema
-    schemasToInject.push({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": effectiveFaqItems.map((f) => ({
-        "@type": "Question",
-        "name": f.question,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": f.answer
-        }
-      }))
-    });
+    // FAQ schema: only inject if FAQ items are explicitly provided and rendered on the page
+    if (faqItems && faqItems.length > 0) {
+      schemasToInject.push({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqItems.map((f) => ({
+          "@type": "Question",
+          "name": f.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": f.answer
+          }
+        }))
+      });
+    }
 
     // User-provided extra schemas
     if (schema) {

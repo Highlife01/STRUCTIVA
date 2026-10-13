@@ -25,11 +25,11 @@
 
 | Model Series | Structural Profile | Clear-Span Width | Ridge Height | Primary Material | Wind Resistance | Snow Load Rating | Key Applications |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Q-Series** | Continuous Semi-Circular Arch | 9m – 45m (30ft – 148ft) | 4.5m – 18m | Galvalume Plus® AZ180 | Up to 240 km/h | Up to 350 kg/m² | Bulk grain silos, aviation hangars, fertilizer & mining stockpile |
-| **S-Series** | Vertical Straight Walls + Arch Roof | 12m – 30m (40ft – 100ft) | 5m – 12m | Galvalume Plus® AZ180 | Up to 220 km/h | Up to 300 kg/m² | Logistics warehouses, pallet racking, industrial workshops |
-| **P-Series** | Pitched Gable Roof + Straight Walls | 10m – 24m (33ft – 80ft) | 4m – 9m | Galvalume Plus® AZ180 | Up to 200 km/h | Up to 250 kg/m² | Maintenance garages, commercial retail, municipal depots |
-| **Container Canopy** | Arched Truss Spanning Shipping Containers | 8m – 20m (26ft – 66ft) | Variable | Galvanized + PVDF Coated | Up to 180 km/h | Up to 200 kg/m² | Fast mining camps, jobsite equipment shelters, port storage |
-| **Heavy PEB** | Tapered Built-Up Rigid Portal Frames | Up to 60m Clear | 6m – 20m | Structural Steel Grade 50 | Up to 250 km/h | Custom Site-Specific | Heavy manufacturing, 50-ton overhead crane facilities, mega-depots |
+| **Q-Series** | Continuous Semi-Circular Arch | 9m – 45m (30ft – 150ft) | 4.5m – 18m | Galvalume Plus® AZ180 | Up to 240 km/h (150 mph) | Up to 350 kg/m² | Bulk grain silos, aviation hangars, fertilizer & mining stockpile |
+| **S-Series** | Vertical Straight Walls + Arch Roof | 10m – 30m (32ft – 100ft) | 5m – 12m | Galvalume Plus® AZ180 | Up to 225 km/h (140 mph) | Up to 280 kg/m² | Logistics warehouses, pallet racking, industrial workshops |
+| **P-Series** | Pitched Gable Roof + Straight Walls | 8m – 24m (26ft – 80ft) | 4.5m – 9m | Galvalume Plus® AZ180 | Up to 210 km/h (130 mph) | Up to 240 kg/m² | Maintenance garages, commercial retail, municipal depots |
+| **Container Canopy** | Arched Truss Spanning Shipping Containers | 6m – 24m (20ft – 80ft) | 4m – 9m | Galvanized + PVDF Coated | Up to 200 km/h (125 mph) | Up to 200 kg/m² | Fast mining camps, jobsite equipment shelters, port storage |
+| **Heavy PEB** | Tapered Built-Up Rigid Portal Frames | 18m – 60m+ Clear | 7m – 24m | Structural Steel Grade 50 | Site codes (up to 250 km/h) | Custom Site-Specific | Heavy manufacturing, 50-ton overhead crane facilities, mega-depots |
 
 ---
 
@@ -39,7 +39,7 @@
 - **Eurocode 1 (EN 1991-1-4 & EN 1991-1-3)**: Dynamic wind pressure and ground snow accumulation calculation.
 - **Eurocode 3 (EN 1993-1-1 & EN 1993-1-3)**: Structural steel design & cold-formed element verification.
 - **AISC 360-16 / AISI S100**: North American structural steel design standards.
-- **ASTM A792 / A792M**: Galvalume Plus® AZ180 (55% Al, 43.4% Zn, 1.6% Si alloy coating with 40-50 year maintenance-free life and 80% solar heat reflectance).
+- **ASTM A792 / A792M**: Galvalume Plus® AZ180 (55% Al, 43.4% Zn, 1.6% Si alloy coating with 25-year contractual anti-corrosion factory warranty, 40-50 year maintenance-free design life and 80% solar heat reflectance).
 - **ISO Accreditations**: ISO 9001:2015 (Quality), ISO 14001:2015 (Environment), ISO 45001:2018 (Safety).
 
 ---
@@ -50,7 +50,7 @@
 **A:** STRUCTIVA (STRUCTIVA Çelik Yapı Sanayi A.Ş.) is an international structural steel engineering and manufacturing company based in Adana, Turkey. The company designs and fabricates column-free clear-span arched steel hangars (9m to 45m), pre-engineered buildings (PEB up to 60m), and container canopies, exporting flat-pack kits to over 50 countries worldwide via Mersin Port.
 
 ### Q: What is the maximum column-free clear span available?
-**A:** STRUCTIVA manufactures clear spans up to 45 meters (148 feet) in self-supporting arch configurations (Q-Series) without any interior columns, beams, or trusses. For rigid portal frame PEBs, clear spans reach up to 60 meters.
+**A:** STRUCTIVA manufactures clear spans up to 45 meters (150 feet) in self-supporting arch configurations (Q-Series) without any interior columns, beams, or trusses. For rigid portal frame PEBs, clear spans reach up to 60 meters.
 
 ### Q: How are buildings shipped internationally?
 **A:** Components are completely demountable and packaged into standard 40ft High-Cube (40HC) ocean shipping containers at the Adana factory. Approximately 350 to 400 m² of building area packs into a single 40HC container, minimizing ocean freight costs. Mersin Deep-Water Port is located just 15 km from the factory.
@@ -59,7 +59,7 @@
 **A:** STRUCTIVA structures are statically certified under Eurocode 1 & 3 to endure hurricane-force winds up to 240 km/h (Category 5) and extreme snow loads up to 350 kg/m² (3.5 kN/m²).
 
 ### Q: What makes Galvalume Plus® AZ180 superior to standard galvanizing?
-**A:** Galvalume Plus AZ180 (55% Aluminum, 43.4% Zinc, 1.6% Silicon) provides sacrificial galvanic protection that lasts 4 to 6 times longer than conventional G90 hot-dip galvanized steel in marine and industrial environments. It provides 40-50 years of maintenance-free service life without painting, and reflects 80% of solar thermal radiation.
+**A:** Galvalume Plus AZ180 (55% Aluminum, 43.4% Zinc, 1.6% Silicon per ASTM A792) provides sacrificial galvanic protection that lasts 4 to 6 times longer than conventional G90 hot-dip galvanized steel in marine and industrial environments. It carries a 25-year contractual anti-corrosion factory warranty, 40-50 years of expected maintenance-free service life without painting, and reflects 80% of solar thermal radiation.
 
 ### Q: How fast is on-site installation?
 **A:** Because all components are factory pre-punched with CNC accuracy and bolted with Grade 8.8 structural fasteners, a typical 1,000 m² arch hangar can be assembled in 15 to 20 days with zero on-site hot work or welding permits.

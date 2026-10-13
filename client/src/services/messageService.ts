@@ -35,53 +35,40 @@ export async function saveInquiry(data: Omit<Inquiry, "id" | "createdAt" | "stat
     createdAt: now,
   };
 
-  // 1. Save to LocalStorage immediately for zero latency
+  // 1. Mandatory Remote Firestore Sync
+  // Ensure that the inquiry is securely and permanently persisted to Firestore before confirming success.
   try {
-    const existing = getLocalInquiries();
-    const updated = [newInquiry, ...existing];
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-  } catch (e) {
-    console.error("Local storage error:", e);
-  }
-
-  // 2. Sync to Firebase Firestore asynchronously
-  try {
-    await addDoc(collection(db, "inquiries"), {
+    const docRef = await addDoc(collection(db, "inquiries"), {
       ...newInquiry,
       timestamp: serverTimestamp(),
     });
-  } catch (firebaseErr) {
-    console.warn("Firestore sync optional note:", firebaseErr);
+    if (docRef?.id) {
+      newInquiry.id = docRef.id;
+    }
+  } catch (firebaseErr: any) {
+    console.error("Critical Firestore write failure:", firebaseErr);
+    // DO NOT swallow this error! A quote that is only saved in the user's local browser is NOT received by the business.
+    throw new Error(
+      "Teklif kaydı sunucuya iletilemedi. Lütfen internet bağlantınızı kontrol edip tekrar deneyiniz veya WhatsApp / Telefon ile doğrudan bizimle iletişime geçiniz."
+    );
   }
 
-  // 3. Dispatch Email Notification to engineering desk.
-  // NOTE: Firebase Hosting is static-only — /api/* only exists when the app runs
-  // behind the Express server (npm start / self-hosted Node). On static hosting
-  // the rewrite would return index.html, so we check the content-type before
-  // treating the response as a successful email dispatch.
+  // 2. Client-side local backup cache (only saved after confirmed Firestore persistence)
+  try {
+    const existing = getLocalInquiries();
+    const updated = [newInquiry, ...existing.filter((item) => item.id !== newInquiry.id)];
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated.slice(0, 50)));
+  } catch (e) {
+    console.warn("Local storage cache warning:", e);
+  }
+
+  // 3. Optional asynchronous email notification dispatch (non-blocking notification queue)
   try {
     fetch("/api/send-email", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newInquiry),
-    })
-      .then(async (res) => {
-        const contentType = res.headers.get("content-type") || "";
-        if (res.ok && contentType.includes("application/json")) {
-          console.log("[Notification] Lead notification queued to engineering desk");
-        } else {
-          console.warn(
-            "[Notification Note] Email API unavailable on static hosting — lead safely stored in Firestore/Dashboard. (status:",
-            res.status,
-            "type:",
-            contentType || "n/a",
-            ")"
-          );
-        }
-      })
-      .catch((netErr) => {
-        console.warn("[Notification Note] Message safely stored in Firestore/Dashboard:", netErr);
-      });
+    }).catch((err) => console.warn("Email dispatch note:", err));
   } catch (err) {
     console.warn("Email dispatch error:", err);
   }

@@ -102,14 +102,14 @@ export default function ModelsPage({ lang = "tr" }: { lang?: string }) {
 
               <div className="pt-4 flex flex-wrap gap-4">
                 <Link
-                  href={`/${lang}/configurator`}
+                  href={`/${lang}/configurator?model=${activeModel}`}
                   className="flex items-center gap-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#0f1d2a] px-6 py-3 text-xs font-black uppercase tracking-wider transition-all"
                 >
                   <span>{t("model_configure_btn")}</span>
                   <ArrowRight size={14} />
                 </Link>
                 <Link
-                  href={`/${lang}/request-a-quote`}
+                  href={`/${lang}/request-a-quote?model=${activeModel}`}
                   className="flex items-center gap-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white transition-all"
                 >
                   <span>{t("model_quote_btn")}</span>

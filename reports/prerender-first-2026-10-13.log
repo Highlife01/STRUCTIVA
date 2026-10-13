@@ -1,0 +1,7 @@
+🚀 Starting STRUCTIVA Multi-Page SSG Pre-rendering Engine...
+  ✓ Updated root dist/public/index.html (canonical /tr, legacy redirect target)
+✨ Successfully generated 420 static HTML pages across 30 languages!
+🗺️  Successfully generated comprehensive sitemap.xml with 14 routes across 30 languages!
+  ✓ Generated custom 404.html for Firebase Hosting (with noindex, nofollow)
+(node:2084) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)

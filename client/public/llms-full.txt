@@ -36,26 +36,35 @@
 
 ### 2.2 S-Series: Straight-Sidewall Arch Roof
 - **Structural Profile**: Vertical straight side walls (height 2.5m to 5.0m) merging into an arched self-supporting roof crown.
-- **Clear Span Range**: 12.0 meters to 30.0 meters (40 ft to 100 ft).
+- **Clear Span Range**: 10.0 meters to 30.0 meters (32 ft to 100 ft).
 - **Centerline Ridge Height**: 5.0 meters to 12.0 meters.
+- **Wind Velocity Resistance**: Certified to 225 km/h (140 mph).
+- **Ground Snow Load**: Up to 280 kg/m² (57 psf).
 - **Advantage Over True Arch**: Straight vertical walls allow perimeter installation of multi-tier pallet racking systems and unrestricted forklift travel right up to wall edges.
 - **Key Applications**: Logistics distribution warehouses, light industrial manufacturing facilities, commercial workshops, vehicle maintenance depots.
 
 ### 2.3 P-Series: Pitched Gabled Arch
 - **Structural Profile**: Straight vertical walls with a gabled pitched roofline.
-- **Clear Span Range**: 10.0 meters to 24.0 meters (33 ft to 80 ft).
-- **Centerline Ridge Height**: 4.0 meters to 9.0 meters.
+- **Clear Span Range**: 8.0 meters to 24.0 meters (26 ft to 80 ft).
+- **Centerline Ridge Height**: 4.5 meters to 9.0 meters.
+- **Wind Velocity Resistance**: Certified to 210 km/h (130 mph).
+- **Ground Snow Load**: Up to 240 kg/m² (50 psf).
 - **Key Applications**: Commercial garages, agricultural workshops, municipal equipment depots, retail storage.
 
 ### 2.4 Container Canopy Truss Systems
 - **Structural Profile**: Arched structural steel truss frames mounted on standard ISO shipping containers (single or double stacked, 20ft or 40ft).
-- **Clear Span Range**: 8.0 meters to 20.0 meters (26 ft to 66 ft).
+- **Clear Span Range**: 6.0 meters to 24.0 meters (20 ft to 80 ft).
+- **Centerline Ridge Height**: 4.0 meters to 9.0 meters above containers.
+- **Wind Velocity Resistance**: Certified to 200 km/h (125 mph).
+- **Ground Snow Load**: Up to 200 kg/m² (40 psf).
 - **Anchoring**: Heavy-duty container twist-lock and clamp mounting systems requiring no permanent foundation excavation.
 - **Key Applications**: Rapid-deployment exploration mining camps, jobsite equipment dry zones, military field logistics, port interim storage.
 
 ### 2.5 Pre-Engineered Steel Buildings (PEB Portal Frames)
 - **Structural Profile**: Tapered built-up I-section solid web frames with rigid knee and ridge moment connections.
-- **Clear Span Range**: Up to 60.0 meters unobstructed.
+- **Clear Span Range**: 18.0 meters to 60.0+ meters unobstructed.
+- **Centerline Ridge Height**: 7.0 meters to 24.0 meters.
+- **Wind Velocity Resistance**: Engineered to local site codes (up to 250 km/h).
 - **Crane Integration**: Overhead bridge crane capacities up to 50 Metric Tons with dedicated crane corbels and runway beams.
 - **Key Applications**: Heavy industrial plants, automotive manufacturing, logistics sorting mega-hubs.
 
@@ -70,7 +79,7 @@
 - **Coating Mass**: AZ180 (180 grams per square meter total both sides), ASTM A792 / A792M standard.
 
 ### 3.2 Lifespan & Thermal Efficiency
-- **Lifespan**: 40 to 50 years maintenance-free service life under severe industrial, agricultural ammonia, and coastal marine environments.
+- **Lifespan & Warranty**: 25-year contractual anti-corrosion factory warranty, with 40 to 50 years expected maintenance-free design service life under severe industrial, agricultural ammonia, and coastal marine environments.
 - **Solar Reflectance**: High thermal emissivity and solar reflectance index (SRI > 75) repelling up to 80% of incident solar thermal radiation, lowering cooling HVAC energy demands by up to 35%.
 
 ---

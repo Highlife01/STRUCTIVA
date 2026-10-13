@@ -2654,22 +2654,20 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
     ]
   };
 
-  const effectiveFaqs = page.faqItems && page.faqItems.length > 0
-    ? page.faqItems
-    : (defaultFaqs[lang] || defaultFaqs.en || defaultFaqs.tr);
-
-  schemas.push({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": effectiveFaqs.map((f) => ({
-      "@type": "Question",
-      "name": f.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": f.answer
-      }
-    }))
-  });
+  if (page.faqItems && page.faqItems.length > 0) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": page.faqItems.map((f) => ({
+        "@type": "Question",
+        "name": f.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.answer
+        }
+      }))
+    });
+  }
 
   return schemas
     .map((s) => `    <script type="application/ld+json" data-seo-schema="true">\n${JSON.stringify(s, null, 2)}\n    </script>`)
@@ -2682,12 +2680,11 @@ function generateSitemapXml(pages: PageConfig[]): string {
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'
   ];
 
-  const currentDate = new Date().toISOString().split("T")[0];
-
   for (const page of pages) {
     const isRoot = page.slug === "";
     const priority = page.priority || (isRoot ? "1.0" : page.slug === "models" || page.slug === "configurator" || page.slug === "request-a-quote" ? "0.95" : page.slug === "engineering" || page.slug === "sectors" ? "0.9" : "0.85");
     const changefreq = page.changefreq || (isRoot || page.slug === "request-a-quote" ? "daily" : page.slug.startsWith("knowledge/") ? "monthly" : "weekly");
+    const lastmod = page.publishedDate || "2026-04-01";
 
     // Output every language variant as its own distinct indexable <url> entry!
     for (const ssgLang of SSG_LANGUAGES) {
@@ -2704,7 +2701,7 @@ function generateSitemapXml(pages: PageConfig[]): string {
       const xDefaultHref = isRoot ? `${SITE_URL}/tr` : `${SITE_URL}/tr/${page.slug}`;
       lines.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${xDefaultHref}" />`);
 
-      lines.push(`    <lastmod>${currentDate}</lastmod>`);
+      lines.push(`    <lastmod>${lastmod}</lastmod>`);
       lines.push(`    <changefreq>${changefreq}</changefreq>`);
       lines.push(`    <priority>${priority}</priority>`);
 
@@ -3082,7 +3079,17 @@ function prerender() {
     process.exit(1);
   }
 
-  const baseTemplate = fs.readFileSync(BASE_INDEX_HTML, "utf-8");
+  // 1. Establish a pristine, clean base template
+  // Prevents rerun pollution where subsequent SSG runs accumulate duplicate main/footer/JSON-LD schemas.
+  let rawTemplate = fs.readFileSync(BASE_INDEX_HTML, "utf-8");
+
+  // Strip any previously injected JSON-LD scripts
+  rawTemplate = rawTemplate.replace(/<script\s+type="application\/ld\+json"[\s\S]*?<\/script>\s*/gi, "");
+
+  // Reset root container: match everything from <div id="root"> to the closing div right before the module script
+  rawTemplate = rawTemplate.replace(/<div id="root">[\s\S]*?<\/div>(?=\s*<script\s+type="module")/i, '<div id="root"></div>');
+
+  const baseTemplate = rawTemplate;
   let generatedCount = 0;
 
   for (const page of PAGES) {
@@ -3101,7 +3108,7 @@ function prerender() {
       const jsonLd = buildJsonLd(page, lang.code, langCanonicalUrl);
       const semanticHtml = generateSemanticHtml(page, lang.code);
 
-      // Construct tailored HTML
+      // Construct tailored HTML from pristine baseTemplate
       let html = baseTemplate;
 
       // Update lang and dir attribute on html tag
@@ -3169,9 +3176,9 @@ function prerender() {
       // Inject JSON-LD right before </head>
       html = html.replace("</head>", `${jsonLd}\n  </head>`);
 
-      // Replace <div id="root">...</div> with our pre-rendered semantic HTML
+      // Replace pristine <div id="root"></div> with our pre-rendered semantic HTML
       html = html.replace(
-        /<div id="root">[\s\S]*?<\/div>/,
+        '<div id="root"></div>',
         `<div id="root">${semanticHtml}</div>`
       );
 
@@ -3268,7 +3275,7 @@ function generate404Page(baseTemplate: string) {
   html = html.replace(/<meta\s+property="og:description"[^>]*\/?>/g, `<meta property="og:description" content="Sayfa bulunamadı." />`);
 
   html = html.replace(
-    /<div id="root">[\s\S]*?<\/div>/,
+    '<div id="root"></div>',
     `<div id="root">${notFoundShell}</div>`
   );
 

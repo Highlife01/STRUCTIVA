@@ -32,7 +32,7 @@ export default function ComparisonTable() {
       criteria: "Korozyon & Pas Direnci",
       concrete: "Rutubet, beton çatlaması ve demir korozyonu",
       traditionalSteel: "Periyodik antipas ve endüstriyel boya masrafı",
-      structiva: "Galvalume Plus® (Al-Zn) 25 Yıl Fabrika Garantisi",
+      structiva: "Galvalume Plus® (Al-Zn) 25 Yıl Fabrika Garantisi & 50 Yıl Tasarım Ömrü",
       structivaHighlight: true,
     },
     {

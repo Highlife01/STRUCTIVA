@@ -21,19 +21,22 @@ import {
   ShieldCheck,
   UserCheck
 } from "lucide-react";
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from "firebase/auth";
+import { auth } from "../lib/firebase";
 import { getAllInquiries, updateInquiryStatus, deleteInquiry, Inquiry } from "../services/messageService";
 import { useLanguage } from "../contexts/LanguageContext";
+import SEOHead from "../components/SEOHead";
 
 export default function DashboardPage() {
   const { t } = useLanguage();
 
-  // Super Admin Auth State
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return localStorage.getItem("structiva_admin_auth") === "true";
-  });
+  // Firebase Auth State
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [authChecking, setAuthChecking] = useState<boolean>(true);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   // Inquiries State
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
@@ -44,6 +47,19 @@ export default function DashboardPage() {
   const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
   const [testSending, setTestSending] = useState(false);
   const [testResult, setTestResult] = useState<string | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setAuthChecking(false);
+      if (user) {
+        fetchLeads();
+      } else {
+        setInquiries([]);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleSendTestEmail = async () => {
     setTestSending(true);
@@ -76,27 +92,36 @@ export default function DashboardPage() {
     }
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const cleanEmail = loginEmail.trim().toLowerCase();
-
-    if (
-      (cleanEmail === "admin@structiva.com.tr" ||
-        cleanEmail === "info@structiva.com.tr" ||
-        cleanEmail === "cebrailkara@gmail.com") &&
-      (loginPassword === "Ak010101" || loginPassword === "Structiva2026!")
-    ) {
-      setIsAuthenticated(true);
-      localStorage.setItem("structiva_admin_auth", "true");
-      setLoginError("");
-    } else {
-      setLoginError("Geçersiz e-posta veya şifre. Lütfen Süper Admin bilgilerinizi kontrol ediniz.");
+    setLoginError("");
+    setIsLoggingIn(true);
+    try {
+      await signInWithEmailAndPassword(auth, loginEmail.trim(), loginPassword);
+    } catch (err: any) {
+      console.error("Firebase auth login error:", err);
+      let msg = "Giriş başarısız. Lütfen bilgilerinizi kontrol ediniz.";
+      if (
+        err.code === "auth/invalid-credential" ||
+        err.code === "auth/wrong-password" ||
+        err.code === "auth/user-not-found"
+      ) {
+        msg = "E-posta veya şifre hatalı. Lütfen yetkili bilgilerinizi kontrol ediniz.";
+      } else if (err.code === "auth/too-many-requests") {
+        msg = "Çok fazla başarısız deneme yapıldı. Lütfen biraz bekleyiniz.";
+      }
+      setLoginError(msg);
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem("structiva_admin_auth");
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
   };
 
   const fetchLeads = async () => {
@@ -105,12 +130,6 @@ export default function DashboardPage() {
     setInquiries(data);
     setLoading(false);
   };
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetchLeads();
-    }
-  }, [isAuthenticated]);
 
   const handleStatusChange = async (id: string, status: Inquiry["status"]) => {
     await updateInquiryStatus(id, status);
@@ -132,17 +151,31 @@ export default function DashboardPage() {
     }
   };
 
-  // If Not Authenticated, render Super Admin Login Gate
-  if (!isAuthenticated) {
+  // Loading state while checking Firebase Auth session
+  if (authChecking) {
+    return (
+      <div className="min-h-[85vh] flex items-center justify-center bg-[#09131c]">
+        <SEOHead title="Yönetici Paneli | STRUCTIVA" description="Yönetici Paneli" robots="noindex, nofollow" />
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 rounded-full border-2 border-amber-500/20 border-t-amber-500 animate-spin" />
+          <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">Yetki Kontrol Ediliyor...</span>
+        </div>
+      </div>
+    );
+  }
+
+  // If Not Authenticated, render Firebase Auth Login Gate
+  if (!currentUser) {
     return (
       <div className="min-h-[85vh] flex items-center justify-center bg-[#09131c] px-4 py-16">
+        <SEOHead title="Yönetici Girişi | STRUCTIVA" description="STRUCTIVA Yönetici Girişi" robots="noindex, nofollow" />
         <div className="w-full max-w-md rounded-3xl bg-[#0e1b27] border border-amber-500/30 p-8 sm:p-10 shadow-2xl relative overflow-hidden">
           <div className="text-center mb-6">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-500/40 text-amber-400 mx-auto mb-3">
               <Lock size={28} />
             </div>
             <h2 className="text-xl font-black text-white tracking-wide uppercase">STRUCTIVA YÖNETİCİ GİRİŞİ</h2>
-            <p className="text-xs text-slate-400 mt-1">Süper Admin Güvenli Giriş Kapısı</p>
+            <p className="text-xs text-slate-400 mt-1">Firebase Yetkili Güvenli Giriş Kapısı</p>
           </div>
 
           {loginError && (
@@ -182,15 +215,20 @@ export default function DashboardPage() {
 
             <button
               type="submit"
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-[#0f1d2a] font-black text-xs uppercase tracking-wider shadow-xl shadow-amber-500/25 active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-2"
+              disabled={isLoggingIn}
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-[#0f1d2a] font-black text-xs uppercase tracking-wider shadow-xl shadow-amber-500/25 active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-2 disabled:opacity-50"
             >
-              <ShieldCheck size={16} />
-              <span>Süper Admin Olarak Giriş Yap</span>
+              {isLoggingIn ? (
+                <div className="w-4 h-4 rounded-full border-2 border-[#0f1d2a]/30 border-t-[#0f1d2a] animate-spin" />
+              ) : (
+                <ShieldCheck size={16} />
+              )}
+              <span>{isLoggingIn ? "Doğrulanıyor..." : "Yetkili Olarak Giriş Yap"}</span>
             </button>
           </form>
 
           <div className="mt-8 pt-6 border-t border-white/10 text-center text-[11px] text-slate-500">
-            STRUCTIVA · Structiva Tesisleri Adana Yetkili Paneli
+            STRUCTIVA · Güvenli Yönetici Paneli
           </div>
         </div>
       </div>
@@ -243,6 +281,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-[#09131c] text-white pt-6 pb-20 px-4 sm:px-6 lg:px-8">
+      <SEOHead title="Yönetici Paneli | STRUCTIVA" description="STRUCTIVA Yönetici ve Talep Yönetim Paneli" robots="noindex, nofollow" />
       <div className="mx-auto max-w-[1440px]">
         {/* Dashboard Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-8">
@@ -250,7 +289,7 @@ export default function DashboardPage() {
             <div className="flex items-center gap-3 mb-2">
               <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 px-3 py-1 text-[11px] font-bold">
                 <UserCheck size={14} />
-                <span>Süper Admin: admin@structiva.com.tr</span>
+                <span>Yetkili: {currentUser.email || "Admin"}</span>
               </span>
               <span className="text-amber-400 font-mono text-xs uppercase tracking-widest hidden sm:inline">
                 • Tam Yetkili Yönetici

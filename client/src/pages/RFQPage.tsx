@@ -20,6 +20,7 @@ import SEOHead from "../components/SEOHead";
 import GeoAnswerBox from "../components/GeoAnswerBox";
 import { useLanguage } from "../contexts/LanguageContext";
 import { getPageSEO } from "../data/seoData";
+import { trackLeadSubmission } from "../lib/analytics";
 
 export default function RFQPage({ lang = "tr" }: { lang?: string }) {
   const { t } = useLanguage();
@@ -34,7 +35,20 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
   const [projectCountry, setProjectCountry] = useState("");
   const [projectCity, setProjectCity] = useState("");
   const [buildingType, setBuildingType] = useState("Steel Warehouse / Logistics");
-  const [selectedModel, setSelectedModel] = useState("Q-Series Arch");
+  const [selectedModel, setSelectedModel] = useState(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const m = urlParams.get("model");
+      if (m) {
+        const decoded = decodeURIComponent(m).toLowerCase();
+        const found = STEEL_MODELS.find(
+          (sm) => sm.id === decoded || sm.name.toLowerCase().includes(decoded)
+        );
+        if (found) return found.name;
+      }
+    }
+    return "Q-Series Arch";
+  });
   const [span, setSpan] = useState("24");
   const [length, setLength] = useState("48");
   const [height, setHeight] = useState("8");
@@ -47,6 +61,7 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
   const [consent, setConsent] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Parse UTM parameters from URL for lead attribution
   const [utmParams, setUtmParams] = useState<Record<string, string>>({});
@@ -77,8 +92,10 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
       return;
     }
     setLoading(true);
+    setSubmitError(null);
 
     try {
+      const fullUtm = `UTM: source=${utmParams.utm_source || "direct"}, medium=${utmParams.utm_medium || "web"}, campaign=${utmParams.utm_campaign || "-"}, content=${utmParams.utm_content || "-"}`;
       await saveInquiry({
         type: "quote",
         name,
@@ -92,12 +109,20 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
         height: Number(height) || 0,
         areaM2: calculatedArea,
         accessories: scope,
-        message: `[Technical RFQ Submission]\nBuilding Purpose: ${buildingType}\nTimeline: ${timeline}\nUTM Source: ${utmParams.utm_source || "direct"}\n\nNotes & Criteria:\n${notes || "Full turnkey quotation requested."}`
+        message: `[Technical RFQ Submission]\nBuilding Purpose: ${buildingType}\nTimeline: ${timeline}\n${fullUtm}\n\nNotes & Criteria:\n${notes || "Full turnkey quotation requested."}`
+      });
+
+      trackLeadSubmission({
+        source: "rfq",
+        model: selectedModel,
+        country: projectCountry || country,
+        areaM2: calculatedArea,
       });
 
       setSubmitted(true);
-    } catch (err) {
+    } catch (err: any) {
       console.error("RFQ Submit Error:", err);
+      setSubmitError(err.message || "Talebiniz kaydedilemedi. Lütfen bağlantınızı kontrol edip tekrar deneyiniz.");
     } finally {
       setLoading(false);
     }
@@ -457,6 +482,30 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
                         {t("rfq_consent_label")}
                       </span>
                     </label>
+
+                    {submitError && (
+                      <div className="p-4 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs space-y-2.5">
+                        <p className="font-semibold">{submitError}</p>
+                        <div className="flex flex-wrap gap-2 pt-1">
+                          <a
+                            href={`https://wa.me/905320550945?text=${encodeURIComponent(
+                              `Merhaba STRUCTIVA, web sitenizden ${selectedModel} için teklif formu gönderirken bağlantı hatası oluştu. Bilgilerim: ${name} (${phone || email})`
+                            )}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-[11px] hover:bg-emerald-500"
+                          >
+                            💬 WhatsApp ile Doğrudan İletin
+                          </a>
+                          <a
+                            href="tel:+905320550945"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 text-white font-bold text-[11px] hover:bg-white/20"
+                          >
+                            📞 +90 532 055 09 45
+                          </a>
+                        </div>
+                      </div>
+                    )}
 
                     <button
                       type="submit"

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 140" width="100%" height="100%">
+  <defs>
+    <linearGradient id="archGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d97706" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+    <linearGradient id="steelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#94a3b8" />
+    </linearGradient>
+  </defs>
+
+  <!-- Arch Structural Symbol -->
+  <g transform="translate(10, 10)">
+    <!-- Outer Arch -->
+    <path d="M 20 110 A 55 55 0 0 1 120 110" fill="none" stroke="url(#archGrad)" stroke-width="12" stroke-linecap="round" />
+    <!-- Inner Arch Beam -->
+    <path d="M 36 110 A 38 38 0 0 1 104 110" fill="none" stroke="#f59e0b" stroke-width="5" stroke-dasharray="8 4" opacity="0.8" />
+    <!-- Structural Foundation Pins -->
+    <circle cx="20" cy="110" r="7" fill="#fbbf24" />
+    <circle cx="120" cy="110" r="7" fill="#fbbf24" />
+    <!-- Center Apex Pin -->
+    <circle cx="70" cy="55" r="5" fill="#ffffff" />
+  </g>
+
+  <!-- STRUCTIVA Brand Wordmark -->
+  <text x="160" y="85" font-family="'Manrope', 'DM Sans', 'Inter', -apple-system, sans-serif" font-size="58" font-weight="900" letter-spacing="3" fill="#ffffff">
+    STRUCTIVA<tspan fill="#f59e0b">.</tspan>
+  </text>
+
+  <!-- Sub-heading Tagline -->
+  <text x="163" y="112" font-family="'DM Sans', 'Inter', -apple-system, sans-serif" font-size="12" font-weight="700" letter-spacing="4" fill="#94a3b8">
+    CLEAR-SPAN ARCH STEEL STRUCTURES
+  </text>
+</svg>

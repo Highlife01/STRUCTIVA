@@ -60,6 +60,18 @@ export default function Navbar() {
     l.code.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setLangModalOpen(false);
+      }
+    };
+    if (langModalOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [langModalOpen]);
+
   return (
     <>
       {/* Top Banner with Mediterranean Port & Heritage */}
@@ -82,16 +94,16 @@ export default function Navbar() {
 
       {/* Main Sticky Navbar */}
       <header className="sticky top-0 z-40 bg-[#0f1d2a]/95 backdrop-blur-md border-b border-white/10 text-white shadow-xl">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-8 py-3.5">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-3 sm:px-6 lg:px-8 py-3">
           {/* Brand Logo */}
-          <Link href={`${langPrefix}`} className="group flex items-center gap-3 text-left">
-            <div className="relative flex h-10 w-10 items-center justify-center rounded bg-gradient-to-br from-amber-500 to-amber-600 text-base font-black text-[#0f1d2a] shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform">
+          <Link href={`${langPrefix}`} className="group flex items-center gap-2 sm:gap-3 text-left shrink-0">
+            <div className="relative flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded bg-gradient-to-br from-amber-500 to-amber-600 text-sm sm:text-base font-black text-[#0f1d2a] shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform">
               S
               <span className="absolute -bottom-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-emerald-500 text-[8px] text-white">✓</span>
             </div>
             <div>
-              <span className="block text-lg font-black tracking-widest text-white">STRUCTIVA</span>
-              <span className="block text-[9px] uppercase tracking-[0.25em] text-slate-400 font-medium">STRUCTIVA GLOBAL</span>
+              <span className="block text-base sm:text-lg font-black tracking-widest text-white leading-tight">STRUCTIVA</span>
+              <span className="block text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-slate-400 font-medium">STRUCTIVA GLOBAL</span>
             </div>
           </Link>
 
@@ -114,14 +126,15 @@ export default function Navbar() {
           </nav>
 
           {/* Right Action Bar */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             {/* Multilingual Global Search Button */}
             <button
               onClick={() => setSearchModalOpen(true)}
-              className="flex items-center gap-2 rounded-lg bg-white/5 border border-white/15 px-2.5 sm:px-3 py-2 text-xs font-semibold hover:bg-white/10 hover:border-amber-400/50 transition-all text-slate-200 group"
+              className="flex items-center gap-1.5 rounded-lg bg-white/5 border border-white/15 px-2.5 py-2 text-xs font-semibold hover:bg-white/10 hover:border-amber-400/50 transition-all text-slate-200 group"
               title="Search / Arama (Ctrl + K)"
+              aria-label="Search"
             >
-              <Search size={14} className="text-amber-400 group-hover:scale-110 transition-transform" />
+              <Search size={15} className="text-amber-400 group-hover:scale-110 transition-transform" />
               <span className="hidden md:inline text-slate-300">
                 {language === "tr" ? "Ara" : language === "de" ? "Suche" : "Search"}
               </span>
@@ -133,18 +146,19 @@ export default function Navbar() {
             {/* 30-Language Selector Button */}
             <button
               onClick={() => setLangModalOpen(true)}
-              className="flex items-center gap-2 rounded-lg bg-white/5 border border-white/15 px-3 py-2 text-xs font-semibold hover:bg-white/10 transition-all text-slate-200"
+              className="flex items-center gap-1.5 rounded-lg bg-white/5 border border-white/15 px-2.5 py-2 text-xs font-semibold hover:bg-white/10 transition-all text-slate-200"
               title="Select Language (30 Languages)"
+              aria-label="Select Language"
             >
-              <span className="text-base leading-none">{currentLangObj.flag}</span>
+              <span className="text-sm leading-none">{currentLangObj.flag}</span>
               <span className="hidden sm:inline font-mono text-[11px] uppercase">{currentLangObj.code}</span>
-              <Globe2 size={14} className="text-slate-400" />
+              <Globe2 size={13} className="text-slate-400" />
             </button>
 
-            {/* Quick RFQ CTA */}
+            {/* Quick RFQ CTA (Hidden on mobile < sm, placed in mobile drawer for zero horizontal overflow) */}
             <Link
               href={`${langPrefix}/request-a-quote`}
-              className="flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-[#0f1d2a] font-black px-3.5 sm:px-4 py-2 text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 active:scale-[0.98] transition-all"
+              className="hidden sm:flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-[#0f1d2a] font-black px-3.5 sm:px-4 py-2 text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 active:scale-[0.98] transition-all"
             >
               <span>{t("cta_quote")}</span>
               <ArrowUpRight size={14} />
@@ -153,10 +167,10 @@ export default function Navbar() {
             {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-2 text-slate-300 hover:text-white rounded-lg bg-white/5"
-              aria-label="Toggle Navigation"
+              className="xl:hidden p-2 text-slate-300 hover:text-white rounded-lg bg-white/5 border border-white/10"
+              aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
@@ -165,6 +179,15 @@ export default function Navbar() {
         {mobileMenuOpen && (
           <div className="xl:hidden border-t border-white/10 bg-[#0d1822] px-6 py-6 animate-in slide-in-from-top-2 duration-200">
             <div className="grid gap-3">
+              {/* Prominent Mobile Quote CTA for < sm */}
+              <Link
+                href={`${langPrefix}/request-a-quote`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex sm:hidden items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-[#0f1d2a] font-black py-3 text-xs uppercase tracking-wider shadow-lg shadow-amber-500/25 mb-2 active:scale-[0.98] transition-all"
+              >
+                <span>{t("cta_quote")}</span>
+                <ArrowUpRight size={15} />
+              </Link>
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -192,7 +215,15 @@ export default function Navbar() {
 
       {/* 30-Language Selection Modal */}
       {langModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setLangModalOpen(false);
+          }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="lang-modal-title"
+        >
           <div className="w-full max-w-2xl rounded-3xl bg-[#0f1d2a] border border-white/15 p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 duration-150">
             <div className="flex items-center justify-between pb-4 border-b border-white/10">
               <div className="flex items-center gap-3">
@@ -200,13 +231,14 @@ export default function Navbar() {
                   <Globe2 size={22} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white">Select Language / Dil Seçiniz</h3>
-                  <p className="text-xs text-slate-400">30 Global Market Languages with bidirectional hreflang mapping</p>
+                  <h3 id="lang-modal-title" className="text-lg font-bold text-white">Select Language / Dil Seçiniz</h3>
+                  <p className="text-xs text-slate-400">30 Dilde Küresel İhracat &amp; Doğrudan Teknik Destek</p>
                 </div>
               </div>
               <button
                 onClick={() => setLangModalOpen(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+                aria-label="Kapat / Close"
               >
                 <X size={20} />
               </button>

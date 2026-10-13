@@ -5,6 +5,7 @@ import { STEEL_MODELS } from "../data/modelsData";
 import { useLanguage } from "../contexts/LanguageContext";
 import { getPageSEO } from "../data/seoData";
 import SEOHead from "../components/SEOHead";
+import { trackLeadSubmission } from "../lib/analytics";
 
 export default function ContactPage({ lang = "tr" }: { lang?: string }) {
   const { t } = useLanguage();
@@ -18,10 +19,12 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setSubmitError(null);
 
     try {
       await saveInquiry({
@@ -35,9 +38,16 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
         message,
       });
 
+      trackLeadSubmission({
+        source: "contact",
+        model,
+        country,
+      });
+
       setSubmitted(true);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      setSubmitError(err.message || "Mesajınız iletilemedi. Lütfen bağlantınızı kontrol edip tekrar deneyiniz.");
     } finally {
       setLoading(false);
     }
@@ -155,11 +165,14 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                      <label htmlFor="contact-name" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
                         {t("config_name")} *
                       </label>
                       <input
+                        id="contact-name"
+                        name="name"
                         type="text"
+                        autoComplete="name"
                         required
                         placeholder={t("config_name")}
                         value={name}
@@ -168,11 +181,14 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                      <label htmlFor="contact-email" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
                         {t("config_email")} *
                       </label>
                       <input
+                        id="contact-email"
+                        name="email"
                         type="email"
+                        autoComplete="email"
                         required
                         placeholder={t("config_email")}
                         value={email}
@@ -184,11 +200,14 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                      <label htmlFor="contact-phone" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
                         {t("config_phone")}
                       </label>
                       <input
+                        id="contact-phone"
+                        name="phone"
                         type="tel"
+                        autoComplete="tel"
                         placeholder="+XX XXX XXX XX XX"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
@@ -196,11 +215,14 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                      <label htmlFor="contact-company" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
                         {t("config_company")}
                       </label>
                       <input
+                        id="contact-company"
+                        name="company"
                         type="text"
+                        autoComplete="organization"
                         placeholder={t("config_company")}
                         value={company}
                         onChange={(e) => setCompany(e.target.value)}
@@ -211,11 +233,14 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                      <label htmlFor="contact-country" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
                         {t("config_country")}
                       </label>
                       <input
+                        id="contact-country"
+                        name="country"
                         type="text"
+                        autoComplete="country-name"
                         placeholder={t("config_country")}
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
@@ -223,10 +248,12 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                      <label htmlFor="contact-model" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
                         {t("nav_models")}
                       </label>
                       <select
+                        id="contact-model"
+                        name="model"
                         value={model}
                         onChange={(e) => setModel(e.target.value)}
                         className="w-full rounded-xl bg-[#09131c] border border-white/15 px-4 py-3 text-xs text-white outline-none focus:border-amber-400 cursor-pointer"
@@ -241,10 +268,12 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+                    <label htmlFor="contact-message" className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
                       {t("config_notes")} *
                     </label>
                     <textarea
+                      id="contact-message"
+                      name="message"
                       rows={4}
                       required
                       placeholder={t("config_notes")}
@@ -253,6 +282,30 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
                       className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400 resize-none"
                     />
                   </div>
+
+                  {submitError && (
+                    <div className="p-4 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs space-y-2">
+                      <p className="font-semibold">{submitError}</p>
+                      <div className="flex flex-wrap gap-2 pt-1">
+                        <a
+                          href={`https://wa.me/905320550945?text=${encodeURIComponent(
+                            `Merhaba STRUCTIVA, iletişim formundan mesaj gönderirken bağlantı hatası aldım. İsmim: ${name} (${phone || email})`
+                          )}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-[11px] hover:bg-emerald-500"
+                        >
+                          💬 WhatsApp ile İletin
+                        </a>
+                        <a
+                          href="tel:+905320550945"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 text-white font-bold text-[11px] hover:bg-white/20"
+                        >
+                          📞 +90 532 055 09 45
+                        </a>
+                      </div>
+                    </div>
+                  )}
 
                   <button
                     type="submit"

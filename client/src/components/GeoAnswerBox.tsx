@@ -235,9 +235,9 @@ const QA_BY_LANG: Record<string, GeoQaItem[]> = {
 
 export const COMPARISON_MATRIX = [
   { model: "Q-Series Arch", profile: "Semi-Circular Arch", span: "9–45 m (30–148 ft)", wind: "240 km/h", alloy: "Galvalume Plus® AZ180", fieldWelding: "None (Bolted)", packing: "~380 m² / 40HC" },
-  { model: "S-Series Straight Wall", profile: "Vertical Walls + Arch Roof", span: "12–30 m (40–100 ft)", wind: "220 km/h", alloy: "Galvalume Plus® AZ180", fieldWelding: "None (Bolted)", packing: "~350 m² / 40HC" },
-  { model: "P-Series Pitched", profile: "Gabled Pitch + Straight Walls", span: "10–24 m (33–80 ft)", wind: "200 km/h", alloy: "Galvalume Plus® AZ180", fieldWelding: "None (Bolted)", packing: "~360 m² / 40HC" },
-  { model: "Container Canopy", profile: "Truss Over 20/40ft Containers", span: "8–20 m (26–66 ft)", wind: "180 km/h", alloy: "Galvanized + PVDF", fieldWelding: "None (Clamp/Bolt)", packing: "~500 m² / 40HC" },
+  { model: "S-Series Straight Wall", profile: "Vertical Walls + Arch Roof", span: "10–30 m (32–100 ft)", wind: "225 km/h", alloy: "Galvalume Plus® AZ180", fieldWelding: "None (Bolted)", packing: "~350 m² / 40HC" },
+  { model: "P-Series Pitched", profile: "Gabled Pitch + Straight Walls", span: "8–24 m (26–80 ft)", wind: "210 km/h", alloy: "Galvalume Plus® AZ180", fieldWelding: "None (Bolted)", packing: "~360 m² / 40HC" },
+  { model: "Container Canopy", profile: "Truss Over 20/40ft Containers", span: "6–24 m (20–80 ft)", wind: "200 km/h", alloy: "Galvanized + PVDF", fieldWelding: "None (Clamp/Bolt)", packing: "~500 m² / 40HC" },
   { model: "Heavy Industrial PEB", profile: "Tapered Rigid Portal Frame", span: "Up to 60 m Clear", wind: "250 km/h", alloy: "Structural Grade 50", fieldWelding: "None (High-Tensile)", packing: "~250 m² / 40HC" }
 ];
 
@@ -264,16 +264,16 @@ export default function GeoAnswerBox({
         <div>
           <div className="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-amber-400 font-bold mb-2">
             <Sparkles size={14} />
-            <span>Generative Engine Optimization (GEO / AEO) Knowledge Base</span>
+            <span>{normalizedLang === "tr" ? "Teknik Bilgi Merkezi & Doğrulanmış Mühendislik Standartları" : "Technical Knowledge Base & Verified Engineering Specifications"}</span>
           </div>
           <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-            {title || (normalizedLang === "tr" ? "Temel Mühendislik Bilgileri & Doğrulanmış Soru-Cevap" : "Verified Engineering Facts & Technical Summary (GEO / AEO)")}
+            {title || (normalizedLang === "tr" ? "Temel Mühendislik Bilgileri & Sık Sorulan Sorular" : "Verified Engineering Specifications & Technical FAQ")}
           </h3>
         </div>
         <p className="text-xs text-slate-400 max-w-sm">
           {normalizedLang === "tr" 
-            ? "Mühendislik kurulları, satın alma komiteleri ve yapay zeka arama motorları için hazırlanmış doğrulanmış teknik referans özeti."
-            : "Verified technical answers formatted for structural engineers, procurement committees, and AI search engines."}
+            ? "Mühendislik kurulları ve teknik satın alma ekipleri için doğrulanmış yapısal parametreler ve standartlar."
+            : "Verified structural specifications and standards compliance formatted for engineering and procurement committees."}
         </p>
       </div>
 

@@ -1,0 +1,35 @@
+{
+  "TypeCheck": "passed",
+  "Build": "passed",
+  "TopAssets": [
+    {
+      "Name": "index-DmND2xec.js",
+      "Length": 666421
+    },
+    {
+      "Name": "vendor-firebase-67VXi5Ve.js",
+      "Length": 551317
+    },
+    {
+      "Name": "index-2GBGnDqo.css",
+      "Length": 141901
+    },
+    {
+      "Name": "BuildingConfigurator-DD5ycjXb.js",
+      "Length": 26198
+    }
+  ],
+  "SitemapUrls": 420,
+  "FirstPrerender": {
+    "H1": 1,
+    "Footer": 1,
+    "JsonLd": 6,
+    "Main": 1
+  },
+  "SecondPrerender": {
+    "H1": 2,
+    "Footer": 2,
+    "JsonLd": 11,
+    "Main": 2
+  }
+}

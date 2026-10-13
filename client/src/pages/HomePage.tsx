@@ -55,6 +55,17 @@ export default function HomePage({ lang = "tr" }: { lang?: string }) {
   const [activePhoto, setActivePhoto] = useState<string | null>(null);
   const seo = getPageSEO("home", lang);
 
+  useEffect(() => {
+    if (!activePhoto) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActivePhoto(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activePhoto]);
+
   return (
     <div className="bg-[#09131c] text-white">
       <SEOHead
@@ -68,14 +79,22 @@ export default function HomePage({ lang = "tr" }: { lang?: string }) {
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 animate-in fade-in duration-200"
           onClick={() => setActivePhoto(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Bina ve Proje Fotoğraf Önizleme"
         >
           <button
+            type="button"
             onClick={() => setActivePhoto(null)}
-            className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white z-50"
+            aria-label="Kapat"
+            className="absolute top-6 right-6 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white z-50 transition-colors"
           >
             <X size={24} />
           </button>
-          <div className="max-w-6xl max-h-[90vh] rounded-2xl overflow-hidden border border-white/20 shadow-2xl">
+          <div
+            className="max-w-6xl max-h-[90vh] rounded-2xl overflow-hidden border border-white/20 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
             <img src={activePhoto} alt="STRUCTIVA Steel Structure HD Preview" className="w-full h-auto max-h-[85vh] object-contain" />
           </div>
         </div>
@@ -149,9 +168,9 @@ export default function HomePage({ lang = "tr" }: { lang?: string }) {
               <p className="text-[10px] text-slate-400 mt-1">{t("stat_span_desc")}</p>
             </div>
             <div>
-              <strong className="block text-2xl sm:text-3xl font-mono font-black text-amber-400">40–50 Yıl</strong>
+              <strong className="block text-2xl sm:text-3xl font-mono font-black text-amber-400">25 Yıl</strong>
               <span className="text-xs text-slate-300 uppercase tracking-wider">{t("stat_warranty")}</span>
-              <p className="text-[10px] text-slate-400 mt-1">{t("stat_warranty_desc")}</p>
+              <p className="text-[10px] text-slate-400 mt-1">25 Yıl Fabrika Garantisi · 50 Yıl Tasarım Ömrü</p>
             </div>
             <div>
               <strong className="block text-2xl sm:text-3xl font-mono font-black text-white">50+ Ülke</strong>

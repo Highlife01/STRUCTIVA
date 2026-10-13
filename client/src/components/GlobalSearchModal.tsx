@@ -335,7 +335,13 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150">
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site İçi Arama"
+    >
       <div
         className="w-full max-w-2xl rounded-3xl bg-[#0e1b27] border border-white/20 shadow-2xl overflow-hidden flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
@@ -360,18 +366,23 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                 : "Search STRUCTIVA (hangar, clear span, wind load, agriculture, EN 1090)..."
             }
             className="flex-1 bg-transparent text-white text-base placeholder:text-slate-500 focus:outline-none"
+            aria-label="Arama Terimi"
           />
           {query && (
             <button
+              type="button"
               onClick={() => setQuery("")}
+              aria-label="Arama kutusunu temizle"
               className="p-1 rounded-full text-slate-400 hover:text-white"
             >
               <X size={16} />
             </button>
           )}
           <button
+            type="button"
             onClick={onClose}
-            className="px-2 py-1 rounded bg-white/10 text-slate-400 hover:text-white text-xs font-mono font-bold"
+            aria-label="Aramayı kapat (ESC)"
+            className="px-2 py-1 rounded bg-white/10 text-slate-400 hover:text-white text-xs font-mono font-bold transition-colors"
           >
             ESC
           </button>

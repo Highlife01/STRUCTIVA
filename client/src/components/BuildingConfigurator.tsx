@@ -4,13 +4,50 @@ import { STEEL_MODELS } from "../data/modelsData";
 import { saveInquiry } from "../services/messageService";
 import { useLanguage } from "../contexts/LanguageContext";
 import SpecSheetModal from "./SpecSheetModal";
+import { trackLeadSubmission } from "../lib/analytics";
 
-export default function BuildingConfigurator() {
+interface ModelLimit {
+  minSpan: number;
+  maxSpan: number;
+  defaultSpan: number;
+  minHeight: number;
+  maxHeight: number;
+  defaultHeight: number;
+  packingM2: number;
+  volumeCoeff: number;
+}
+
+const MODEL_LIMITS: Record<string, ModelLimit> = {
+  "q-series": { minSpan: 9, maxSpan: 45, defaultSpan: 24, minHeight: 4.5, maxHeight: 18, defaultHeight: 8, packingM2: 380, volumeCoeff: 0.72 },
+  "s-series": { minSpan: 10, maxSpan: 30, defaultSpan: 18, minHeight: 5, maxHeight: 12, defaultHeight: 7, packingM2: 350, volumeCoeff: 0.85 },
+  "p-series": { minSpan: 8, maxSpan: 24, defaultSpan: 15, minHeight: 4.5, maxHeight: 9, defaultHeight: 6, packingM2: 360, volumeCoeff: 0.80 },
+  "container-canopy": { minSpan: 6, maxSpan: 24, defaultSpan: 12, minHeight: 4, maxHeight: 9, defaultHeight: 5.5, packingM2: 500, volumeCoeff: 0.75 },
+  "heavy-peb": { minSpan: 15, maxSpan: 60, defaultSpan: 30, minHeight: 6, maxHeight: 20, defaultHeight: 9, packingM2: 250, volumeCoeff: 0.90 },
+};
+
+export default function BuildingConfigurator({ initialModelId }: { initialModelId?: string }) {
   const { t } = useLanguage();
-  const [selectedModelId, setSelectedModelId] = useState("q-series");
-  const [span, setSpan] = useState(24); // meters
+
+  const getInitialModel = () => {
+    if (initialModelId && STEEL_MODELS.some((m) => m.id === initialModelId)) {
+      return initialModelId;
+    }
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const urlModel = params.get("model");
+      if (urlModel && STEEL_MODELS.some((m) => m.id === urlModel)) {
+        return urlModel;
+      }
+    }
+    return "q-series";
+  };
+
+  const [selectedModelId, setSelectedModelId] = useState(getInitialModel);
+  const currentLimit = MODEL_LIMITS[selectedModelId] || MODEL_LIMITS["q-series"];
+
+  const [span, setSpan] = useState(currentLimit.defaultSpan); // meters
   const [length, setLength] = useState(48); // meters
-  const [height, setHeight] = useState(8); // meters
+  const [height, setHeight] = useState(currentLimit.defaultHeight); // meters
   const [unitSystem, setUnitSystem] = useState<"metric" | "imperial">("metric");
   const [showSpecModal, setShowSpecModal] = useState(false);
 
@@ -29,15 +66,23 @@ export default function BuildingConfigurator() {
   const [notes, setNotes] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const selectedModel = STEEL_MODELS.find((m) => m.id === selectedModelId) || STEEL_MODELS[0];
 
-  // Calculated metrics
+  const handleSelectModel = (modelId: string) => {
+    setSelectedModelId(modelId);
+    const limit = MODEL_LIMITS[modelId] || MODEL_LIMITS["q-series"];
+    // Clamp or adjust span and height to valid model limits
+    setSpan((prev) => Math.min(Math.max(prev, limit.minSpan), limit.maxSpan));
+    setHeight((prev) => Math.min(Math.max(prev, limit.minHeight), limit.maxHeight));
+  };
+
+  // Calculated metrics tailored to each model's structural geometry
   const areaM2 = Math.round(span * length);
   const areaSqFt = Math.round(areaM2 * 10.764);
-  const volumeM3 = Math.round(areaM2 * (height * 0.72));
-  // Arch steel flat-packs compactly: ~350-400 m2 of building per 40ft HC container
-  const containersNeeded = Math.max(1, Math.ceil(areaM2 / 380));
+  const volumeM3 = Math.round(areaM2 * (height * currentLimit.volumeCoeff));
+  const containersNeeded = Math.max(1, Math.ceil(areaM2 / currentLimit.packingM2));
 
   const toggleAccessory = (acc: string) => {
     setAccessories((prev) =>
@@ -48,6 +93,7 @@ export default function BuildingConfigurator() {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setSubmitError(null);
 
     try {
       await saveInquiry({
@@ -66,9 +112,17 @@ export default function BuildingConfigurator() {
         message: notes || `Technical building brief: ${selectedModel.name}, ${span}m width x ${length}m length (${areaM2} m²).`,
       });
 
+      trackLeadSubmission({
+        source: "configurator",
+        model: selectedModel.id,
+        country,
+        areaM2,
+      });
+
       setSubmitted(true);
-    } catch (err) {
-      console.error(err);
+    } catch (err: any) {
+      console.error("Configurator Submit Error:", err);
+      setSubmitError(err.message || "Talebiniz kaydedilemedi. Lütfen bağlantınızı kontrol ediniz.");
     } finally {
       setLoading(false);
     }
@@ -104,7 +158,7 @@ export default function BuildingConfigurator() {
                 <button
                   key={model.id}
                   type="button"
-                  onClick={() => setSelectedModelId(model.id)}
+                  onClick={() => handleSelectModel(model.id)}
                   className={`p-3 rounded-xl border text-left transition-all ${
                     selectedModelId === model.id
                       ? "bg-amber-500/20 border-amber-400 text-white shadow-md shadow-amber-500/10"
@@ -152,18 +206,25 @@ export default function BuildingConfigurator() {
               <div className="flex justify-between text-xs font-semibold mb-2">
                 <span className="text-slate-300">{t("config_span")}:</span>
                 <span className="text-amber-400 font-mono font-bold text-sm">
-                  {span} m <span className="text-slate-400 text-xs font-normal">({Math.round(span * 3.28)} ft)</span>
+                  {unitSystem === "imperial"
+                    ? `${Math.round(span * 3.28084)} ft (${span} m)`
+                    : `${span} m (${Math.round(span * 3.28084)} ft)`}
                 </span>
               </div>
               <input
                 type="range"
-                min="9"
-                max="45"
+                min={currentLimit.minSpan}
+                max={currentLimit.maxSpan}
                 step="1"
                 value={span}
                 onChange={(e) => setSpan(Number(e.target.value))}
                 className="w-full accent-amber-500 cursor-pointer h-2 bg-slate-700 rounded-lg"
               />
+              <div className="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
+                <span>Min: {currentLimit.minSpan}m</span>
+                <span>Model Limiti: {currentLimit.minSpan}m – {currentLimit.maxSpan}m</span>
+                <span>Max: {currentLimit.maxSpan}m</span>
+              </div>
             </div>
 
             {/* Length Slider */}
@@ -171,7 +232,9 @@ export default function BuildingConfigurator() {
               <div className="flex justify-between text-xs font-semibold mb-2">
                 <span className="text-slate-300">{t("config_length")}:</span>
                 <span className="text-amber-400 font-mono font-bold text-sm">
-                  {length} m <span className="text-slate-400 text-xs font-normal">({Math.round(length * 3.28)} ft)</span>
+                  {unitSystem === "imperial"
+                    ? `${Math.round(length * 3.28084)} ft (${length} m)`
+                    : `${length} m (${Math.round(length * 3.28084)} ft)`}
                 </span>
               </div>
               <input
@@ -190,18 +253,25 @@ export default function BuildingConfigurator() {
               <div className="flex justify-between text-xs font-semibold mb-2">
                 <span className="text-slate-300">{t("config_height")}:</span>
                 <span className="text-amber-400 font-mono font-bold text-sm">
-                  {height} m <span className="text-slate-400 text-xs font-normal">({Math.round(height * 3.28)} ft)</span>
+                  {unitSystem === "imperial"
+                    ? `${Math.round(height * 3.28084)} ft (${height} m)`
+                    : `${height} m (${Math.round(height * 3.28084)} ft)`}
                 </span>
               </div>
               <input
                 type="range"
-                min="4"
-                max="14"
+                min={currentLimit.minHeight}
+                max={currentLimit.maxHeight}
                 step="0.5"
                 value={height}
                 onChange={(e) => setHeight(Number(e.target.value))}
                 className="w-full accent-amber-500 cursor-pointer h-2 bg-slate-700 rounded-lg"
               />
+              <div className="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
+                <span>Min: {currentLimit.minHeight}m</span>
+                <span>Model Tepe Yüksekliği</span>
+                <span>Max: {currentLimit.maxHeight}m</span>
+              </div>
             </div>
           </div>
 
@@ -409,48 +479,105 @@ export default function BuildingConfigurator() {
             ) : (
               <form onSubmit={handleFormSubmit} className="space-y-3">
                 <div className="grid grid-cols-2 gap-2">
-                  <input
-                    type="text"
-                    required
-                    placeholder={`${t("config_name")} *`}
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
-                  />
-                  <input
-                    type="email"
-                    required
-                    placeholder={`${t("config_email")} *`}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
-                  />
+                  <div>
+                    <label htmlFor="cfg-name" className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                      {t("config_name")} *
+                    </label>
+                    <input
+                      id="cfg-name"
+                      name="name"
+                      type="text"
+                      autoComplete="name"
+                      required
+                      placeholder={`${t("config_name")} *`}
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="w-full rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="cfg-email" className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                      {t("config_email")} *
+                    </label>
+                    <input
+                      id="cfg-email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      placeholder={`${t("config_email")} *`}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
+                    />
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
-                  <input
-                    type="tel"
-                    placeholder={t("config_phone")}
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
-                  />
-                  <input
-                    type="text"
-                    placeholder={`${t("config_company")} / ${t("config_country")}`}
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    className="rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
+                  <div>
+                    <label htmlFor="cfg-phone" className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                      {t("config_phone")}
+                    </label>
+                    <input
+                      id="cfg-phone"
+                      name="phone"
+                      type="tel"
+                      autoComplete="tel"
+                      placeholder={t("config_phone")}
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      className="w-full rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="cfg-company" className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                      {t("config_company")} / {t("config_country")}
+                    </label>
+                    <input
+                      id="cfg-company"
+                      name="company"
+                      type="text"
+                      autoComplete="organization"
+                      placeholder={`${t("config_company")} / ${t("config_country")}`}
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)}
+                      className="w-full rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="cfg-notes" className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                    {t("config_notes")}
+                  </label>
+                  <textarea
+                    id="cfg-notes"
+                    name="notes"
+                    rows={2}
+                    placeholder={t("config_notes")}
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    className="w-full rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400 resize-none"
                   />
                 </div>
 
-                <textarea
-                  rows={2}
-                  placeholder={t("config_notes")}
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  className="w-full rounded-lg bg-black/30 border border-white/15 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400 resize-none"
-                />
+                {submitError && (
+                  <div className="p-3 rounded-lg bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs space-y-2">
+                    <p className="font-semibold">{submitError}</p>
+                    <div className="flex flex-wrap gap-2">
+                      <a
+                        href={`https://wa.me/905320550945?text=${encodeURIComponent(
+                          `Merhaba STRUCTIVA, ${selectedModel.name} (${span}m x ${length}m) konfigürasyonu için teklif formu gönderirken bağlantı hatası aldım. İsmim: ${name || "Müşteri"} (${phone || email})`
+                        )}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-600 text-white font-bold text-[11px] hover:bg-emerald-500"
+                      >
+                        💬 WhatsApp ile İletin
+                      </a>
+                    </div>
+                  </div>
+                )}
 
                 <button
                   type="submit"

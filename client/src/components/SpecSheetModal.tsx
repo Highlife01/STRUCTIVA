@@ -1,6 +1,7 @@
 import React from "react";
 import { X, Printer, Send, ShieldCheck, Award, FileCheck, CheckCircle2 } from "lucide-react";
 import { COMPANY_INFO } from "../config/siteConfig";
+import { trackSpecSheetAction } from "../lib/analytics";
 
 export interface SpecSheetData {
   modelName: string;
@@ -23,6 +24,17 @@ interface SpecSheetModalProps {
 }
 
 export default function SpecSheetModal({ isOpen, onClose, data }: SpecSheetModalProps) {
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const specRefNumber = `STR-${Date.now().toString(36).toUpperCase().slice(-6)}`;
@@ -33,6 +45,7 @@ export default function SpecSheetModal({ isOpen, onClose, data }: SpecSheetModal
   });
 
   const handlePrint = () => {
+    trackSpecSheetAction("print", data.modelName, data.areaM2);
     window.print();
   };
 
@@ -49,19 +62,30 @@ export default function SpecSheetModal({ isOpen, onClose, data }: SpecSheetModal
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 overflow-y-auto">
-      <div className="relative w-full max-w-4xl bg-[#09131c] text-white border border-white/20 rounded-2xl shadow-2xl overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 overflow-y-auto"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Ön Konfigürasyon Özeti & Teknik Talep Taslağı"
+    >
+      <div
+        className="relative w-full max-w-4xl bg-[#09131c] text-white border border-white/20 rounded-2xl shadow-2xl overflow-hidden my-8 animate-in fade-in zoom-in-95 duration-200"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Modal Top Control Bar (Hidden on Print) */}
         <div className="no-print flex items-center justify-between px-6 py-4 bg-[#0f1d2a] border-b border-white/10">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
-              Resmi Mühendislik Şartnamesi & Teklif Özeti
+              Ön Konfigürasyon Özeti & Teknik Talep Taslağı
             </span>
           </div>
           <div className="flex items-center gap-3">
             <button
+              type="button"
               onClick={handlePrint}
+              aria-label="PDF olarak kaydet veya yazdır"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#0f1d2a] text-xs font-bold transition-all shadow-md"
             >
               <Printer size={14} />
@@ -71,13 +95,17 @@ export default function SpecSheetModal({ isOpen, onClose, data }: SpecSheetModal
               href={`https://wa.me/905320550945?text=${whatsappMessage}`}
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackSpecSheetAction("whatsapp", data.modelName, data.areaM2)}
+              aria-label="WhatsApp ile mühendislik ekibine gönder"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-md"
             >
               <Send size={14} />
               <span>WhatsApp ile Gönder</span>
             </a>
             <button
+              type="button"
               onClick={onClose}
+              aria-label="Kapat"
               className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-colors"
             >
               <X size={18} />
@@ -107,7 +135,7 @@ export default function SpecSheetModal({ isOpen, onClose, data }: SpecSheetModal
                   REF: {specRefNumber}
                 </div>
                 <div className="text-[11px] text-slate-500 mt-1">Tarih: {currentDate}</div>
-                <div className="text-[10px] text-slate-500">Revizyon: 01 (Dijital Ön Şartname)</div>
+                <div className="text-[10px] text-slate-500">Revizyon: 01 (Ön Şartname - Mühendislik Onayı Öncesi)</div>
               </div>
             </div>
           </div>
@@ -120,7 +148,7 @@ export default function SpecSheetModal({ isOpen, onClose, data }: SpecSheetModal
             </div>
             <div>
               <span className="block text-[10px] text-slate-500 font-bold uppercase">Kaplama</span>
-              <strong className="text-slate-800">Galvalume Plus® (25 Yıl)</strong>
+              <strong className="text-slate-800">Galvalume Plus® (25 Yıl Garanti)</strong>
             </div>
             <div>
               <span className="block text-[10px] text-slate-500 font-bold uppercase">Birleşim</span>

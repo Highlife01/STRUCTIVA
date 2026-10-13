@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MessageSquare, Phone, X } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
+import { trackWhatsAppClick } from "../lib/analytics";
 
 export default function WhatsAppButton() {
   const { t } = useLanguage();
@@ -22,6 +23,7 @@ export default function WhatsAppButton() {
             onClick={() => setTooltipVisible(false)}
             className="p-1 text-slate-400 hover:text-white rounded-full hover:bg-white/10 ml-1"
             title="Kapat"
+            aria-label="Kapat"
           >
             <X size={13} />
           </button>
@@ -34,6 +36,7 @@ export default function WhatsAppButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="WhatsApp Destek Hattı (0532 055 09 45)"
+        onClick={() => trackWhatsAppClick("floating_button")}
         className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-[#25D366]/40 hover:scale-110 active:scale-95 transition-all duration-300"
       >
         {/* Pulsing halo */}
