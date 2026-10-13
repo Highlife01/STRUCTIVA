@@ -923,24 +923,157 @@ const PAGES: PageConfig[] = [
       tr: `
         <div class="prose max-w-4xl mx-auto py-8">
           <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 mb-8 text-center">
-            <h2 class="text-xl font-bold text-amber-400 mb-2">İnteraktif 3D Tasarım Aracı</h2>
-            <p class="text-sm text-slate-300">Sayfa tarayıcınızda açıldığında WebGL destekli gerçek zamanlı 3D motoru devreye girer. Çelik kemer panellerini 360 derece döndürebilir ve ölçü değişikliklerini canlı izleyebilirsiniz.</p>
+            <h2 class="text-xl font-bold text-amber-400 mb-2">İnteraktif 3D Parametrik Çelik Yapı Konfigüratörü</h2>
+            <p class="text-sm text-slate-300">Açıklık (9m–45m), uzunluk ve tepe yüksekliği parametrelerini gerçek zamanlı olarak 3D simülasyonda test edin. Statik rüzgar (240 km/h) ve kar yükü hesaplarını anında görüntüleyin.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">1. Açıklık &amp; Geometri</h3>
+              <p class="text-xs text-slate-300">Q, S veya P Serisi kemer modellerinde 9 metreden 45 metreye kadar iç kolonsuz net açıklık seçimi.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">2. Lojistik &amp; Konteyner</h3>
+              <p class="text-xs text-slate-300">Her yapı için gerekli 40HC flat-pack konteyner adedi ve Mersin Limanı FOB/CIF navlun hacmi otomatik hesaplanır.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">3. Teknik Şartname (PDF)</h3>
+              <p class="text-xs text-slate-300">EN 1090-2 EXC4, Eurocode 3 ve AISC 360-16 standartlarında kurumsal PDF şartnamesi anında üretilir.</p>
+            </div>
           </div>
         </div>
       `,
       en: `
         <div class="prose max-w-4xl mx-auto py-8">
           <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 mb-8 text-center">
-            <h2 class="text-xl font-bold text-amber-400 mb-2">Interactive 3D Engineering Tool</h2>
-            <p class="text-sm text-slate-300">When loaded in a browser, the WebGL 3D engine renders your steel structure in real-time with live dimension sliders and instant PDF spec export.</p>
+            <h2 class="text-xl font-bold text-amber-400 mb-2">Interactive 3D Parametric Steel Building Configurator</h2>
+            <p class="text-sm text-slate-300">Configure clear-span widths from 9m to 45m with interactive 3D simulations. Real-time engineering static resistance for 240 km/h wind loads and international snow codes.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">1. Span &amp; Geometry</h3>
+              <p class="text-xs text-slate-300">Select Q-Series, S-Series, or P-Series profiles with 100% column-free interior usable volume.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">2. 40HC Ocean Freight</h3>
+              <p class="text-xs text-slate-300">Instant container packaging breakdown for flat-pack dispatch from Mersin International Deep-Water Port.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">3. Engineering Spec Sheet</h3>
+              <p class="text-xs text-slate-300">Download instant branded engineering PDF spec sheets compliant with EN 1090-2 EXC4 and Eurocode 3.</p>
+            </div>
           </div>
         </div>
       `,
-      de: `<div class="py-8"><p class="text-slate-300">Interaktive 3D-Konfiguration von Industriehallen mit sofortigem Datenblatt-Export.</p></div>`,
-      fr: `<div class="py-8"><p class="text-slate-300">Outil de configuration 3D interactif avec export immédiat de fiche technique PDF.</p></div>`,
-      es: `<div class="py-8"><p class="text-slate-300">Herramienta 3D interactiva para diseñar naves industriales y exportar especificaciones.</p></div>`,
-      ar: `<div class="py-8"><p class="text-slate-300">أداة تصميم تفاعلية ثلاثية الأبعاد للهياكل الفولاذية مع إمكانية تصدير المواصفات بصيغة PDF.</p></div>`,
-      ru: `<div class="py-8"><p class="text-slate-300">Интерактивное 3D проектирование ангаров с мгновенным экспортом спецификации.</p></div>`
+      de: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 mb-8 text-center">
+            <h2 class="text-xl font-bold text-amber-400 mb-2">Interaktiver 3D Stahlhallen-Konfigurator</h2>
+            <p class="text-sm text-slate-300">Konfigurieren Sie stützenfreie Spannweiten von 9m bis 45m in interaktivem 3D mit Eurocode 3 Windlastzertifizierung bis 240 km/h.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">1. Spannweite &amp; Modell</h3>
+              <p class="text-xs text-slate-300">Q-Serie (Vollbogen), S-Serie (gerade Wand) oder P-Serie ohne Zwischenstützen.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">2. Container-Logistik</h3>
+              <p class="text-xs text-slate-300">Kompakte Flat-Pack-Lieferung im 40HC Seecontainer ab Tiefseehafen Mersin.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">3. PDF-Datenblatt</h3>
+              <p class="text-xs text-slate-300">Direkter Download technischer Spezifikationen nach EN 1090-2 EXC4 CE-Zertifizierung.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      fr: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 mb-8 text-center">
+            <h2 class="text-xl font-bold text-amber-400 mb-2">Configurateur 3D de Bâtiments Métalliques</h2>
+            <p class="text-sm text-slate-300">Portées sans piliers de 9m à 45m avec simulation 3D en temps réel et résistance aux vents de 240 km/h selon l'Eurocode 3.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">1. Portée &amp; Géométrie</h3>
+              <p class="text-xs text-slate-300">Séries Q, S ou P avec volume utile intérieur maximal à 100%.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">2. Fret Maritime 40HC</h3>
+              <p class="text-xs text-slate-300">Conditionnement en conteneurs maritimes 40HC depuis le port international de Mersin.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">3. Fiche Technique PDF</h3>
+              <p class="text-xs text-slate-300">Génération instantanée de la fiche de spécification conforme EN 1090-2 EXC4.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      es: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 mb-8 text-center">
+            <h2 class="text-xl font-bold text-amber-400 mb-2">Configurador 3D de Naves y Hangares de Acero</h2>
+            <p class="text-sm text-slate-300">Diseñe luces libres de 9m a 45m en 3D interactivo con certificación de resistencia al viento de 240 km/h según Eurocódigo 3.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">1. Luz Libre &amp; Modelos</h3>
+              <p class="text-xs text-slate-300">Modelos Serie Q, S y P 100% diáfanos sin columnas interiores intermedias.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">2. Transporte en Contenedor</h3>
+              <p class="text-xs text-slate-300">Embalaje plano flat-pack en contenedor marítimo 40HC desde el Puerto de Mersin.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">3. Ficha Técnica PDF</h3>
+              <p class="text-xs text-slate-300">Descarga inmediata de pliego técnico oficial con certificación EN 1090-2 EXC4.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      ar: `
+        <div class="prose max-w-4xl mx-auto py-8" dir="rtl">
+          <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 mb-8 text-center">
+            <h2 class="text-xl font-bold text-amber-400 mb-2">أداة التصميم ثلاثي الأبعاد للهناجر الفولاذية</h2>
+            <p class="text-sm text-slate-300">صمم بحوراً مفتوحة خالية من الأعمدة من 9 إلى 45 متراً بتقنية 3D مع مقاومة رياح حتى 240 كم/س وفق كود Eurocode 3.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">1. البحور المفتوحة</h3>
+              <p class="text-xs text-slate-300">سلاسل Q و S و P بدون أي أعمدة أو عوائق داخلية تعيق العمليات.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">2. شحن الحاويات 40HC</h3>
+              <p class="text-xs text-slate-300">تعبئة مسطحة للشحن البحري المباشر من ميناء مرسين إلى موانئ العالم.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">3. المواصفات الفنية PDF</h3>
+              <p class="text-xs text-slate-300">تحميل فوري للمواصفات الهندسية المعتمدة وفق شهادة EN 1090-2 EXC4.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      ru: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-6 mb-8 text-center">
+            <h2 class="text-xl font-bold text-amber-400 mb-2">Интерактивный 3D Конфигуратор стальных ангаров</h2>
+            <p class="text-sm text-slate-300">Проектируйте пролеты от 9 до 45 метров без колонн с расчетной ветровой нагрузкой до 240 км/ч по Еврокоду 3.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">1. Пролеты и Геометрия</h3>
+              <p class="text-xs text-slate-300">Серии Q, S и P со 100% полезным внутренним объемом без внутренних опор.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">2. Морские контейнеры 40HC</h3>
+              <p class="text-xs text-slate-300">Компактная упаковка для прямой отправки из глубоководного порта Мерсин.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded-xl">
+              <h3 class="text-base font-bold text-amber-400 mb-2">3. Спецификация в PDF</h3>
+              <p class="text-xs text-slate-300">Мгновенная генерация технической документации по стандарту EN 1090-2 EXC4.</p>
+            </div>
+          </div>
+        </div>
+      `
     }
   },
   {
@@ -989,23 +1122,144 @@ const PAGES: PageConfig[] = [
     bodyHtml: {
       tr: `
         <div class="prose max-w-4xl mx-auto py-8">
-          <p class="text-sm text-slate-300 leading-relaxed mb-6">
-            Adana'daki entegre üretim tesisimizden çıkan yapılar, Mersin Uluslararası Konteyner Limanı üzerinden flat-pack 40HC konteynerlerde Avrupa, Orta Doğu, Kuzey ve Sahra-Altı Afrika ile Orta Asya cumhuriyetlerine doğrudan sevk edilmektedir.
-          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">500.000+ m²</span>
+              <p class="text-sm text-slate-300">50'den fazla ülkede tamamlanan endüstriyel hangar ve silo projeleri.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">EN 1090-2 EXC4</span>
+              <p class="text-sm text-slate-300">CE sertifikalı en yüksek imalat sınıfı ile uluslararası kalite güvencesi.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">Mersin Limanı</span>
+              <p class="text-sm text-slate-300">15 km mesafedeki Akdeniz derin deniz limanından doğrudan flat-pack konteyner ihracatı.</p>
+            </div>
+          </div>
+          <h2 class="text-2xl font-bold text-white mb-4">Tamamlanan Temel Proje Tipolojileri</h2>
+          <ul class="space-y-3 text-slate-300 text-sm mb-8 list-disc pl-5">
+            <li><strong>Havacılık &amp; Uçak Hangarları:</strong> Özel jetler, helikopter filoları ve kargo uçakları için 42 metreye varan net açıklıklı hangarlar.</li>
+            <li><strong>Tarımsal Tahıl Depoları:</strong> Buğday, arpa, mısır ve gübre stokları için iç kolonsuz, kuş barındırmayan kemer yapılar.</li>
+            <li><strong>Madencilik &amp; Agrega Tesisleri:</strong> Ağır kimyasal ve tozlu ortamlarda Galvalume Plus® AZ180 korozyon dayanımı sağlayan örtüler.</li>
+            <li><strong>Lojistik &amp; Antrepolar:</strong> Forkliftlerin serbest manevra yapabildiği yüksek tavanlı kolon kayıpsız dağıtım merkezleri.</li>
+          </ul>
         </div>
       `,
       en: `
         <div class="prose max-w-4xl mx-auto py-8">
-          <p class="text-sm text-slate-300 leading-relaxed mb-6">
-            Fabricated in our Adana facility and containerized for ocean freight via Mersin Deep-Water Port to Europe, the Middle East, Central Asia, and the Americas.
-          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">500,000+ m²</span>
+              <p class="text-sm text-slate-300">Delivered clear-span structures in over 50 countries worldwide.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">EN 1090-2 EXC4</span>
+              <p class="text-sm text-slate-300">Highest certified execution class for structural steel fabrication.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">Mersin Seaport</span>
+              <p class="text-sm text-slate-300">Direct flat-pack container shipping via Mediterranean deep-water port.</p>
+            </div>
+          </div>
+          <h2 class="text-2xl font-bold text-white mb-4">Key Completed Project Categories</h2>
+          <ul class="space-y-3 text-slate-300 text-sm mb-8 list-disc pl-5">
+            <li><strong>Aviation Hangars:</strong> Column-free aircraft shelters up to 42m clear spans with multi-track bi-fold sliding doors.</li>
+            <li><strong>Agricultural Bulk Silos:</strong> Roost-free sanitary arched roofs for unrestricted end-to-end grain piling.</li>
+            <li><strong>Mining &amp; Heavy Stockpiles:</strong> Extreme environment shielding powered by Galvalume Plus® AZ180 alloy.</li>
+            <li><strong>Logistics Centers:</strong> Full 360-degree forklift clearance with high-density vertical storage racks.</li>
+          </ul>
         </div>
       `,
-      de: `<div class="py-8"><p class="text-slate-300">Überblick über unsere weltweiten Großprojekte in Industrie, Agrarwirtschaft und Bergbau.</p></div>`,
-      fr: `<div class="py-8"><p class="text-slate-300">Découvrez nos réalisations majeures livrées et montées sur quatre continents.</p></div>`,
-      es: `<div class="py-8"><p class="text-slate-300">Galería de proyectos ejecutados con éxito en más de 50 países del mundo.</p></div>`,
-      ar: `<div class="py-8"><p class="text-slate-300">استعرض أبرز مشاريعنا المنفذة بنجاح في مجالات الزراعة، الطيران، التعدين والمستودعات.</p></div>`,
-      ru: `<div class="py-8"><p class="text-slate-300">Примеры реализованных объектов и инженерных решений по всему миру.</p></div>`
+      de: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">500.000+ m²</span>
+              <p class="text-sm text-slate-300">Stützenfreie Industriehallen in über 50 Ländern weltweit errichtet.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">EN 1090-2 EXC4</span>
+              <p class="text-sm text-slate-300">Höchste CE-Ausführungsklasse für industrielle Stahlbaukonstruktionen.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">Hafen Mersin</span>
+              <p class="text-sm text-slate-300">Direkter 40HC Container-Export über das Mittelmeer zu weltweiten Bestimmungsorten.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      fr: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">+500 000 m²</span>
+              <p class="text-sm text-slate-300">Structures métalliques livrées dans plus de 50 pays à l'international.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">EN 1090-2 EXC4</span>
+              <p class="text-sm text-slate-300">Classe d'exécution certifiée la plus exigeante de l'industrie européenne.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">Port de Mersin</span>
+              <p class="text-sm text-slate-300">Expédition directe en conteneurs 40HC vers tous les continents.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      es: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">Más de 500.000 m²</span>
+              <p class="text-sm text-slate-300">Proyectos ejecutados con éxito en más de 50 países del mundo.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">EN 1090-2 EXC4</span>
+              <p class="text-sm text-slate-300">Máxima clase de ejecución estructural certificada CE.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">Puerto de Mersin</span>
+              <p class="text-sm text-slate-300">Despacho marítimo en flat-pack por contenedor de alta capacidad.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      ar: `
+        <div class="prose max-w-4xl mx-auto py-8" dir="rtl">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">+500,000 م²</span>
+              <p class="text-sm text-slate-300">هياكل فولاذية بدون أعمدة تم توريدها لأكثر من 50 دولة حول العالم.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">EN 1090-2 EXC4</span>
+              <p class="text-sm text-slate-300">أعلى فئة تنفيذ معتمدة وموثقة لسلامة المنشآت الفولاذية.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">ميناء مرسين الدولي</span>
+              <p class="text-sm text-slate-300">شحن بحري مسطح بالحاويات البحرية مباشرة من أضنة إلى الموانئ العالمية.</p>
+            </div>
+          </div>
+        </div>
+      `,
+      ru: `
+        <div class="prose max-w-4xl mx-auto py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8 text-center">
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">500 000+ м²</span>
+              <p class="text-sm text-slate-300">Арочных стальных сооружений без колонн смонтировано в 50+ странах.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">EN 1090-2 EXC4</span>
+              <p class="text-sm text-slate-300">Высший класс надежности и европейской сертификации CE.</p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl">
+              <span class="text-3xl font-black text-amber-400 block mb-2">Порт Мерсин</span>
+              <p class="text-sm text-slate-300">Прямые контейнерные поставки flat-pack из Средиземноморья по всему миру.</p>
+            </div>
+          </div>
+        </div>
+      `
     }
   },
   {
@@ -2989,13 +3243,37 @@ function generate404Page(baseTemplate: string) {
     /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/,
     `<meta name="description" content="Sayfa bulunamadı (404). STRUCTIVA kolonsuz kemer çelik hangar çözümleri için ana sayfaya dönün." />`
   );
+
+  // Critical for SEO: Explicitly set noindex, nofollow for 404 page
+  html = html.replace(
+    /<meta\s+name="robots"\s+content="[^"]*"\s*\/?>/,
+    `<meta name="robots" content="noindex, nofollow" />`
+  );
+  html = html.replace(
+    /<meta\s+name="googlebot"\s+content="[^"]*"\s*\/?>/,
+    `<meta name="googlebot" content="noindex, nofollow" />`
+  );
+  html = html.replace(
+    /<meta\s+name="bingbot"\s+content="[^"]*"\s*\/?>/,
+    `<meta name="bingbot" content="noindex, nofollow" />`
+  );
+
+  // Strip canonical and alternate hreflang tags from 404 page to eliminate Soft 404 signals
+  html = html.replace(/<link\s+rel="canonical"[^>]*\/?>/g, "");
+  html = html.replace(/<link\s+rel="alternate"\s+hreflang="[^"]*"\s+href="[^"]*"\s*\/?>/g, "");
+
+  // Clean OpenGraph tags on 404
+  html = html.replace(/<meta\s+property="og:url"[^>]*\/?>/g, "");
+  html = html.replace(/<meta\s+property="og:title"[^>]*\/?>/g, `<meta property="og:title" content="404 — Sayfa Bulunamadı | STRUCTIVA®" />`);
+  html = html.replace(/<meta\s+property="og:description"[^>]*\/?>/g, `<meta property="og:description" content="Sayfa bulunamadı." />`);
+
   html = html.replace(
     /<div id="root">[\s\S]*?<\/div>/,
     `<div id="root">${notFoundShell}</div>`
   );
 
   fs.writeFileSync(path.join(DIST_PUBLIC, "404.html"), html, "utf-8");
-  console.log("  ✓ Generated custom 404.html for Firebase Hosting");
+  console.log("  ✓ Generated custom 404.html for Firebase Hosting (with noindex, nofollow)");
 }
 
 prerender();

@@ -1,49 +1,64 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle, Home } from "lucide-react";
+import React from "react";
 import { useLocation } from "wouter";
+import { AlertCircle, Home, ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import SEOHead from "../components/SEOHead";
 
 export default function NotFound() {
   const [, setLocation] = useLocation();
 
-  const handleGoHome = () => {
-    setLocation("/");
-  };
-
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
-      <Card className="w-full max-w-lg mx-4 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-        <CardContent className="pt-8 pb-8 text-center">
-          <div className="flex justify-center mb-6">
-            <div className="relative">
-              <div className="absolute inset-0 bg-red-100 rounded-full animate-pulse" />
-              <AlertCircle className="relative h-16 w-16 text-red-500" />
+    <div className="min-h-[70vh] w-full flex items-center justify-center bg-[#09131c] text-white px-4 py-16">
+      <SEOHead
+        title="404 — Sayfa Bulunamadı | STRUCTIVA®"
+        description="Aradığınız sayfa bulunamadı veya taşınmış olabilir."
+        robots="noindex, nofollow"
+        canonicalPath="/404"
+      />
+      <div className="w-full max-w-lg mx-auto text-center">
+        <div className="flex justify-center mb-6">
+          <div className="relative">
+            <div className="absolute inset-0 bg-amber-500/20 rounded-full animate-ping" />
+            <div className="relative h-20 w-20 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+              <AlertCircle className="h-10 w-10" />
             </div>
           </div>
+        </div>
 
-          <h1 className="text-4xl font-bold text-slate-900 mb-2">404</h1>
+        <span className="text-amber-400 text-xs font-mono font-bold uppercase tracking-widest block mb-2">
+          EN 1090-2 EXC4 · CE · EUROCODE 3
+        </span>
 
-          <h2 className="text-xl font-semibold text-slate-700 mb-4">
-            Page Not Found
-          </h2>
+        <h1 className="text-6xl sm:text-7xl font-black text-white tracking-tight mb-3">
+          404
+        </h1>
 
-          <p className="text-slate-600 mb-8 leading-relaxed">
-            Sorry, the page you are looking for doesn't exist.
-            <br />
-            It may have been moved or deleted.
-          </p>
+        <h2 className="text-xl font-bold text-slate-200 mb-3">
+          Sayfa Bulunamadı / Page Not Found
+        </h2>
 
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button
-              onClick={handleGoHome}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
-            >
-              <Home className="w-4 h-4 mr-2" />
-              Go Home
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+        <p className="text-slate-400 text-sm mb-8 leading-relaxed max-w-md mx-auto">
+          Aradığınız sayfa silinmiş, adı değiştirilmiş veya geçici olarak kullanım dışı kalmış olabilir.
+        </p>
+
+        <div className="flex flex-wrap gap-3 justify-center">
+          <Button
+            onClick={() => setLocation("/tr")}
+            className="bg-amber-500 hover:bg-amber-400 text-[#0f1d2a] font-bold px-6 py-2.5 rounded-xl transition-all shadow-lg shadow-amber-500/20"
+          >
+            <Home className="w-4 h-4 mr-2" />
+            Ana Sayfa
+          </Button>
+          <Button
+            onClick={() => window.history.back()}
+            variant="outline"
+            className="bg-white/5 border-white/15 text-white hover:bg-white/10 px-6 py-2.5 rounded-xl"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Geri Dön
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
