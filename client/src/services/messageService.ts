@@ -3,6 +3,7 @@ import {
   addDoc,
   collection,
   deleteDoc,
+  deleteField,
   doc,
   getDocs,
   onSnapshot,
@@ -36,6 +37,8 @@ export interface Inquiry {
   createdAt: string;
   statusUpdatedAt?: string;
   noteUpdatedAt?: string;
+  followUpAt?: string;
+  followUpUpdatedAt?: string;
 }
 
 const COLLECTION = "inquiries";
@@ -115,6 +118,8 @@ export function mapInquiry(id: string, raw: Record<string, unknown>): Inquiry {
     createdAt,
     statusUpdatedAt: toIso(raw.statusUpdatedAt) || undefined,
     noteUpdatedAt: toIso(raw.noteUpdatedAt) || undefined,
+    followUpAt: toIso(raw.followUpAt) || undefined,
+    followUpUpdatedAt: toIso(raw.followUpUpdatedAt) || undefined,
   };
 }
 
@@ -217,6 +222,13 @@ export async function updateInquiryNote(id: string, adminNote: string): Promise<
   await updateDoc(doc(db, COLLECTION, id), {
     adminNote: adminNote.trim(),
     noteUpdatedAt: new Date().toISOString(),
+  });
+}
+
+export async function updateInquiryFollowUp(id: string, followUpAt: string | null): Promise<void> {
+  await updateDoc(doc(db, COLLECTION, id), {
+    followUpAt: followUpAt ? followUpAt : deleteField(),
+    followUpUpdatedAt: new Date().toISOString(),
   });
 }
 

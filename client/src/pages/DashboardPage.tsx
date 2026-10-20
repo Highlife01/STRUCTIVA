@@ -1,10 +1,13 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Archive,
   ArrowUpRight,
+  Bell,
   Building2,
+  CalendarClock,
   CheckCircle2,
   Clock3,
+  Copy,
   Download,
   Inbox,
   LayoutDashboard,
@@ -36,6 +39,7 @@ import {
   Inquiry,
   InquiryStatus,
   subscribeInquiries,
+  updateInquiryFollowUp,
   updateInquiryNote,
   updateInquiryStatus,
 } from "../services/messageService";
@@ -56,6 +60,13 @@ const SOURCE_LABEL: Record<string, string> = {
   configurator: "3D konfigüratör",
 };
 
+const NEXT_STATUS: Record<InquiryStatus, InquiryStatus | null> = {
+  new: "contacted",
+  contacted: "quoted",
+  quoted: "archived",
+  archived: null,
+};
+
 function formatWhen(iso?: string) {
   const time = iso ? Date.parse(iso) : NaN;
   if (!Number.isFinite(time)) return "Tarih yok";
@@ -66,6 +77,25 @@ function formatWhen(iso?: string) {
     hour: "2-digit",
     minute: "2-digit",
   });
+}
+
+function relativeTime(iso?: string) {
+  const time = iso ? Date.parse(iso) : NaN;
+  if (!Number.isFinite(time)) return "Tarih yok";
+  const minutes = Math.round((Date.now() - time) / 60000);
+  if (minutes < 1) return "Az önce";
+  if (minutes < 60) return `${minutes} dk önce`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `${hours} sa önce`;
+  const days = Math.round(hours / 24);
+  if (days < 14) return `${days} gün önce`;
+  return formatWhen(iso);
+}
+
+function dateInputToIso(value: string) {
+  const [year, month, day] = value.split("-").map(Number);
+  if (!year || !month || !day) return null;
+  return new Date(year, month - 1, day, 12, 0, 0).toISOString();
 }
 
 function dayKey(date: Date) {
@@ -127,13 +157,14 @@ function buildDailySeries(inquiries: Inquiry[]) {
 }
 
 function downloadCsv(inquiries: Inquiry[]) {
-  const headers = ["Tarih", "Kaynak", "Durum", "İsim", "E-posta", "Telefon", "Şirket", "Ülke", "Model", "Alan m2", "Mesaj", "Yönetici notu"];
+  const headers = ["Tarih", "Kaynak", "Durum", "Takip", "İsim", "E-posta", "Telefon", "Şirket", "Ülke", "Model", "Alan m2", "Mesaj", "Yönetici notu"];
   const escape = (value: string | number | undefined) => `"${String(value ?? "").replace(/"/g, '""')}"`;
   const rows = inquiries.map((item) =>
     [
       formatWhen(item.createdAt),
       sourceLabel(item),
       STATUS_LABEL[item.status],
+      item.followUpAt ? formatWhen(item.followUpAt) : "",
       item.name,
       item.email,
       item.phone || "",
@@ -173,11 +204,15 @@ export default function DashboardPage() {
   const [view, setView] = useState<ConsoleView>("overview");
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [filterType, setFilterType] = useState<string>("all");
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [search, setSearch] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [noteDraft, setNoteDraft] = useState("");
+  const [followUpDraft, setFollowUpDraft] = useState("");
   const [actionError, setActionError] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
+  const [arrivals, setArrivals] = useState<Inquiry[]>([]);
+  const seenIds = useRef<Set<string> | null>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -221,14 +256,33 @@ export default function DashboardPage() {
   const selected = inquiries.find((item) => item.id === selectedId) || null;
 
   useEffect(() => {
+    if (!currentUser || loading) return;
+    if (seenIds.current === null) {
+      seenIds.current = new Set(inquiries.map((item) => item.id));
+      return;
+    }
+    const fresh = inquiries.filter((item) => !seenIds.current?.has(item.id));
+    if (fresh.length) setArrivals(fresh);
+    seenIds.current = new Set(inquiries.map((item) => item.id));
+  }, [inquiries, loading, currentUser]);
+
+  useEffect(() => {
     setNoteDraft(selected?.adminNote || "");
   }, [selected?.id, selected?.adminNote]);
+
+  useEffect(() => {
+    setFollowUpDraft(selected?.followUpAt ? inquiryDay(selected.followUpAt) : "");
+  }, [selected?.id, selected?.followUpAt]);
 
   const filtered = useMemo(() => {
     const needle = search.trim().toLowerCase();
     return inquiries.filter((item) => {
       const matchesStatus = filterStatus === "all" || item.status === filterStatus;
-      const matchesType = filterType === "all" || item.type === filterType || item.source === filterType;
+      const matchesType =
+        filterType === "all" ||
+        item.source === filterType ||
+        (filterType === "contact" && item.type === "contact") ||
+        (filterType === "quote" && item.type === "quote");
       const matchesSearch =
         !needle ||
         item.name.toLowerCase().includes(needle) ||
@@ -241,12 +295,24 @@ export default function DashboardPage() {
     });
   }, [inquiries, filterStatus, filterType, search]);
 
+  const visible = useMemo(() => {
+    const list = [...filtered];
+    list.sort((a, b) => {
+      const diff = (Date.parse(a.createdAt) || 0) - (Date.parse(b.createdAt) || 0);
+      return sortOrder === "newest" ? -diff : diff;
+    });
+    return list;
+  }, [filtered, sortOrder]);
+
   const contactItems = inquiries.filter((item) => item.type === "contact");
   const quoteItems = inquiries.filter((item) => item.type === "quote");
   const newCount = inquiries.filter((item) => item.status === "new").length;
   const quotedArea = quoteItems.reduce((sum, item) => sum + (item.areaM2 || 0), 0);
   const last7 = inquiries.filter((item) => withinDays(item.createdAt, 7)).length;
   const prev7 = inquiries.filter((item) => withinDays(item.createdAt, 7, 7)).length;
+  const todayKey = dayKey(new Date());
+  const followUpsToday = inquiries.filter((item) => item.status !== "archived" && item.followUpAt && inquiryDay(item.followUpAt) === todayKey);
+  const followUpsOverdue = inquiries.filter((item) => item.status !== "archived" && item.followUpAt && inquiryDay(item.followUpAt) < todayKey);
   const series = useMemo(() => buildDailySeries(inquiries), [inquiries]);
   const hasSeries = series.some((day) => day.toplam > 0);
 
@@ -291,6 +357,19 @@ export default function DashboardPage() {
     setActionError(null);
     try {
       await updateInquiryStatus(id, status);
+    } catch (error) {
+      setActionError(firestoreErrorMessage(error));
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const handleSaveFollowUp = async () => {
+    if (!selected) return;
+    setBusy(`follow:${selected.id}`);
+    setActionError(null);
+    try {
+      await updateInquiryFollowUp(selected.id, followUpDraft ? dateInputToIso(followUpDraft) : null);
     } catch (error) {
       setActionError(firestoreErrorMessage(error));
     } finally {
@@ -419,7 +498,7 @@ export default function DashboardPage() {
               <button onClick={() => setFeedVersion((value) => value + 1)} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-semibold text-slate-300">
                 <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> Yenile
               </button>
-              <button onClick={() => downloadCsv(filtered)} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500/15 border border-amber-500/40 text-xs font-bold text-amber-200">
+              <button onClick={() => downloadCsv(visible)} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500/15 border border-amber-500/40 text-xs font-bold text-amber-200">
                 <Download size={14} /> CSV
               </button>
               <button onClick={() => signOut(auth)} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-rose-500/15 border border-rose-500/40 text-xs font-bold text-rose-200">
@@ -442,12 +521,35 @@ export default function DashboardPage() {
             </div>
           )}
 
-          <section className="grid grid-cols-2 xl:grid-cols-6 gap-3 mb-6">
+          {arrivals.length > 0 && (
+            <div className="mb-5 rounded-2xl border border-sky-400/40 bg-sky-500/10 px-4 py-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-start gap-2 text-sm text-sky-100">
+                <Bell size={16} className="mt-0.5 shrink-0" />
+                <span>
+                  {arrivals.length} yeni kayıt düştü: {arrivals.map((item) => item.name).join(", ")}
+                </span>
+              </div>
+              <button
+                onClick={() => {
+                  setSelectedId(arrivals[0]?.id || null);
+                  setView("inbox");
+                  setFilterType(arrivals[0]?.type === "contact" ? "contact" : "all");
+                  setArrivals([]);
+                }}
+                className="px-3 py-2 rounded-xl bg-sky-500 text-[#041018] text-xs font-bold"
+              >
+                Kaydı aç
+              </button>
+            </div>
+          )}
+
+          <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
             <Metric label="Toplam talep" value={inquiries.length} hint="Firestore kayıtları" />
             <Metric label="Yeni" value={newCount} hint="İşlem bekleyen" tone="amber" />
             <Metric label="İletişim formu" value={contactItems.length} hint="Doğrudan mesajlar" tone="sky" onClick={() => { setView("inbox"); setFilterType("contact"); }} />
             <Metric label="Teklif" value={quoteItems.length} hint="RFQ ve konfigüratör" tone="emerald" onClick={() => { setView("inbox"); setFilterType("quote"); }} />
             <Metric label="Son 7 gün" value={last7} hint={`Önceki 7 gün: ${prev7}`} />
+            <Metric label="Takip" value={followUpsToday.length + followUpsOverdue.length} hint={followUpsOverdue.length ? `${followUpsOverdue.length} gecikti` : "Bugün ve geciken"} tone="amber" onClick={() => { setView("inbox"); setFilterStatus("all"); setFilterType("all"); }} />
             <Metric label="Teklif alanı" value={quotedArea ? `${quotedArea.toLocaleString("tr-TR")} m²` : "0 m²"} hint="Kayıtlı RFQ alanları" />
           </section>
 
@@ -466,7 +568,7 @@ export default function DashboardPage() {
                       <AreaChart data={series}>
                         <CartesianGrid stroke="rgba(255,255,255,0.06)" vertical={false} />
                         <XAxis dataKey="label" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
-                        <YAxis allowDecimals={false} tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} width={28} />
+                        <YAxis allowDecimals={false} domain={[0, (max: number) => Math.max(1, Math.ceil(max))]} tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} width={28} />
                         <Tooltip contentStyle={{ background: "#0c1722", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 12, fontSize: 12 }} />
                         <Area type="monotone" dataKey="iletisim" name="İletişim" stroke="#38bdf8" fill="#38bdf8" fillOpacity={0.18} strokeWidth={2} />
                         <Area type="monotone" dataKey="teklif" name="Teklif" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.16} strokeWidth={2} />
@@ -545,19 +647,21 @@ export default function DashboardPage() {
                 <FilterBar
                   filterStatus={filterStatus}
                   filterType={filterType}
+                  sortOrder={sortOrder}
                   search={search}
                   contactCount={contactItems.length}
                   quoteCount={quoteItems.length}
                   onStatus={setFilterStatus}
                   onType={setFilterType}
+                  onSort={setSortOrder}
                   onSearch={setSearch}
                 />
                 {loading && inquiries.length === 0 ? (
                   <EmptyState title="Kayıtlar yükleniyor" text="Firestore dinleniyor." />
-                ) : filtered.length === 0 ? (
+                ) : visible.length === 0 ? (
                   <EmptyState title="Eşleşen talep yok" text="Filtreyi temizleyin veya yeni bir iletişim formu gönderiminin düşmesini bekleyin." />
                 ) : (
-                  filtered.map((item) => (
+                  visible.map((item) => (
                     <InquiryRow key={item.id} item={item} active={item.id === selectedId} onOpen={() => setSelectedId(item.id)} />
                   ))
                 )}
@@ -566,9 +670,12 @@ export default function DashboardPage() {
                 <DetailPanel
                   item={selected}
                   noteDraft={noteDraft}
+                  followUpDraft={followUpDraft}
                   busy={busy}
                   onNote={setNoteDraft}
+                  onFollowUp={setFollowUpDraft}
                   onSaveNote={handleSaveNote}
+                  onSaveFollowUp={handleSaveFollowUp}
                   onStatus={handleStatus}
                   onDelete={handleDelete}
                   onClose={() => setSelectedId(null)}
@@ -589,14 +696,29 @@ export default function DashboardPage() {
                     </div>
                     <div className="space-y-2">
                       {column.length === 0 && <p className="text-xs text-slate-500 px-1">Bu durumda kayıt yok.</p>}
-                      {column.map((item) => (
-                        <button key={item.id} onClick={() => { setSelectedId(item.id); setView("inbox"); }} className="w-full text-left rounded-xl bg-[#0f1d2a] border border-white/10 p-3 hover:border-amber-400/50">
-                          <div className="text-[10px] uppercase tracking-wider text-slate-400 mb-1">{sourceLabel(item)}</div>
-                          <div className="text-sm font-bold text-white">{item.name}</div>
-                          <div className="text-xs text-slate-400 truncate">{item.company || item.email}</div>
-                          <div className="text-[11px] text-slate-500 mt-2">{formatWhen(item.createdAt)}</div>
-                        </button>
-                      ))}
+                      {column.map((item) => {
+                        const next = NEXT_STATUS[item.status];
+                        return (
+                          <div key={item.id} className="rounded-xl bg-[#0f1d2a] border border-white/10 p-3">
+                            <button onClick={() => { setSelectedId(item.id); setView("inbox"); }} className="w-full text-left">
+                              <div className="text-[10px] uppercase tracking-wider text-slate-400 mb-1">{sourceLabel(item)}</div>
+                              <div className="text-sm font-bold text-white">{item.name}</div>
+                              <div className="text-xs text-slate-400 truncate">{item.company || item.email}</div>
+                              <div className="text-[11px] text-slate-500 mt-2">{relativeTime(item.createdAt)}</div>
+                              {item.followUpAt && <div className="text-[11px] text-amber-300 mt-1">Takip {formatWhen(item.followUpAt)}</div>}
+                            </button>
+                            {next && (
+                              <button
+                                disabled={busy === `status:${item.id}`}
+                                onClick={() => handleStatus(item.id, next)}
+                                className="mt-3 w-full py-1.5 rounded-lg bg-white/5 text-[11px] font-bold text-slate-200"
+                              >
+                                {STATUS_LABEL[next]} olarak işaretle
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 );
@@ -653,27 +775,33 @@ function Metric({ label, value, hint, tone = "slate", onClick }: { label: string
 function FilterBar({
   filterStatus,
   filterType,
+  sortOrder,
   search,
   contactCount,
   quoteCount,
   onStatus,
   onType,
+  onSort,
   onSearch,
 }: {
   filterStatus: string;
   filterType: string;
+  sortOrder: "newest" | "oldest";
   search: string;
   contactCount: number;
   quoteCount: number;
   onStatus: (value: string) => void;
   onType: (value: string) => void;
+  onSort: (value: "newest" | "oldest") => void;
   onSearch: (value: string) => void;
 }) {
   const statuses = [{ id: "all", label: "Tümü" }, ...Object.entries(STATUS_LABEL).map(([id, label]) => ({ id, label }))];
   const types = [
     { id: "all", label: "Tüm kaynaklar" },
     { id: "contact", label: `İletişim (${contactCount})` },
-    { id: "quote", label: `Teklif (${quoteCount})` },
+    { id: "rfq", label: "Teklif formu" },
+    { id: "configurator", label: "Konfigüratör" },
+    { id: "quote", label: `Tüm teklif (${quoteCount})` },
   ];
   return (
     <div className="rounded-2xl bg-[#0f1d2a] border border-white/10 p-3 space-y-3">
@@ -696,6 +824,9 @@ function FilterBar({
           <Search size={14} className="absolute left-3 top-2.5 text-slate-500" />
           <input value={search} onChange={(event) => onSearch(event.target.value)} placeholder="İsim, e-posta, şirket, mesaj" className="w-full rounded-xl bg-black/30 border border-white/10 pl-8 pr-3 py-2 text-xs outline-none focus:border-amber-400" />
         </div>
+        <button onClick={() => onSort(sortOrder === "newest" ? "oldest" : "newest")} className="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-black/30 text-slate-300">
+          {sortOrder === "newest" ? "En yeni" : "En eski"}
+        </button>
       </div>
     </div>
   );
@@ -729,7 +860,10 @@ function DetailPanel({
   noteDraft,
   busy,
   onNote,
+  followUpDraft,
+  onFollowUp,
   onSaveNote,
+  onSaveFollowUp,
   onStatus,
   onDelete,
   onClose,
@@ -738,7 +872,10 @@ function DetailPanel({
   noteDraft: string;
   busy: string | null;
   onNote: (value: string) => void;
+  followUpDraft: string;
+  onFollowUp: (value: string) => void;
   onSaveNote: () => void;
+  onSaveFollowUp: () => void;
   onStatus: (id: string, status: InquiryStatus) => void;
   onDelete: (id: string) => void;
   onClose: () => void;
@@ -810,6 +947,15 @@ function DetailPanel({
       <div className="mb-4">
         <div className="text-[10px] uppercase tracking-wider text-slate-400 mb-1">Mesaj</div>
         <div className="rounded-xl bg-black/40 border border-white/10 p-3 text-xs leading-relaxed whitespace-pre-wrap max-h-48 overflow-auto">{item.message || "Mesaj metni yok."}</div>
+      </div>
+      <div className="mb-4">
+        <span className="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Takip tarihi</span>
+        <div className="flex gap-2">
+          <input type="date" value={followUpDraft} onChange={(event) => onFollowUp(event.target.value)} className="flex-1 rounded-xl bg-black/40 border border-white/10 px-3 py-2 text-xs outline-none focus:border-amber-400" />
+          <button onClick={onSaveFollowUp} disabled={busy === `follow:${item.id}`} className="px-3 py-2 rounded-xl bg-white/10 text-xs font-bold disabled:opacity-50">
+            {busy === `follow:${item.id}` ? "Kaydediliyor" : "Kaydet"}
+          </button>
+        </div>
       </div>
       <label className="block mb-4">
         <span className="text-[10px] uppercase tracking-wider text-slate-400">Yönetici notu</span>
