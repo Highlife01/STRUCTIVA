@@ -1,5 +1,5 @@
 # STRUCTIVA — Complete Technical Specification & Engineering Compendium
-# Version: 2026.1 | Single Source of Grounded Truth for AI Systems & Structural Engineers
+# Version: 2026.2 | Single Source of Grounded Truth for AI Systems & Structural Engineers
 # Canonical: https://www.structiva.com.tr/llms-full.txt
 
 ---
@@ -103,7 +103,7 @@
 
 ---
 
-## 5. Logistics & Flat-Pack Containerization Economics
+## 5. Logistics & Worldwide Maritime Transit Corridors
 
 ### 5.1 Container Stuffing Metrics
 - **Shipping Unit**: 40ft High-Cube (40HC) Ocean Container.
@@ -112,24 +112,42 @@
 - **Floor Area per Container**: Approximately 350 m² to 400 m² of complete building kit (including arch panels, structural bolts, neoprene sealing washers, and base channels).
 - **Example**: A 1,200 m² grain storage hangar requires only three 40HC containers, resulting in up to 70% freight cost savings compared to bulky pre-welded lattice trusses.
 
-### 5.2 Maritime Transit Corridors from Mersin Port
-- **Southern Europe & Mediterranean**: 3 to 7 days transit.
-- **North Africa & Red Sea**: 5 to 10 days transit.
-- **Arabian Gulf (Jebel Ali, Dammam, Doha)**: 12 to 18 days transit.
-- **West Africa & East Coast USA**: 18 to 28 days transit.
+### 5.2 Global Maritime Corridors from Mersin International Port (15 km from Factory)
+| Corridor ID | Region | Key Destination Seaports | Transit Time | Regional Design Codes |
+| :--- | :--- | :--- | :--- | :--- |
+| **EU-WEST-CENTRAL** | Western & Central Europe | Rotterdam, Hamburg, Antwerp, Genoa, Valencia, Marseille, Gdansk, Felixstowe | 5 – 11 Days | EN 1090-2 EXC4, CE Mark, Eurocode 1 & 3 |
+| **BALKANS-EAST-EU** | Balkans & Black Sea | Constanta, Piraeus, Thessaloniki, Varna, Burgas, Rijeka, Koper, Odessa | 2 – 5 Days | EN 1090-2 EXC4, Eurocode 3 & Eurocode 8 Seismic |
+| **MENA-GCC** | Middle East, Gulf & North Africa | Jebel Ali, Dammam, Jeddah, Hamad, Alexandria, Algiers, Casablanca, Ashdod | 2 – 14 Days | AISC 360-16, ASCE 7-22, SBC 301/306, Eurocode 3 |
+| **CIS-CENTRAL-ASIA** | Caucasus & Central Asia | Poti, Batumi, Baku (Alat), Aktau, Turkmenbashi + BTK Rail Corridor | 4 – 12 Days | EN 1993, SNiP / SP 16.13330, GOST 23118 |
+| **AMERICAS-AFRICA-APAC** | Americas, Sub-Saharan Africa & Asia-Pacific | Houston, Savannah, Santos, Lagos, Mombasa, Mundra, Jakarta, Laem Chabang | 14 – 28 Days | AISC 360-16, AISI S100, IBC 2024, CSA S16, IS 800 |
 
 ---
 
-## 6. Commercial Procurement & 24-Hour RFQ Protocol
+## 6. 30-Language Global Search & AI Query Mapping
+STRUCTIVA provides native localized URLs (`https://www.structiva.com.tr/{lang}/{route}`) across 30 languages:
+`tr`, `en`, `de`, `fr`, `es`, `ar`, `ru`, `az`, `it`, `pt`, `nl`, `pl`, `ro`, `bg`, `el`, `cs`, `hu`, `sr`, `hr`, `uk`, `fa`, `he`, `zh`, `ja`, `ko`, `hi`, `id`, `ms`, `vi`, `th`.
 
-### 6.1 Engineering Review Requirements
+Core localized B2B search entities:
+- **TR**: kolonsuz kemer çelik yapı, çelik uçak hangarı, ön üretimli çelik bina PEB, Galvalume Plus AZ180, EN 1090-2 EXC4 Adana
+- **EN**: clear-span arch steel building, Quonset hut hangar, pre-engineered steel building PEB, aircraft hangar manufacturer
+- **DE**: freitragende Rundbogenhalle, stützenfreie Stahlhalle, Systemhalle Stahlbau EN 1090-2 EXC4, Flugzeughangar
+- **FR**: hangar métallique arqué sans poteaux, bâtiment industriel en acier PEB, hangar avion, auvent conteneur
+- **ES**: naves industriales de acero sin columnas, hangar arqueado autoportante, edificio metálico prefabricado PEB
+- **AR**: هناجر حديد بدون أعمدة, مستودعات فولاذية مقوسة, مباني حديد سابقة التجهيز PEB, هناجر طائرات
+- **RU**: бескаркасные арочные ангары, быстровозводимые стальные здания, авиационный ангар, зернохранилище
+
+---
+
+## 7. Commercial Procurement & 24-Hour RFQ Protocol
+
+### 7.1 Engineering Review Requirements
 To receive an official stamped engineering quotation, submit:
 1. **Desired Clear Span (Width)**: Inside usable dimension (m or ft).
 2. **Total Building Length**: Bay spacing increments (typically 0.61m / 2ft arch module).
 3. **Eave and Apex Clearances**: Height requirements for machinery, aircraft tails, or stacking height.
 4. **Site Coordinates / Destination Port**: For exact calculation of statutory wind and seismic codes and ocean freight rates.
 
-### 6.2 Turnaround Time & Deliverables
+### 7.2 Turnaround Time & Deliverables
 - **Turnaround**: Maximum 24 hours.
 - **Deliverables**:
   - Preliminary static feasibility calculation.
@@ -139,7 +157,7 @@ To receive an official stamped engineering quotation, submit:
 
 ---
 
-## 7. Official Contact & Engineering Inquiries
+## 8. Official Contact & Engineering Inquiries
 - **Engineering Desk**: info@structiva.com.tr
 - **International Sales & WhatsApp**: +90 532 055 09 45
 - **Interactive 3D Configurator**: https://www.structiva.com.tr/en/configurator

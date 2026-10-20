@@ -44,6 +44,7 @@ export interface ArticleMeta {
 export interface SEOHeadProps {
   title: string;
   description: string;
+  keywords?: string;
   canonicalPath?: string;
   lang?: string;
   ogImage?: string;
@@ -58,6 +59,7 @@ export interface SEOHeadProps {
 export default function SEOHead({
   title,
   description,
+  keywords,
   canonicalPath = "",
   lang = "tr",
   ogImage = "/images/arched-steel-hangar-hd.jpg",
@@ -73,11 +75,18 @@ export default function SEOHead({
   const currentLangObj = getLanguage(cleanPath.split("/")[1] || lang);
   const isRTL = currentLangObj.isRTL || currentLangObj.dir === "rtl";
   const noindex = /(?:^|[\s,])(?:noindex|none)(?:$|[\s,])/i.test(robots);
-  const pageSEO = !noindex && ogType !== "article" && Object.hasOwn(PAGE_KEYS, slug)
-    ? getPageSEO(PAGE_KEYS[slug], currentLangObj.code)
+
+  const lookupKey = Object.hasOwn(PAGE_KEYS, slug) ? PAGE_KEYS[slug] : slug;
+  const pageSEO = !noindex && lookupKey
+    ? getPageSEO(lookupKey, currentLangObj.code)
     : undefined;
+
   const resolvedTitle = pageSEO?.title || title;
   const resolvedDescription = pageSEO?.description || description;
+  const resolvedKeywords =
+    keywords ||
+    pageSEO?.keywords ||
+    "clear-span arch steel buildings, pre-engineered steel buildings PEB, aircraft hangars, Galvalume Plus AZ180, EN 1090-2 EXC4, STRUCTIVA Adana";
 
   const canonicalUrl = `${PRODUCTION_CANONICAL_HOST}${cleanPath}`;
   const absoluteOgImage = ogImage.startsWith("http") ? ogImage : `${PRODUCTION_CANONICAL_HOST}${ogImage}`;
@@ -110,9 +119,12 @@ export default function SEOHead({
       "meta[name='twitter:site'], meta[name='twitter:creator']"
     ).forEach((element) => element.remove());
 
-    // Standard Meta
+    // Standard Meta & Worldwide Keywords
     updateMeta("name", "description", resolvedDescription);
+    updateMeta("name", "keywords", resolvedKeywords);
     updateMeta("name", "robots", robots);
+    updateMeta("name", "googlebot", robots);
+    updateMeta("name", "bingbot", robots);
     updateMeta("name", "author", COMPANY_INFO.legalName);
     updateMeta("name", "publisher", COMPANY_INFO.brandName);
 
@@ -130,9 +142,9 @@ export default function SEOHead({
     updateMeta("property", "og:site_name", COMPANY_INFO.brandName);
     updateMeta("property", "og:locale", OG_LOCALES[currentLangObj.code] || "en_US");
 
-    // Alternate locales for major markets (helps social/AI crawlers discover language variants)
-    ["tr", "en", "de", "fr", "es", "it", "pt", "nl", "ru", "ar", "zh", "ja"]
-      .filter((code) => code !== currentLangObj.code && OG_LOCALES[code])
+    // Alternate locales for all 30 supported markets (helps social/AI crawlers discover language variants)
+    Object.keys(OG_LOCALES)
+      .filter((code) => code !== currentLangObj.code)
       .forEach((code) => {
         const altLocale = document.createElement("meta");
         altLocale.setAttribute("property", "og:locale:alternate");
@@ -158,6 +170,8 @@ export default function SEOHead({
 
     // Twitter Cards
     updateMeta("name", "twitter:card", "summary_large_image");
+    updateMeta("name", "twitter:site", "@structiva");
+    updateMeta("name", "twitter:creator", "@structiva");
     updateMeta("name", "twitter:title", resolvedTitle);
     updateMeta("name", "twitter:description", resolvedDescription);
     updateMeta("name", "twitter:image", absoluteOgImage);
@@ -168,7 +182,7 @@ export default function SEOHead({
     updateMeta("name", "geo.placename", "Adana, Türkiye");
     updateMeta("name", "geo.position", "36.9914;35.3308");
     updateMeta("name", "ICBM", "36.9914, 35.3308");
-    updateMeta("name", "geo.coverage", "Worldwide; Global; European Union; Middle East; North Africa; Central Asia; Americas; Mediterranean Basin");
+    updateMeta("name", "geo.coverage", "Worldwide; Global; European Union; Balkans; Middle East; Arabian Gulf; North Africa; Sub-Saharan Africa; Central Asia; CIS; Americas; Asia-Pacific; Mediterranean Basin");
     updateMeta("name", "distribution", "Global");
     updateMeta("name", "coverage", "Worldwide");
     updateMeta("name", "target", "all");
@@ -178,10 +192,11 @@ export default function SEOHead({
     // Dublin Core Semantic Metadata
     updateMeta("name", "DC.title", resolvedTitle);
     updateMeta("name", "DC.creator", COMPANY_INFO.legalName);
+    updateMeta("name", "DC.subject", resolvedKeywords);
     updateMeta("name", "DC.description", resolvedDescription);
     updateMeta("name", "DC.publisher", COMPANY_INFO.brandName);
     updateMeta("name", "DC.language", currentLangObj.code);
-    updateMeta("name", "DC.coverage", "Worldwide; Adana, Türkiye; Mediterranean Basin; Global Export");
+    updateMeta("name", "DC.coverage", "Worldwide; Adana, Türkiye; Mersin Port; Mediterranean Basin; Global Export");
     updateMeta("name", "DC.type", "Product, Service");
 
     // Utility and error pages must not retain the previous page's discovery data.
@@ -212,11 +227,10 @@ export default function SEOHead({
         altLink = document.createElement("link");
         altLink.setAttribute("rel", "alternate");
         altLink.setAttribute("hreflang", l.hreflang);
+        altLink.setAttribute("href", targetHref);
         insertAnchor.after(altLink);
-      } else {
-        if (altLink.getAttribute("href") !== targetHref) {
-          altLink.setAttribute("href", targetHref);
-        }
+      } else if (altLink.getAttribute("href") !== targetHref) {
+        altLink.setAttribute("href", targetHref);
       }
       insertAnchor = altLink;
     });
@@ -231,11 +245,10 @@ export default function SEOHead({
       xDefaultLink = document.createElement("link");
       xDefaultLink.setAttribute("rel", "alternate");
       xDefaultLink.setAttribute("hreflang", "x-default");
+      xDefaultLink.setAttribute("href", xDefaultHref);
       insertAnchor.after(xDefaultLink);
-    } else {
-      if (xDefaultLink.getAttribute("href") !== xDefaultHref) {
-        xDefaultLink.setAttribute("href", xDefaultHref);
-      }
+    } else if (xDefaultLink.getAttribute("href") !== xDefaultHref) {
+      xDefaultLink.setAttribute("href", xDefaultHref);
     }
 
     // Remove any obsolete hreflangs (e.g. if a route supports fewer languages)
@@ -258,7 +271,7 @@ export default function SEOHead({
       "legalName": COMPANY_INFO.legalName,
       "url": PRODUCTION_CANONICAL_HOST,
       "image": `${PRODUCTION_CANONICAL_HOST}/images/arched-steel-hangar-hd.jpg`,
-      "description": "International manufacturer of clear-span arch steel hangars, pre-engineered buildings (PEB) and industrial structural steel kits. Certified EN 1090-2 EXC4 and CE.",
+      "description": "International manufacturer of clear-span arch steel hangars (9m-45m), pre-engineered buildings (PEB up to 60m), and industrial structural steel kits. Certified EN 1090-2 EXC4 and CE.",
       "slogan": COMPANY_INFO.tagline,
       "logo": {
         "@type": "ImageObject",
@@ -280,14 +293,15 @@ export default function SEOHead({
       "currenciesAccepted": "USD, EUR, TRY, GBP, AED, SAR",
       "paymentAccepted": "Bank Wire, Letter of Credit (L/C)",
       "knowsAbout": [
-        "Clear-Span Arch Steel Buildings",
-        "Aircraft Hangars",
-        "Pre-Engineered Buildings (PEB)",
-        "Galvalume Plus AZ180",
-        "EN 1090-2 Execution Class 4",
-        "AISC 360-16 Structural Steel",
-        "Container Canopy Roof Systems",
-        "Bulk Agricultural Grain Storage"
+        "Clear-Span Arch Steel Buildings (Q-Series, S-Series, P-Series)",
+        "Aircraft & Helicopter Hangars",
+        "Pre-Engineered Steel Buildings (PEB Portal Frames)",
+        "Galvalume Plus AZ180 Metallurgy (ASTM A792)",
+        "EN 1090-2 Execution Class 4 (EXC4) & CE Marking",
+        "Eurocode 1, Eurocode 3 & AISC 360-16 Structural Steel Design",
+        "Container Canopy Roof Truss Systems",
+        "Bulk Agricultural Grain Silos & Mining Stockpile Enclosures",
+        "40HC Flat-Pack Maritime Container Logistics via Mersin Port"
       ],
       "hasCertification": COMPANY_INFO.certifications.map((c) => ({
         "@type": "Certification",
@@ -303,7 +317,7 @@ export default function SEOHead({
             "itemOffered": {
               "@type": "Product",
               "name": "Q-Series Clear-Span Arch Hangar",
-              "description": "Continuous semi-circular arch steel building from 9m to 45m clear span with zero internal columns. Galvalume Plus® AZ180 alloy.",
+              "description": "Continuous semi-circular arch steel building from 9m to 45m clear span with zero internal columns. Certified to 240 km/h wind and 350 kg/m² snow load.",
               "material": "Galvalume Plus® AZ180 Steel",
               "category": "Clear-Span Steel Buildings"
             }
@@ -313,7 +327,7 @@ export default function SEOHead({
             "itemOffered": {
               "@type": "Product",
               "name": "S-Series Straight-Wall Arch Steel Building",
-              "description": "Vertical straight sidewalls with arch roof crown from 12m to 30m clear span. Ideal for pallet racking and logistics.",
+              "description": "Vertical straight sidewalls with arch roof crown from 10m to 30m clear span. Certified to 225 km/h wind and 280 kg/m² snow load.",
               "material": "Galvalume Plus® AZ180 Steel",
               "category": "Industrial Warehouses"
             }
@@ -323,7 +337,7 @@ export default function SEOHead({
             "itemOffered": {
               "@type": "Product",
               "name": "P-Series Gable Pitch Steel Building",
-              "description": "Traditional pitched gable roofline with arched steel engineering from 10m to 24m clear span.",
+              "description": "Traditional pitched gable roofline with arched steel engineering from 8m to 24m clear span. Certified to 210 km/h wind and 240 kg/m² snow load.",
               "material": "Galvalume Plus® AZ180 Steel",
               "category": "Commercial Steel Buildings"
             }
@@ -333,7 +347,7 @@ export default function SEOHead({
             "itemOffered": {
               "@type": "Product",
               "name": "Container Canopy Arch Roof System",
-              "description": "Heavy-duty arch trusses mounted on ISO shipping containers from 8m to 20m clear span.",
+              "description": "Heavy-duty arch trusses mounted on ISO 20ft/40ft shipping containers from 6m to 24m clear span. Certified to 200 km/h wind.",
               "material": "Galvanized High-Tensile Steel",
               "category": "Modular Shelter Systems"
             }
@@ -343,7 +357,7 @@ export default function SEOHead({
             "itemOffered": {
               "@type": "Product",
               "name": "Heavy Pre-Engineered Steel Building (PEB)",
-              "description": "Tapered built-up portal frame structures up to 60m clear span with 50-ton overhead crane capacity.",
+              "description": "Tapered built-up portal frame structures from 18m to 60m+ clear span with up to 50-ton overhead crane capacity and up to 250 km/h wind rating.",
               "material": "Structural Steel Grade 50",
               "category": "Heavy Industrial Facilities"
             }
@@ -374,27 +388,54 @@ export default function SEOHead({
         { "@type": "Country", "name": "United Kingdom" },
         { "@type": "Country", "name": "Italy" },
         { "@type": "Country", "name": "Spain" },
+        { "@type": "Country", "name": "Portugal" },
         { "@type": "Country", "name": "Netherlands" },
+        { "@type": "Country", "name": "Belgium" },
         { "@type": "Country", "name": "Poland" },
         { "@type": "Country", "name": "Romania" },
+        { "@type": "Country", "name": "Bulgaria" },
         { "@type": "Country", "name": "Greece" },
-        { "@type": "Place", "name": "Middle East" },
+        { "@type": "Country", "name": "Czechia" },
+        { "@type": "Country", "name": "Hungary" },
+        { "@type": "Country", "name": "Serbia" },
+        { "@type": "Country", "name": "Croatia" },
+        { "@type": "Country", "name": "Ukraine" },
+        { "@type": "Place", "name": "Middle East & Arabian Gulf" },
         { "@type": "Country", "name": "Saudi Arabia" },
         { "@type": "Country", "name": "United Arab Emirates" },
         { "@type": "Country", "name": "Qatar" },
         { "@type": "Country", "name": "Kuwait" },
+        { "@type": "Country", "name": "Oman" },
         { "@type": "Country", "name": "Iraq" },
-        { "@type": "Place", "name": "Central Asia" },
+        { "@type": "Country", "name": "Israel" },
+        { "@type": "Place", "name": "Central Asia & Caucasus" },
         { "@type": "Country", "name": "Azerbaijan" },
         { "@type": "Country", "name": "Kazakhstan" },
         { "@type": "Country", "name": "Uzbekistan" },
-        { "@type": "Place", "name": "North Africa" },
+        { "@type": "Country", "name": "Georgia" },
+        { "@type": "Country", "name": "Turkmenistan" },
+        { "@type": "Place", "name": "Africa" },
         { "@type": "Country", "name": "Egypt" },
         { "@type": "Country", "name": "Algeria" },
         { "@type": "Country", "name": "Morocco" },
-        { "@type": "Place", "name": "North America" },
+        { "@type": "Country", "name": "Libya" },
+        { "@type": "Country", "name": "Nigeria" },
+        { "@type": "Country", "name": "Kenya" },
+        { "@type": "Country", "name": "Senegal" },
+        { "@type": "Place", "name": "The Americas" },
         { "@type": "Country", "name": "United States" },
-        { "@type": "Country", "name": "Canada" }
+        { "@type": "Country", "name": "Canada" },
+        { "@type": "Country", "name": "Brazil" },
+        { "@type": "Country", "name": "Mexico" },
+        { "@type": "Country", "name": "Chile" },
+        { "@type": "Place", "name": "Asia-Pacific" },
+        { "@type": "Country", "name": "India" },
+        { "@type": "Country", "name": "Indonesia" },
+        { "@type": "Country", "name": "Malaysia" },
+        { "@type": "Country", "name": "Vietnam" },
+        { "@type": "Country", "name": "Thailand" },
+        { "@type": "Country", "name": "Japan" },
+        { "@type": "Country", "name": "South Korea" }
       ],
       "contactPoint": [
         {
@@ -402,11 +443,8 @@ export default function SEOHead({
           "telephone": COMPANY_INFO.contact.primaryPhone,
           "contactType": "sales",
           "email": COMPANY_INFO.contact.primaryEmail,
-          "availableLanguage": [
-            "Turkish", "English", "German", "French", "Spanish",
-            "Arabic", "Russian", "Italian", "Portuguese", "Dutch",
-            "Polish", "Azerbaijani", "Chinese", "Hindi"
-          ]
+          "areaServed": "Worldwide",
+          "availableLanguage": SUPPORTED_LANGUAGES.map((l) => l.name)
         }
       ]
     };
@@ -422,13 +460,15 @@ export default function SEOHead({
       "inLanguage": getSeoLanguages("").map((l) => l.hreflang)
     };
 
-    // Speakable schema for voice search and AI generative engines
+    // Speakable & WebPage schema with localized keywords
     const speakableSchema = {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "@id": `${canonicalUrl}#speakable`,
       "url": canonicalUrl,
       "name": resolvedTitle,
+      "description": resolvedDescription,
+      "keywords": resolvedKeywords,
       "speakable": {
         "@type": "SpeakableSpecification",
         "cssSelector": ["h1", "header p", "main p:first-of-type"]
@@ -446,6 +486,7 @@ export default function SEOHead({
         "@id": `${canonicalUrl}#article`,
         "headline": resolvedTitle,
         "description": resolvedDescription,
+        "keywords": resolvedKeywords,
         "image": absoluteOgImage,
         "inLanguage": currentLangObj.code,
         "author": {
@@ -523,7 +564,7 @@ export default function SEOHead({
     return () => {
       jsonLdScripts.forEach((s) => s.remove());
     };
-  }, [resolvedTitle, resolvedDescription, canonicalUrl, currentLangObj, isRTL, absoluteOgImage, ogType, articleMeta, schema, faqItems, breadcrumbs, robots, noindex, slug]);
+  }, [resolvedTitle, resolvedDescription, resolvedKeywords, canonicalUrl, currentLangObj, isRTL, absoluteOgImage, ogType, articleMeta, schema, faqItems, breadcrumbs, robots, noindex, slug]);
 
   return null;
 }

@@ -5,7 +5,7 @@ import { KNOWLEDGE_ARTICLES } from "../data/knowledgeData";
 import { useLanguage } from "../contexts/LanguageContext";
 import { getPageSEO } from "../data/seoData";
 import SEOHead from "../components/SEOHead";
-import GeoAnswerBox from "../components/GeoAnswerBox";
+import GeoAnswerBox, { getGeoQaByLang } from "../components/GeoAnswerBox";
 
 export default function KnowledgePage({ lang = "tr" }: { lang?: string }) {
   const { t } = useLanguage();
@@ -44,6 +44,8 @@ export default function KnowledgePage({ lang = "tr" }: { lang?: string }) {
         title={seo.title}
         description={seo.description}
         canonicalPath={`/${lang}/knowledge`}
+        keywords={seo.keywords}
+        faqItems={getGeoQaByLang(lang)}
         lang={lang}
         breadcrumbs={[
           { name: "STRUCTIVA", url: `/${lang}` },
@@ -182,7 +184,7 @@ export default function KnowledgePage({ lang = "tr" }: { lang?: string }) {
           </div>
         )}
 
-        <GeoAnswerBox />
+        <GeoAnswerBox langPrefix={`/${lang}`} pageKey="knowledge" />
       </div>
     </div>
   );

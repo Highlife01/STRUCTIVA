@@ -77,7 +77,7 @@ export const SUPPORTED_LANGUAGES: LanguageDef[] = [
   { code: "ar", name: "Arabic", nativeName: "العربية", flag: "🇸🇦", dir: "rtl", hreflang: "ar", isRTL: true },
   { code: "fa", name: "Persian", nativeName: "فارسی", flag: "🇮🇷", dir: "rtl", hreflang: "fa", isRTL: true },
   { code: "he", name: "Hebrew", nativeName: "עברית", flag: "🇮🇱", dir: "rtl", hreflang: "he", isRTL: true },
-  { code: "zh", name: "Chinese (Simplified)", nativeName: "简体中文", flag: "🇨🇳", dir: "ltr", hreflang: "zh-Hans" },
+  { code: "zh", name: "Chinese (Simplified)", nativeName: "简体中文", flag: "🇨🇳", dir: "ltr", hreflang: "zh" },
   { code: "ja", name: "Japanese", nativeName: "日本語", flag: "🇯🇵", dir: "ltr", hreflang: "ja" },
   { code: "ko", name: "Korean", nativeName: "한국어", flag: "🇰🇷", dir: "ltr", hreflang: "ko" },
   { code: "hi", name: "Hindi", nativeName: "हिन्दी", flag: "🇮🇳", dir: "ltr", hreflang: "hi" },

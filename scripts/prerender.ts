@@ -8,6 +8,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { getPageSEO, WORLDWIDE_GEO_MARKETS } from "../client/src/data/seoData";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -2255,9 +2256,35 @@ function buildHreflangTags(pageSlug: string): string {
   return lines.join("\n");
 }
 
+function escapeHtmlAttr(val: unknown): string {
+  const str = Array.isArray(val) ? val.join(", ") : String(val ?? "");
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function getSeoPageKey(slug: string): string {
+  if (!slug) return "home";
+  if (slug === "request-a-quote") return "rfq";
+  return slug;
+}
+
+function resolvePageMeta(page: PageConfig, lang: string) {
+  const seo = getPageSEO(getSeoPageKey(page.slug), lang);
+  const title = seo?.title || page.title[lang] || page.title.en || page.title.tr;
+  const description = seo?.description || page.description[lang] || page.description.en || page.description.tr;
+  const h1 = seo?.h1 || page.h1[lang] || page.h1.en || page.h1.tr;
+  const keywords =
+    seo?.keywords ||
+    "clear-span arch steel buildings, pre-engineered steel buildings PEB, aircraft hangars, Galvalume Plus AZ180, EN 1090-2 EXC4, STRUCTIVA Adana";
+  return { title, description, h1, keywords };
+}
+
 function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): string {
-  const title = page.title[lang] || page.title.en || page.title.tr;
-  const description = page.description[lang] || page.description.en || page.description.tr;
+  const { title, description, h1, keywords } = resolvePageMeta(page, lang);
+  // description and keywords resolved from SEO_REGISTRY above
 
   const isRoot = page.slug === "";
   const breadcrumbList = {
@@ -2290,12 +2317,17 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
 
   const orgSchema = {
     "@context": "https://schema.org",
-    "@type": ["Corporation", "Organization", "LocalBusiness", "Manufacturer"],
+    "@type": ["Corporation", "Organization", "LocalBusiness"],
     "@id": `${SITE_URL}/#organization`,
     "name": BRAND_NAME,
     "legalName": "STRUCTIVA Çelik Yapı Sanayi A.Ş.",
     "url": SITE_URL,
-    "logo": `${SITE_URL}/images/arched-steel-hangar-hd.jpg`,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${SITE_URL}/images/structiva-logo.svg`,
+      "width": 512,
+      "height": 512
+    },
     "image": `${SITE_URL}/images/arched-steel-hangar-hd.jpg`,
     "telephone": PHONE,
     "email": EMAIL,
@@ -2382,7 +2414,7 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
           "itemOffered": {
             "@type": "Product",
             "name": "S-Series Straight-Wall Arch Steel Building",
-            "description": "Vertical straight sidewalls with arch roof crown from 12m to 30m clear span. Ideal for pallet racking and logistics.",
+            "description": "Vertical straight sidewalls with arch roof crown from 10m to 30m clear span (225 km/h wind rating). Ideal for pallet racking and logistics.",
             "material": "Galvalume Plus® AZ180 Steel",
             "category": "Industrial Warehouses"
           }
@@ -2392,7 +2424,7 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
           "itemOffered": {
             "@type": "Product",
             "name": "P-Series Gable Pitch Steel Building",
-            "description": "Traditional pitched gable roofline with arched steel engineering from 10m to 24m clear span.",
+            "description": "Traditional pitched gable roofline with arched steel engineering from 8m to 24m clear span (210 km/h wind rating).",
             "material": "Galvalume Plus® AZ180 Steel",
             "category": "Commercial Steel Buildings"
           }
@@ -2402,7 +2434,7 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
           "itemOffered": {
             "@type": "Product",
             "name": "Container Canopy Arch Roof System",
-            "description": "Heavy-duty arch trusses mounted on ISO shipping containers from 8m to 20m clear span.",
+            "description": "Heavy-duty arch trusses mounted on ISO shipping containers from 6m to 24m clear span (200 km/h wind rating).",
             "material": "Galvanized High-Tensile Steel",
             "category": "Modular Shelter Systems"
           }
@@ -2461,6 +2493,8 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
     "@id": `${canonicalUrl}#speakable`,
     "url": canonicalUrl,
     "name": title,
+    "description": description,
+    "keywords": keywords,
     "speakable": {
       "@type": "SpeakableSpecification",
       "cssSelector": ["h1", "header p", "main p:first-of-type"]
@@ -2475,6 +2509,7 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
       "@context": "https://schema.org",
       "@type": "ProductModel",
       "name": title,
+      "keywords": keywords,
       "brand": { "@type": "Brand", "name": BRAND_NAME },
       "manufacturer": { "@id": `${SITE_URL}/#organization` },
       "description": description,
@@ -2501,6 +2536,7 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
       "@type": "TechArticle",
       "@id": `${canonicalUrl}#article`,
       "headline": title,
+      "keywords": keywords,
       "description": description,
       "image": `${SITE_URL}/images/arched-steel-hangar-hd.jpg`,
       "inLanguage": lang,
@@ -2957,8 +2993,8 @@ const SHELL_NAV: Record<string, Record<string, string>> = {
 };
 
 function generateSemanticHtml(page: PageConfig, lang: string): string {
-  const title = page.title[lang] || page.title.en || page.title.tr;
-  const h1 = page.h1[lang] || page.h1.en || page.h1.tr;
+  const { title, description, h1, keywords } = resolvePageMeta(page, lang);
+  // h1 resolved from SEO_REGISTRY above
   const subheading = page.subheading[lang] || page.subheading.en || page.subheading.tr;
   const bodyHtml = page.bodyHtml[lang] || page.bodyHtml.en || page.bodyHtml.tr;
 
@@ -3014,6 +3050,50 @@ function generateSemanticHtml(page: PageConfig, lang: string): string {
 
         <!-- Page Specific Body Content -->
         ${bodyHtml}
+
+        ${page.faqItems && page.faqItems.length > 0 ? `
+        <section class="mt-12 rounded-2xl bg-white/5 border border-white/10 p-6">
+          <h2 class="text-xl font-black text-amber-400 mb-4">FAQ / Technical Q&amp;A</h2>
+          <div class="space-y-4">
+            ${page.faqItems.map((f) => `
+              <div class="border-b border-white/10 pb-3">
+                <h3 class="text-sm font-bold text-white mb-1">${escapeHtmlAttr(f.question)}</h3>
+                <p class="text-xs text-slate-300 leading-relaxed">${escapeHtmlAttr(f.answer)}</p>
+              </div>
+            `).join("")}
+          </div>
+        </section>
+        ` : ""}
+
+        <!-- Worldwide Export Corridors & Localized Keyword Index -->
+        <section class="mt-12 rounded-2xl bg-[#0b1622] border border-white/10 p-6">
+          <h2 class="text-base font-black text-amber-400 uppercase tracking-wider mb-3">Worldwide Export Corridors (FOB/CIF Mersin Deep-Water Port — 15 km)</h2>
+          <div class="overflow-x-auto mb-4">
+            <table class="w-full text-left text-xs text-slate-300 border-collapse">
+              <thead>
+                <tr class="border-b border-white/15 text-slate-400">
+                  <th class="py-2 pr-4">Region</th>
+                  <th class="py-2 pr-4">Target Countries</th>
+                  <th class="py-2 pr-4">Destination Seaports</th>
+                  <th class="py-2 pr-4">Transit Days</th>
+                  <th class="py-2">Engineering Codes</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${WORLDWIDE_GEO_MARKETS.map((m) => `
+                  <tr class="border-b border-white/5">
+                    <td class="py-2 pr-4 font-bold text-white">${escapeHtmlAttr(m.regionName[lang] || m.regionName.en)}</td>
+                    <td class="py-2 pr-4">${escapeHtmlAttr(m.countries.slice(0, 6).join(", "))}</td>
+                    <td class="py-2 pr-4 text-amber-300">${escapeHtmlAttr(m.majorPorts.slice(0, 4).join(", "))}</td>
+                    <td class="py-2 pr-4 font-mono text-emerald-400">${escapeHtmlAttr(m.transitDaysFromMersin)}</td>
+                    <td class="py-2 font-mono text-slate-400">${escapeHtmlAttr(m.designCodes.join(", "))}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+          <p class="text-[11px] text-slate-400"><strong>Keywords (${lang.toUpperCase()}):</strong> ${escapeHtmlAttr(keywords)}</p>
+        </section>
 
         <!-- Call to Action Banner -->
         <div class="mt-16 p-8 rounded-3xl bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-transparent border border-amber-500/30 flex flex-col md:flex-row items-center justify-between gap-6">
@@ -3102,8 +3182,11 @@ function prerender() {
       const langSlugPath = isRootPage ? lang.code : `${lang.code}/${page.slug}`;
       const langCanonicalUrl = `${SITE_URL}/${langSlugPath}`;
 
-      const title = page.title[lang.code] || page.title.en || page.title.tr;
-      const description = page.description[lang.code] || page.description.en || page.description.tr;
+      const meta = resolvePageMeta(page, lang.code);
+      const title = escapeHtmlAttr(meta.title);
+      const description = escapeHtmlAttr(meta.description);
+      const keywords = escapeHtmlAttr(meta.keywords);
+      // description and keywords resolved from SEO_REGISTRY above
       const hreflangs = buildHreflangTags(page.slug);
       const jsonLd = buildJsonLd(page, lang.code, langCanonicalUrl);
       const semanticHtml = generateSemanticHtml(page, lang.code);
@@ -3121,6 +3204,10 @@ function prerender() {
       html = html.replace(
         /<meta\s+name="description"\s+content="[^"]*"\s*\/?>/,
         `<meta name="description" content="${description}" />`
+      );
+      html = html.replace(
+        /<meta\s+name="keywords"\s+content="[^"]*"\s*\/?>/,
+        `<meta name="keywords" content="${keywords}" />`
       );
 
       // Update canonical link and replace template's alternate hreflangs with page-specific ones
@@ -3171,6 +3258,10 @@ function prerender() {
       html = html.replace(
         /<meta\s+name="DC.language"\s+content="[^"]*"\s*\/?>/,
         `<meta name="DC.language" content="${lang.code}" />`
+      );
+      html = html.replace(
+        /<meta\s+name="DC.subject"\s+content="[^"]*"\s*\/?>/,
+        `<meta name="DC.subject" content="${keywords}" />`
       );
 
       // Inject JSON-LD right before </head>

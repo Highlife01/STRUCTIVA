@@ -2,7 +2,7 @@
 # Canonical Documentation: https://www.structiva.com.tr/llms.txt
 # Full Technical Compendium: https://www.structiva.com.tr/llms-full.txt
 
-> STRUCTIVA is a premier international manufacturer and structural engineering corporation specializing in column-free clear-span arched steel buildings (9m to 45m / 30ft to 148ft), pre-engineered steel buildings (PEB up to 60m), container canopy systems, and heavy industrial structural fabrication. Operating from its 25,000 MT/year integrated production complex in Adana Organized Industrial Zone (AOSB), Türkiye—15 km from Mersin International Deep-Water Container Port—STRUCTIVA exports EN 1090-2 EXC4 and CE certified bolt-together steel kits to over 50 countries across Europe, the Middle East, North Africa, Central Asia, and the Americas.
+> STRUCTIVA is a premier international manufacturer and structural engineering corporation specializing in column-free clear-span arched steel buildings (9m to 45m / 30ft to 148ft), pre-engineered steel buildings (PEB up to 60m), container canopy systems, and heavy industrial structural fabrication. Operating from its 25,000 MT/year integrated production complex in Adana Organized Industrial Zone (AOSB), Türkiye—15 km from Mersin International Deep-Water Container Port—STRUCTIVA exports EN 1090-2 EXC4 and CE certified bolt-together steel kits to over 50 countries across Europe, the Middle East, North Africa, Central Asia, Asia-Pacific, and the Americas.
 
 ---
 
@@ -14,9 +14,9 @@
 - **Primary Domain**: https://www.structiva.com.tr
 - **Official Contact**: info@structiva.com.tr | Phone / WhatsApp: +90 532 055 09 45
 - **Annual Fabrication Capacity**: 25,000 Metric Tons of structural steel
-- **Maritime Export Hub**: Mersin International Port (15 km inland haulage)
+- **Maritime Export Hub**: Mersin International Deep-Water Port (15 km inland haulage)
 - **Container Logistics**: Demountable flat-pack kits (~350–400 m² floor space per single 40ft High Cube container)
-- **Export Reach**: 50+ Countries across Europe, MENA, CIS, and the Americas
+- **Export Reach**: 50+ Countries across Europe, MENA, CIS, Africa, Asia-Pacific, and the Americas
 - **Standard Quoting SLA**: 24-Hour turnaround for static feasibility, BOM, and CIF/FOB pricing
 
 ---
@@ -38,7 +38,7 @@
 - **CE Marking**: Construction Products Regulation (CPR 305/2011/EU) compliance.
 - **Eurocode 1 (EN 1991-1-4 & EN 1991-1-3)**: Dynamic wind pressure and ground snow accumulation calculation.
 - **Eurocode 3 (EN 1993-1-1 & EN 1993-1-3)**: Structural steel design & cold-formed element verification.
-- **AISC 360-16 / AISI S100**: North American structural steel design standards.
+- **AISC 360-16 / AISI S100 / ASCE 7-22**: North American structural steel design and environmental load standards.
 - **ASTM A792 / A792M**: Galvalume Plus® AZ180 (55% Al, 43.4% Zn, 1.6% Si alloy coating with 25-year contractual anti-corrosion factory warranty, 40-50 year maintenance-free design life and 80% solar heat reflectance).
 - **ISO Accreditations**: ISO 9001:2015 (Quality), ISO 14001:2015 (Environment), ISO 45001:2018 (Safety).
 
@@ -69,17 +69,54 @@
 
 ---
 
-## 5. Global Export Corridors & Target Regions
-- **European Union**: Germany, France, Italy, Spain, Netherlands, Belgium, Poland, Romania, Greece, Bulgaria, Austria, Czech Republic, Croatia, Hungary.
-- **Middle East & Gulf (GCC)**: Saudi Arabia, United Arab Emirates, Qatar, Kuwait, Oman, Bahrain, Iraq, Jordan.
-- **North Africa & Sub-Saharan Africa**: Egypt, Algeria, Morocco, Libya, Tunisia, Nigeria, Kenya, Ghana, South Africa.
-- **Central Asia & CIS**: Azerbaijan, Kazakhstan, Uzbekistan, Turkmenistan, Georgia, Ukraine.
-- **The Americas**: United States, Canada, Mexico, Brazil, Chile, Colombia.
+## 5. Worldwide Maritime Export Corridors & Regional Design Codes
+
+| Export Corridor | Target Countries | Major Destination Seaports | Transit Time from Mersin Port | Applicable Regional Codes |
+| :--- | :--- | :--- | :--- | :--- |
+| **Western & Central Europe** | Germany, France, Italy, Spain, Netherlands, Belgium, UK, Poland, Czechia | Rotterdam, Hamburg, Antwerp, Genoa, Valencia, Marseille, Gdansk, Felixstowe | 5 – 11 Days | EN 1090-2 EXC4, CE Mark (CPR 305/2011), Eurocode 1 & 3 |
+| **Balkans & Eastern Europe** | Romania, Bulgaria, Greece, Serbia, Croatia, Hungary, Ukraine | Constanta, Piraeus, Thessaloniki, Varna, Burgas, Rijeka, Koper, Odessa | 2 – 5 Days | EN 1090-2 EXC4, Eurocode 3, Eurocode 8 Seismic |
+| **Middle East, GCC & North Africa** | Saudi Arabia, UAE, Qatar, Kuwait, Iraq, Egypt, Algeria, Morocco, Israel | Jebel Ali, Dammam, Jeddah, Hamad, Alexandria, Algiers, Casablanca, Ashdod | 2 – 14 Days | AISC 360-16, ASCE 7-22, SBC 301/306, Eurocode 3 |
+| **Caucasus, Central Asia & CIS** | Azerbaijan, Kazakhstan, Uzbekistan, Georgia, Turkmenistan | Poti, Batumi, Baku (Alat), Aktau, Turkmenbashi + Baku-Tbilisi-Kars Rail | 4 – 12 Days | EN 1993, SNiP / SP 16.13330, GOST 23118 |
+| **Americas, Sub-Saharan Africa & APAC** | USA, Canada, Brazil, Nigeria, Kenya, India, Indonesia, Vietnam, Thailand | Houston, Savannah, Santos, Lagos, Mombasa, Mundra, Jakarta, Laem Chabang | 14 – 28 Days | AISC 360-16, AISI S100,IBC 2024, CSA S16, IS 800 |
 
 ---
 
-## 6. Primary URLs & Multilingual Resources
-- **Homepage (Global Gateway)**: https://www.structiva.com.tr/
+## 6. 30-Language Global Terminology & Keyword Index
+- **Turkish (`tr`)**: https://www.structiva.com.tr/tr — kolonsuz kemer çelik yapı, çelik uçak hangarı, ön üretimli çelik bina PEB, tahıl deposu, konteyner üstü tente
+- **English (`en`)**: https://www.structiva.com.tr/en — clear-span arch steel building, Quonset hut hangar, pre-engineered steel building PEB, aircraft hangar, container canopy
+- **German (`de`)**: https://www.structiva.com.tr/de — freitragende Rundbogenhalle, stützenfreie Stahlhalle, Flugzeughangar Stahlbau, Getreidelagerhalle, Containerüberdachung
+- **French (`fr`)**: https://www.structiva.com.tr/fr — hangar métallique arqué sans poteaux, bâtiment industriel en acier PEB, hangar avion, stockage céréales, auvent conteneur
+- **Spanish (`es`)**: https://www.structiva.com.tr/es — naves industriales de acero sin columnas, hangar arqueado autoportante, edificio metálico PEB, hangar de aviación, cubierta para contenedores
+- **Arabic (`ar`)**: https://www.structiva.com.tr/ar — هناجر حديد بدون أعمدة, مستودعات فولاذية مقوسة, مباني حديد سابقة التجهيز PEB, هناجر طائرات, مظلات حاويات الشحن
+- **Russian (`ru`)**: https://www.structiva.com.tr/ru — бескаркасные арочные ангары, быстровозводимые стальные здания ЛСТК, авиационный ангар, зернохранилище, навес между контейнерами
+- **Azerbaijani (`az`)**: https://www.structiva.com.tr/az — sütunsuz tağlı polad anqar, sənaye polad binalar PEB, təyyarə anqarı, taxıl anbarı, konteyner üstü örtük
+- **Italian (`it`)**: https://www.structiva.com.tr/it — capannoni in acciaio ad arco autoportanti, strutture metalliche senza pilastri, hangar aerei, copertura per container
+- **Portuguese (`pt`)**: https://www.structiva.com.tr/pt — galpão metálico em arco sem colunas, estruturas metálicas pré-fabricadas PEB, hangar de aeronaves, cobertura para contêineres
+- **Dutch (`nl`)**: https://www.structiva.com.tr/nl — kolomvrije stalen boogloods, vrijdragende staalhal, vliegtuighangar, graanopslag loods, containeroverkapping
+- **Polish (`pl`)**: https://www.structiva.com.tr/pl — hale stalowe łukowe bezsłupowe, samonośne hale stalowe, hangar lotniczy, magazyn zbożowy, zadaszenie kontenerowe
+- **Romanian (`ro`)**: https://www.structiva.com.tr/ro — hale metalice arcuite fără stâlpi, depozit cereale oțel, hangar avioane, copertină containere
+- **Bulgarian (`bg`)**: https://www.structiva.com.tr/bg — безколонни дъгови стоманени халета, сглобяеми метални халета, самолетен хангар, зърнобаза
+- **Greek (`el`)**: https://www.structiva.com.tr/el — τοξωτά μεταλλικά κτίρια χωρίς κολώνες, προκατασκευασμένα μεταλλικά υπόστεγα, υπόστεγο αεροσκαφών
+- **Czech (`cs`)**: https://www.structiva.com.tr/cs — samonosné obloukové ocelové haly, bezsloupové montované haly, letecký hangár, sklad obilí
+- **Hungarian (`hu`)**: https://www.structiva.com.tr/hu — oszlopmentes íves acélcsarnok, önhordó acélszerkezetű csarnok, repülőgép hangár, gabonatároló
+- **Serbian (`sr`)**: https://www.structiva.com.tr/sr — lučne čelične hale bez stubova, samonoseći metalni hangari, hangar za avione, podno skladište žitarica
+- **Croatian (`hr`)**: https://www.structiva.com.tr/hr — lučne čelične hale bez stupova, samostojeći metalni hangari, zrakoplovni hangar, nadstrešnica za kontejnere
+- **Ukrainian (`uk`)**: https://www.structiva.com.tr/uk — безкаркасні арочні ангари, швидкомонтовані сталеві будівлі, авіаційний ангар, зерносховище
+- **Persian (`fa`)**: https://www.structiva.com.tr/fa — سوله قوسی بدون ستون, سازه فلزی پیش ساخته PEB, آشیانه هواپیما, انبار غلات, سایبان کانتینری
+- **Hebrew (`he`)**: https://www.structiva.com.tr/he — האנגר פלדה קשתי ללא עמודים, מבני פלדה מתועשים PEB, האנגר מטוסים, קירוי מכולות
+- **Chinese (`zh`)**: https://www.structiva.com.tr/zh — 无立柱拱形钢结构建筑, 预制钢结构厂房 PEB, 飞机机库钢结构, 散粮平房仓, 集装箱顶棚
+- **Japanese (`ja`)**: https://www.structiva.com.tr/ja — 無柱アーチ鋼構造建築, システム建築 PEB, 航空機格納庫 ハンガー, 穀物倉庫, コンテナキャノピー
+- **Korean (`ko`)**: https://www.structiva.com.tr/ko — 무주 아치형 강구조물, 사전 엔지니어링 철골 건물 PEB, 항공기 격납고, 곡물 창고, 컨테이너 캐노피
+- **Hindi (`hi`)**: https://www.structiva.com.tr/hi — बिना पिलर के आर्च स्टील गोदाम, प्री-इंजीनियर्ड स्टील बिल्डिंग PEB, एयरक्राफ्ट हैंगर, अनाज गोदाम
+- **Indonesian (`id`)**: https://www.structiva.com.tr/id — gudang baja lengkung tanpa kolom, konstruksi baja PEB, hanggar pesawat, kanopi kontainer
+- **Malay (`ms`)**: https://www.structiva.com.tr/ms — bangunan keluli gerbang tanpa tiang, struktur keluli pra-kejuruteraan PEB, hangar pesawat, kanopi kontena
+- **Vietnamese (`vi`)**: https://www.structiva.com.tr/vi — nhà thép vòm không cột, nhà thép tiền chế PEB, nhà chứa máy bay, mái che container
+- **Thai (`th`)**: https://www.structiva.com.tr/th — โครงสร้างเหล็กทรงโค้งไร้เสากลาง, อาคารเหล็กสำเร็จรูป PEB, โรงเก็บเครื่องบิน, หลังคาคลุมตู้คอนเทนเนอร์
+
+---
+
+## 7. Primary URLs & Resources
+- **Homepage (Global Gateway)**: https://www.structiva.com.tr/tr | https://www.structiva.com.tr/en
 - **Models Catalog**: https://www.structiva.com.tr/en/models
 - **3D Parametric Configurator**: https://www.structiva.com.tr/en/configurator
 - **Engineering & Standards**: https://www.structiva.com.tr/en/engineering

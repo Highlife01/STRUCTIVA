@@ -3,7 +3,8 @@ import { Link } from "wouter";
 import { ArrowLeft, Clock, Calendar, CheckCircle2, MoveRight } from "lucide-react";
 import { KNOWLEDGE_ARTICLES } from "../data/knowledgeData";
 import SEOHead from "../components/SEOHead";
-import GeoAnswerBox from "../components/GeoAnswerBox";
+import GeoAnswerBox, { getGeoQaByLang } from "../components/GeoAnswerBox";
+import { getPageSEO } from "../data/seoData";
 import NotFound from "./NotFound";
 
 export default function ArticleDetailPage({ lang = "tr", slug }: { lang?: string; slug?: string }) {
@@ -17,6 +18,8 @@ export default function ArticleDetailPage({ lang = "tr", slug }: { lang?: string
         title={`${article.title} | STRUCTIVA Engineering Guide`}
         description={article.summary}
         canonicalPath={`/${lang}/knowledge/${article.slug}`}
+        keywords={getPageSEO(`knowledge/${article.slug}`, lang).keywords}
+        faqItems={getGeoQaByLang(lang)}
         lang={lang}
         ogImage={article.image}
         ogType="article"
@@ -118,7 +121,7 @@ export default function ArticleDetailPage({ lang = "tr", slug }: { lang?: string
         </div>
 
         {/* GEO Fact Box */}
-        <GeoAnswerBox langPrefix={`/${lang}`} />
+        <GeoAnswerBox langPrefix={`/${lang}`} pageKey={`knowledge/${article.slug}`} />
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ import {
 import { saveInquiry } from "../services/messageService";
 import { STEEL_MODELS } from "../data/modelsData";
 import SEOHead from "../components/SEOHead";
-import GeoAnswerBox from "../components/GeoAnswerBox";
+import GeoAnswerBox, { getGeoQaByLang } from "../components/GeoAnswerBox";
 import { useLanguage } from "../contexts/LanguageContext";
 import { getPageSEO } from "../data/seoData";
 import { trackLeadSubmission } from "../lib/analytics";
@@ -134,6 +134,8 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
         title={seo.title}
         description={seo.description}
         canonicalPath={`/${lang}/request-a-quote`}
+        keywords={seo.keywords}
+        faqItems={getGeoQaByLang(lang)}
         lang={lang}
         breadcrumbs={[
           { name: "STRUCTIVA", url: `/${lang}` },
@@ -523,7 +525,7 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
         </div>
 
         {/* Technical GEO FAQ Section */}
-        <GeoAnswerBox langPrefix={`/${lang}`} />
+        <GeoAnswerBox langPrefix={`/${lang}`} pageKey="rfq" />
       </div>
     </div>
   );

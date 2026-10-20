@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "wouter";
 import {
   ArrowUpRight,
@@ -14,12 +14,12 @@ import {
   Play,
   Layers
 } from "lucide-react";
-import { STEEL_MODELS } from "../data/modelsData";
-import { SECTORS } from "../data/sectorsData";
+import { getLocalizedModels } from "../data/modelsData";
+import { getLocalizedSectors } from "../data/sectorsData";
 import BuildingConfigurator from "../components/BuildingConfigurator";
 import ComparisonTable from "../components/ComparisonTable";
 import SEOHead from "../components/SEOHead";
-import GeoAnswerBox from "../components/GeoAnswerBox";
+import GeoAnswerBox, { getGeoQaByLang } from "../components/GeoAnswerBox";
 import { useLanguage } from "../contexts/LanguageContext";
 import { getPageSEO } from "../data/seoData";
 
@@ -72,6 +72,8 @@ export default function HomePage({ lang = "tr" }: { lang?: string }) {
         title={seo.title}
         description={seo.description}
         canonicalPath={`/${lang}`}
+        keywords={seo.keywords}
+        faqItems={getGeoQaByLang(lang)}
         lang={lang}
       />
       {/* Lightbox Modal */}
@@ -323,7 +325,7 @@ export default function HomePage({ lang = "tr" }: { lang?: string }) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {STEEL_MODELS.slice(0, 3).map((model) => (
+            { getLocalizedModels(lang).slice(0, 3).map((model) => (
               <div
                 key={model.id}
                 className="group rounded-2xl bg-[#0e1b27] border border-white/10 hover:border-amber-400/50 overflow-hidden transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
@@ -399,7 +401,7 @@ export default function HomePage({ lang = "tr" }: { lang?: string }) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SECTORS.map((sec) => (
+            {getLocalizedSectors(lang).map((sec) => (
               <div key={sec.id} className="rounded-2xl bg-[#0e1b27] border border-white/10 p-6 hover:border-white/20 transition-all flex flex-col justify-between">
                 <div>
                   <div className="text-xs font-mono text-amber-400 mb-2 uppercase">{sec.metrics}</div>
@@ -480,7 +482,7 @@ export default function HomePage({ lang = "tr" }: { lang?: string }) {
 
       {/* GEO / AEO Knowledge & FAQ Section */}
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        <GeoAnswerBox langPrefix={`/${lang}`} />
+        <GeoAnswerBox langPrefix={`/${lang}`} pageKey="home" />
       </div>
     </div>
   );
