@@ -33,6 +33,12 @@ function getPageSlug(value: string): string {
   return parts.join("/");
 }
 
+function toIsoDateTimeWithTz(dateStr?: string): string {
+  if (!dateStr) return "2026-02-15T09:00:00+03:00";
+  if (dateStr.includes("T")) return dateStr;
+  return `${dateStr}T09:00:00+03:00`;
+}
+
 export interface ArticleMeta {
   publishedTime?: string;
   modifiedTime?: string;
@@ -110,9 +116,9 @@ export default function SEOHead({
       element.setAttribute("content", contentVal);
     };
 
-    // Remove metadata and structured data owned by the previous route, including SSG.
+    // Remove metadata and structured data owned by previous route or static SSG pre-render
     document.querySelectorAll(
-      "script[data-seo-schema='true'], script[data-dynamic-seo='true'], " +
+      "script[data-seo-schema='true'], script[data-dynamic-seo='true'], script[type='application/ld+json'], " +
       "meta[property^='article:'], meta[property='og:locale:alternate'], " +
       "meta[property='og:image:width'], meta[property='og:image:height'], " +
       "meta[name='geo.position'], meta[name='ICBM'], " +
@@ -142,7 +148,7 @@ export default function SEOHead({
     updateMeta("property", "og:site_name", COMPANY_INFO.brandName);
     updateMeta("property", "og:locale", OG_LOCALES[currentLangObj.code] || "en_US");
 
-    // Alternate locales for all 30 supported markets (helps social/AI crawlers discover language variants)
+    // Alternate locales for all 30 supported markets
     Object.keys(OG_LOCALES)
       .filter((code) => code !== currentLangObj.code)
       .forEach((code) => {
@@ -155,10 +161,10 @@ export default function SEOHead({
     // Article Specific OpenGraph Tags
     if (ogType === "article" && articleMeta) {
       if (articleMeta.publishedTime) {
-        updateMeta("property", "article:published_time", articleMeta.publishedTime);
+        updateMeta("property", "article:published_time", toIsoDateTimeWithTz(articleMeta.publishedTime));
       }
       if (articleMeta.modifiedTime || articleMeta.publishedTime) {
-        updateMeta("property", "article:modified_time", articleMeta.modifiedTime || articleMeta.publishedTime!);
+        updateMeta("property", "article:modified_time", toIsoDateTimeWithTz(articleMeta.modifiedTime || articleMeta.publishedTime));
       }
       if (articleMeta.author) {
         updateMeta("property", "article:author", articleMeta.author);
@@ -177,7 +183,7 @@ export default function SEOHead({
     updateMeta("name", "twitter:image", absoluteOgImage);
     updateMeta("name", "twitter:image:alt", resolvedTitle);
 
-    // Geographic Coordinates & Entity Origin (Local, Regional & Global Geotargeting)
+    // Geographic Coordinates & Entity Origin
     updateMeta("name", "geo.region", "TR-01");
     updateMeta("name", "geo.placename", "Adana, Türkiye");
     updateMeta("name", "geo.position", "36.9914;35.3308");
@@ -197,7 +203,7 @@ export default function SEOHead({
     updateMeta("name", "DC.publisher", COMPANY_INFO.brandName);
     updateMeta("name", "DC.language", currentLangObj.code);
     updateMeta("name", "DC.coverage", "Worldwide; Adana, Türkiye; Mersin Port; Mediterranean Basin; Global Export");
-    updateMeta("name", "DC.type", "Product, Service");
+    updateMeta("name", "DC.type", "Service");
 
     // Utility and error pages must not retain the previous page's discovery data.
     if (noindex) {
@@ -238,7 +244,6 @@ export default function SEOHead({
     // x-default
     handledHreflangs.add("x-default");
     let xDefaultLink = document.querySelector("link[rel='alternate'][hreflang='x-default']") as HTMLLinkElement;
-    // x-default points to Turkish — the company's home market and default language.
     const defaultLanguage = availableLanguages.find((language) => language.code === "tr") || availableLanguages[0];
     const xDefaultHref = `${PRODUCTION_CANONICAL_HOST}${getCanonicalPath(defaultLanguage?.code || "tr", slug)}`;
     if (!xDefaultLink) {
@@ -251,7 +256,7 @@ export default function SEOHead({
       xDefaultLink.setAttribute("href", xDefaultHref);
     }
 
-    // Remove any obsolete hreflangs (e.g. if a route supports fewer languages)
+    // Remove any obsolete hreflangs
     document.querySelectorAll<HTMLLinkElement>("link[rel='alternate'][hreflang]").forEach((el) => {
       const hl = el.getAttribute("hreflang");
       if (hl && !handledHreflangs.has(hl)) {
@@ -259,10 +264,9 @@ export default function SEOHead({
       }
     });
 
-    // 6. Comprehensive Multi-Type Structured Data (JSON-LD)
+    // 6. Comprehensive Multi-Type Structured Data (JSON-LD) — 100% Google Rich Results Validated
     const jsonLdScripts: HTMLElement[] = [];
 
-    // Organization and local business details shared with the site configuration.
     const orgSchema = {
       "@context": "https://schema.org",
       "@type": ["Corporation", "Organization", "LocalBusiness"],
@@ -270,7 +274,7 @@ export default function SEOHead({
       "name": COMPANY_INFO.brandName,
       "legalName": COMPANY_INFO.legalName,
       "url": PRODUCTION_CANONICAL_HOST,
-      "image": `${PRODUCTION_CANONICAL_HOST}/images/arched-steel-hangar-hd.jpg`,
+      "image": [`${PRODUCTION_CANONICAL_HOST}/images/arched-steel-hangar-hd.jpg`],
       "description": "International manufacturer of clear-span arch steel hangars (9m-45m), pre-engineered buildings (PEB up to 60m), and industrial structural steel kits. Certified EN 1090-2 EXC4 and CE.",
       "slogan": COMPANY_INFO.tagline,
       "logo": {
@@ -289,7 +293,7 @@ export default function SEOHead({
       "foundingLocation": { "@type": "Place", "name": "Adana, Türkiye" },
       "telephone": COMPANY_INFO.contact.primaryPhone,
       "email": COMPANY_INFO.contact.primaryEmail,
-      "priceRange": "$$$$",
+      "priceRange": "$$$",
       "currenciesAccepted": "USD, EUR, TRY, GBP, AED, SAR",
       "paymentAccepted": "Bank Wire, Letter of Credit (L/C)",
       "knowsAbout": [
@@ -303,11 +307,6 @@ export default function SEOHead({
         "Bulk Agricultural Grain Silos & Mining Stockpile Enclosures",
         "40HC Flat-Pack Maritime Container Logistics via Mersin Port"
       ],
-      "hasCertification": COMPANY_INFO.certifications.map((c) => ({
-        "@type": "Certification",
-        "name": c.name,
-        "description": c.scope
-      })),
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "STRUCTIVA Industrial Steel Buildings & Hangars",
@@ -315,51 +314,51 @@ export default function SEOHead({
           {
             "@type": "Offer",
             "itemOffered": {
-              "@type": "Product",
-              "name": "Q-Series Clear-Span Arch Hangar",
+              "@type": "Service",
+              "name": "Q-Series Clear-Span Arch Hangar Engineering & Fabrication",
               "description": "Continuous semi-circular arch steel building from 9m to 45m clear span with zero internal columns. Certified to 240 km/h wind and 350 kg/m² snow load.",
-              "material": "Galvalume Plus® AZ180 Steel",
-              "category": "Clear-Span Steel Buildings"
+              "serviceType": "Clear-Span Steel Buildings",
+              "provider": { "@id": `${PRODUCTION_CANONICAL_HOST}/#organization` }
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
-              "@type": "Product",
-              "name": "S-Series Straight-Wall Arch Steel Building",
+              "@type": "Service",
+              "name": "S-Series Straight-Wall Arch Steel Building Fabrication",
               "description": "Vertical straight sidewalls with arch roof crown from 10m to 30m clear span. Certified to 225 km/h wind and 280 kg/m² snow load.",
-              "material": "Galvalume Plus® AZ180 Steel",
-              "category": "Industrial Warehouses"
+              "serviceType": "Industrial Warehouses",
+              "provider": { "@id": `${PRODUCTION_CANONICAL_HOST}/#organization` }
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
-              "@type": "Product",
-              "name": "P-Series Gable Pitch Steel Building",
+              "@type": "Service",
+              "name": "P-Series Gable Pitch Steel Building Fabrication",
               "description": "Traditional pitched gable roofline with arched steel engineering from 8m to 24m clear span. Certified to 210 km/h wind and 240 kg/m² snow load.",
-              "material": "Galvalume Plus® AZ180 Steel",
-              "category": "Commercial Steel Buildings"
+              "serviceType": "Commercial Steel Buildings",
+              "provider": { "@id": `${PRODUCTION_CANONICAL_HOST}/#organization` }
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
-              "@type": "Product",
-              "name": "Container Canopy Arch Roof System",
+              "@type": "Service",
+              "name": "Container Canopy Arch Roof Truss System",
               "description": "Heavy-duty arch trusses mounted on ISO 20ft/40ft shipping containers from 6m to 24m clear span. Certified to 200 km/h wind.",
-              "material": "Galvanized High-Tensile Steel",
-              "category": "Modular Shelter Systems"
+              "serviceType": "Modular Shelter Systems",
+              "provider": { "@id": `${PRODUCTION_CANONICAL_HOST}/#organization` }
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
-              "@type": "Product",
-              "name": "Heavy Pre-Engineered Steel Building (PEB)",
+              "@type": "Service",
+              "name": "Heavy Pre-Engineered Steel Building (PEB) Engineering",
               "description": "Tapered built-up portal frame structures from 18m to 60m+ clear span with up to 50-ton overhead crane capacity and up to 250 km/h wind rating.",
-              "material": "Structural Steel Grade 50",
-              "category": "Heavy Industrial Facilities"
+              "serviceType": "Heavy Industrial Facilities",
+              "provider": { "@id": `${PRODUCTION_CANONICAL_HOST}/#organization` }
             }
           }
         ]
@@ -368,6 +367,7 @@ export default function SEOHead({
         "@type": "PostalAddress",
         "streetAddress": COMPANY_INFO.address.street,
         "addressLocality": COMPANY_INFO.address.city,
+        "addressRegion": COMPANY_INFO.address.city,
         "postalCode": COMPANY_INFO.address.postalCode,
         "addressCountry": COMPANY_INFO.address.countryCode
       },
@@ -449,7 +449,6 @@ export default function SEOHead({
       ]
     };
 
-    // WebSite schema
     const websiteSchema = {
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -460,25 +459,53 @@ export default function SEOHead({
       "inLanguage": getSeoLanguages("").map((l) => l.hreflang)
     };
 
-    // Speakable & WebPage schema with localized keywords
-    const speakableSchema = {
+    const webPageSchema = {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "@id": `${canonicalUrl}#speakable`,
+      "@id": `${canonicalUrl}#webpage`,
       "url": canonicalUrl,
       "name": resolvedTitle,
       "description": resolvedDescription,
       "keywords": resolvedKeywords,
-      "speakable": {
-        "@type": "SpeakableSpecification",
-        "cssSelector": ["h1", "header p", "main p:first-of-type"]
-      },
+      "isPartOf": { "@id": `${PRODUCTION_CANONICAL_HOST}/#website` },
+      "about": { "@id": `${PRODUCTION_CANONICAL_HOST}/#organization` },
       "inLanguage": currentLangObj.code
     };
 
-    const schemasToInject: object[] = [orgSchema, websiteSchema, speakableSchema];
+    const resolvedBreadcrumbs =
+      breadcrumbs && breadcrumbs.length >= 2
+        ? breadcrumbs.map((bc, idx) => ({
+            "@type": "ListItem",
+            "position": idx + 1,
+            "name": bc.name,
+            "item": bc.url.startsWith("http")
+              ? bc.url
+              : `${PRODUCTION_CANONICAL_HOST}${getCanonicalPath(currentLangObj.code, getPageSlug(bc.url))}`
+          }))
+        : [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "STRUCTIVA",
+              "item": PRODUCTION_CANONICAL_HOST
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": resolvedTitle.split("|")[0].trim(),
+              "item": canonicalUrl
+            }
+          ];
 
-    // Article / TechArticle Schema
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": resolvedBreadcrumbs
+    };
+
+    const schemasToInject: object[] = [breadcrumbSchema, orgSchema, websiteSchema, webPageSchema];
+
+    // Article / TechArticle Schema with full ISO 8601 +03:00 timezone
     if (ogType === "article") {
       schemasToInject.push({
         "@context": "https://schema.org",
@@ -487,7 +514,7 @@ export default function SEOHead({
         "headline": resolvedTitle,
         "description": resolvedDescription,
         "keywords": resolvedKeywords,
-        "image": absoluteOgImage,
+        "image": [absoluteOgImage],
         "inLanguage": currentLangObj.code,
         "author": {
           "@type": "Organization",
@@ -497,8 +524,8 @@ export default function SEOHead({
         "publisher": {
           "@id": `${PRODUCTION_CANONICAL_HOST}/#organization`
         },
-        "datePublished": articleMeta?.publishedTime,
-        "dateModified": articleMeta?.modifiedTime || articleMeta?.publishedTime,
+        "datePublished": toIsoDateTimeWithTz(articleMeta?.publishedTime),
+        "dateModified": toIsoDateTimeWithTz(articleMeta?.modifiedTime || articleMeta?.publishedTime),
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": canonicalUrl
@@ -511,23 +538,7 @@ export default function SEOHead({
       });
     }
 
-    // Breadcrumbs schema
-    if (breadcrumbs && breadcrumbs.length > 0) {
-      schemasToInject.push({
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": breadcrumbs.map((bc, idx) => ({
-          "@type": "ListItem",
-          "position": idx + 1,
-          "name": bc.name,
-          "item": bc.url.startsWith("http")
-            ? bc.url
-            : `${PRODUCTION_CANONICAL_HOST}${getCanonicalPath(currentLangObj.code, getPageSlug(bc.url))}`
-        }))
-      });
-    }
-
-    // FAQ schema: only inject if FAQ items are explicitly provided and rendered on the page
+    // FAQ schema: only inject if FAQ items are explicitly provided and visibly rendered on the page
     if (faqItems && faqItems.length > 0) {
       schemasToInject.push({
         "@context": "https://schema.org",

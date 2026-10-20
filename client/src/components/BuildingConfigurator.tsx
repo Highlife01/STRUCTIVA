@@ -98,6 +98,7 @@ export default function BuildingConfigurator({ initialModelId }: { initialModelI
     try {
       await saveInquiry({
         type: "quote",
+        source: "configurator",
         name: name || "Web Visitor",
         email,
         phone,

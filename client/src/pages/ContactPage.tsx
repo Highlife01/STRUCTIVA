@@ -29,6 +29,7 @@ export default function ContactPage({ lang = "tr" }: { lang?: string }) {
     try {
       await saveInquiry({
         type: "contact",
+        source: "contact",
         name,
         email,
         phone,

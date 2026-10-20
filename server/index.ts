@@ -55,7 +55,7 @@ async function startServer() {
       } = req.body;
 
       if (!SMTP_PASS) {
-        console.warn("[SMTP] SMTP_PASS not configured — email skipped. Lead is stored in Firestore/localStorage instead.");
+        console.warn("[SMTP] SMTP_PASS not configured — email skipped. Lead remains in Firestore.");
         return res.status(200).json({
           success: true,
           skipped: true,

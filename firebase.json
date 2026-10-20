@@ -1,4 +1,11 @@
 {
+  "firestore": [
+    {
+      "database": "structiva",
+      "rules": "firestore.structiva.rules",
+      "indexes": "firestore.structiva.indexes.json"
+    }
+  ],
   "hosting": {
     "site": "structiva",
     "public": "dist/public",

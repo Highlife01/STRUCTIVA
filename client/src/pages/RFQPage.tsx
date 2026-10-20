@@ -98,6 +98,7 @@ export default function RFQPage({ lang = "tr" }: { lang?: string }) {
       const fullUtm = `UTM: source=${utmParams.utm_source || "direct"}, medium=${utmParams.utm_medium || "web"}, campaign=${utmParams.utm_campaign || "-"}, content=${utmParams.utm_content || "-"}`;
       await saveInquiry({
         type: "quote",
+        source: "rfq",
         name,
         email,
         phone,

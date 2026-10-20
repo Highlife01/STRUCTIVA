@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, indexedDBLocalPersistence, setPersistence } from "firebase/auth";
 
 const firebaseConfig = {
   projectId: "adanahizlisatis",
@@ -13,6 +13,11 @@ const firebaseConfig = {
 };
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-export const db = getFirestore(app);
+export const db = getFirestore(app, "structiva");
 export const auth = getAuth(app);
+
+setPersistence(auth, indexedDBLocalPersistence).catch((error) => {
+  console.warn("IndexedDB auth persistence unavailable:", error);
+});
+
 export default app;

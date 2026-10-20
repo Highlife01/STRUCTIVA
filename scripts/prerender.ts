@@ -2290,7 +2290,21 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
   const breadcrumbList = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": isRoot
+    "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "STRUCTIVA",
+            "item": SITE_URL
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": title.split("|")[0].trim(),
+            "item": canonicalUrl
+          }
+        ],
+    "_legacy": isRoot
       ? [
           {
             "@type": "ListItem",
@@ -2325,8 +2339,8 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
     "logo": {
       "@type": "ImageObject",
       "url": `${SITE_URL}/images/structiva-logo.svg`,
-      "width": 512,
-      "height": 512
+      "width": 600,
+      "height": 140
     },
     "image": `${SITE_URL}/images/arched-steel-hangar-hd.jpg`,
     "telephone": PHONE,
@@ -2337,14 +2351,16 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Organize Sanayi Bölgesi (AOSB), Çelik İmalat Caddesi No:12",
-      "addressLocality": "Adana",
+    "addressLocality": "Adana",
+      "addressRegion": "Adana",
       "postalCode": "01350",
       "addressCountry": "TR"
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": "36.9914",
-      "longitude": "35.3308"
+      "latitude": 36.9914,
+      "longitude": 35.3308
+      // longitude included as number above
     },
     "hasMap": "https://maps.google.com/?q=Adana+Organize+Sanayi+Bolgesi",
     "openingHoursSpecification": [
@@ -2402,50 +2418,55 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
         {
           "@type": "Offer",
           "itemOffered": {
-            "@type": "Product",
+            "@type": "Service",
+            "provider": { "@id": `${SITE_URL}/#organization` },
             "name": "Q-Series Clear-Span Arch Hangar",
             "description": "Continuous semi-circular arch steel building from 9m to 45m clear span with zero internal columns. Galvalume Plus® AZ180 alloy.",
-            "material": "Galvalume Plus® AZ180 Steel",
+            "serviceType": "Galvalume Plus® AZ180 Steel",
             "category": "Clear-Span Steel Buildings"
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
-            "@type": "Product",
+            "@type": "Service",
+            "provider": { "@id": `${SITE_URL}/#organization` },
             "name": "S-Series Straight-Wall Arch Steel Building",
             "description": "Vertical straight sidewalls with arch roof crown from 10m to 30m clear span (225 km/h wind rating). Ideal for pallet racking and logistics.",
-            "material": "Galvalume Plus® AZ180 Steel",
+            "serviceType": "Galvalume Plus® AZ180 Steel",
             "category": "Industrial Warehouses"
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
-            "@type": "Product",
+            "@type": "Service",
+            "provider": { "@id": `${SITE_URL}/#organization` },
             "name": "P-Series Gable Pitch Steel Building",
             "description": "Traditional pitched gable roofline with arched steel engineering from 8m to 24m clear span (210 km/h wind rating).",
-            "material": "Galvalume Plus® AZ180 Steel",
+            "serviceType": "Galvalume Plus® AZ180 Steel",
             "category": "Commercial Steel Buildings"
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
-            "@type": "Product",
+            "@type": "Service",
+            "provider": { "@id": `${SITE_URL}/#organization` },
             "name": "Container Canopy Arch Roof System",
             "description": "Heavy-duty arch trusses mounted on ISO shipping containers from 6m to 24m clear span (200 km/h wind rating).",
-            "material": "Galvanized High-Tensile Steel",
+            "serviceType": "Galvanized High-Tensile Steel",
             "category": "Modular Shelter Systems"
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
-            "@type": "Product",
+            "@type": "Service",
+            "provider": { "@id": `${SITE_URL}/#organization` },
             "name": "Heavy Pre-Engineered Steel Building (PEB)",
             "description": "Tapered built-up portal frame structures up to 60m clear span with 50-ton overhead crane capacity.",
-            "material": "Structural Steel Grade 50",
+            "serviceType": "Structural Steel Grade 50",
             "category": "Heavy Industrial Facilities"
           }
         }
@@ -2490,21 +2511,39 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
   const speakableSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": `${canonicalUrl}#speakable`,
+    "@id": `${canonicalUrl}#webpage`,
+    "isPartOf": { "@id": `${SITE_URL}/#website` },
+    "about": { "@id": `${SITE_URL}/#organization` },
     "url": canonicalUrl,
     "name": title,
     "description": description,
     "keywords": keywords,
-    "speakable": {
-      "@type": "SpeakableSpecification",
-      "cssSelector": ["h1", "header p", "main p:first-of-type"]
+    "potentialAction": { "@type": "ReadAction", "target": [canonicalUrl] },
+    "inLanguage": lang,
+    "_legacy": {
+      // SpeakableSpecification removed for non-News pages
+      // cssSelector removed
     },
     "inLanguage": lang
   };
 
+  delete (breadcrumbList as any)._legacy;
+  delete (speakableSchema as any)._legacy;
   const schemas: any[] = [breadcrumbList, orgSchema, websiteSchema, speakableSchema];
 
   if (page.schemaType === "ProductModel") {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": title,
+      "keywords": keywords,
+      "provider": { "@id": `${SITE_URL}/#organization` },
+      "description": description,
+      "serviceType": "Industrial Steel Buildings / Clear-Span Hangars",
+      "areaServed": "Worldwide"
+    });
+  }
+  if (false) {
     schemas.push({
       "@context": "https://schema.org",
       "@type": "ProductModel",
@@ -2546,8 +2585,8 @@ function buildJsonLd(page: PageConfig, lang: string, canonicalUrl: string): stri
         "url": SITE_URL
       },
       "publisher": { "@id": `${SITE_URL}/#organization` },
-      "datePublished": page.publishedDate || "2026-02-15",
-      "dateModified": "2026-03-01",
+      "datePublished": `${page.publishedDate || "2026-02-15"}T09:00:00+03:00`,
+      "dateModified": "2026-03-01T09:00:00+03:00",
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": canonicalUrl
@@ -3167,7 +3206,7 @@ function prerender() {
   rawTemplate = rawTemplate.replace(/<script\s+type="application\/ld\+json"[\s\S]*?<\/script>\s*/gi, "");
 
   // Reset root container: match everything from <div id="root"> to the closing div right before the module script
-  rawTemplate = rawTemplate.replace(/<div id="root">[\s\S]*?<\/div>(?=\s*<script\s+type="module")/i, '<div id="root"></div>');
+  rawTemplate = rawTemplate.replace(/<div id="root">[\s\S]*?<\/div>(?=\s*(?:<script\s+type="module"|<\/body>))/i, '<div id="root"></div>');
 
   const baseTemplate = rawTemplate;
   let generatedCount = 0;

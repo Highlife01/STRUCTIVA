@@ -79,6 +79,13 @@ function LegacyRedirect() {
 }
 
 export default function App() {
+  const [location] = useLocation();
+  const isConsole =
+    location === "/dashboard" ||
+    location === "/admin" ||
+    location.startsWith("/dashboard/") ||
+    location.startsWith("/admin/");
+
   useEffect(() => {
     captureAndStoreUtm();
   }, []);
@@ -87,7 +94,7 @@ export default function App() {
     <LanguageProvider>
       <div className="min-h-screen flex flex-col bg-[#09131c] text-white selection:bg-amber-500 selection:text-[#0f1d2a]">
         <ScrollToTop />
-        <Navbar />
+        {!isConsole && <Navbar />}
         <main className="flex-1 flex flex-col">
           <Suspense fallback={<PageLoader />}>
           <Switch>
@@ -142,8 +149,8 @@ export default function App() {
           </Switch>
           </Suspense>
         </main>
-        <WhatsAppButton />
-        <Footer />
+        {!isConsole && <WhatsAppButton />}
+        {!isConsole && <Footer />}
       </div>
     </LanguageProvider>
   );

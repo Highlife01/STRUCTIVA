@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSuperAdmin() {
+      return request.auth != null
+        && (
+          request.auth.token.email == "cebrailkara@gmail.com"
+          || request.auth.uid == "pgpM9GX2EQTfsOCNRm8Sc3xLKgo1"
+        );
+    }
+
+    function validInquiryCreate() {
+      let data = request.resource.data;
+      return data.keys().hasAll(["type", "name", "email", "country", "message", "status", "createdAt"])
+        && data.type in ["contact", "quote"]
+        && data.status == "new"
+        && data.name is string
+        && data.name.size() > 0
+        && data.name.size() < 200
+        && data.email is string
+        && data.email.size() > 3
+        && data.email.size() < 320
+        && data.country is string
+        && data.country.size() < 400
+        && data.message is string
+        && data.message.size() < 8000
+        && data.createdAt is string
+        && data.createdAt.size() < 40
+        && !("adminNote" in data);
+    }
+
+    match /inquiries/{inquiryId} {
+      allow create: if validInquiryCreate();
+      allow read, update, delete: if isSuperAdmin();
+    }
+  }
+}

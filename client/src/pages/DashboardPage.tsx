@@ -1,663 +1,846 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
-  LayoutDashboard,
-  Inbox,
-  Filter,
-  Search,
-  Phone,
-  Mail,
-  Calendar,
+  Archive,
+  ArrowUpRight,
   Building2,
-  Layers,
   CheckCircle2,
-  Clock,
-  Trash2,
-  MessageSquare,
+  Clock3,
   Download,
-  RefreshCw,
-  ExternalLink,
+  Inbox,
+  LayoutDashboard,
   Lock,
   LogOut,
+  Mail,
+  MessageSquare,
+  Phone,
+  RefreshCw,
+  Search,
   ShieldCheck,
-  UserCheck
+  Trash2,
+  UserCheck,
 } from "lucide-react";
-import { signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from "firebase/auth";
+import {
+  indexedDBLocalPersistence,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signOut,
+  type User,
+} from "firebase/auth";
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { auth } from "../lib/firebase";
-import { getAllInquiries, updateInquiryStatus, deleteInquiry, Inquiry } from "../services/messageService";
-import { useLanguage } from "../contexts/LanguageContext";
+import { isSuperAdminEmail, SUPER_ADMIN_EMAIL } from "../lib/superAdmin";
+import {
+  deleteInquiry,
+  firestoreErrorMessage,
+  Inquiry,
+  InquiryStatus,
+  subscribeInquiries,
+  updateInquiryNote,
+  updateInquiryStatus,
+} from "../services/messageService";
 import SEOHead from "../components/SEOHead";
 
-export default function DashboardPage() {
-  const { t } = useLanguage();
+type ConsoleView = "overview" | "inbox" | "board";
 
-  // Firebase Auth State
+const STATUS_LABEL: Record<InquiryStatus, string> = {
+  new: "Yeni",
+  contacted: "Görüşüldü",
+  quoted: "Teklif verildi",
+  archived: "Arşiv",
+};
+
+const SOURCE_LABEL: Record<string, string> = {
+  contact: "İletişim formu",
+  rfq: "Teklif formu",
+  configurator: "3D konfigüratör",
+};
+
+function formatWhen(iso?: string) {
+  const time = iso ? Date.parse(iso) : NaN;
+  if (!Number.isFinite(time)) return "Tarih yok";
+  return new Date(time).toLocaleString("tr-TR", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+function dayKey(date: Date) {
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${date.getFullYear()}-${month}-${day}`;
+}
+
+function inquiryDay(iso: string) {
+  const time = Date.parse(iso);
+  if (!Number.isFinite(time)) return "";
+  return dayKey(new Date(time));
+}
+
+function withinDays(iso: string, days: number, offset = 0) {
+  const time = Date.parse(iso);
+  if (!Number.isFinite(time)) return false;
+  const start = new Date();
+  start.setHours(0, 0, 0, 0);
+  start.setDate(start.getDate() - (days - 1) - offset);
+  const end = new Date();
+  end.setHours(23, 59, 59, 999);
+  end.setDate(end.getDate() - offset);
+  return time >= start.getTime() && time <= end.getTime();
+}
+
+function sourceLabel(item: Inquiry) {
+  if (item.source && SOURCE_LABEL[item.source]) return SOURCE_LABEL[item.source];
+  return item.type === "contact" ? "İletişim formu" : "Teklif talebi";
+}
+
+function countryLabel(value: string) {
+  const clean = value.split("(")[0]?.trim();
+  return clean || "Belirtilmedi";
+}
+
+function buildDailySeries(inquiries: Inquiry[]) {
+  const days = Array.from({ length: 14 }, (_, index) => {
+    const date = new Date();
+    date.setHours(12, 0, 0, 0);
+    date.setDate(date.getDate() - (13 - index));
+    return {
+      key: dayKey(date),
+      label: date.toLocaleDateString("tr-TR", { day: "2-digit", month: "short" }),
+      toplam: 0,
+      iletisim: 0,
+      teklif: 0,
+    };
+  });
+  const byKey = new Map(days.map((day) => [day.key, day]));
+  inquiries.forEach((item) => {
+    const bucket = byKey.get(inquiryDay(item.createdAt));
+    if (!bucket) return;
+    bucket.toplam += 1;
+    if (item.type === "contact") bucket.iletisim += 1;
+    else bucket.teklif += 1;
+  });
+  return days;
+}
+
+function downloadCsv(inquiries: Inquiry[]) {
+  const headers = ["Tarih", "Kaynak", "Durum", "İsim", "E-posta", "Telefon", "Şirket", "Ülke", "Model", "Alan m2", "Mesaj", "Yönetici notu"];
+  const escape = (value: string | number | undefined) => `"${String(value ?? "").replace(/"/g, '""')}"`;
+  const rows = inquiries.map((item) =>
+    [
+      formatWhen(item.createdAt),
+      sourceLabel(item),
+      STATUS_LABEL[item.status],
+      item.name,
+      item.email,
+      item.phone || "",
+      item.company || "",
+      item.country,
+      item.model || "",
+      item.areaM2 ?? "",
+      item.message,
+      item.adminNote || "",
+    ].map(escape).join(",")
+  );
+  const blob = new Blob(["\uFEFF" + [headers.join(","), ...rows].join("\n")], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `structiva-talepler-${dayKey(new Date())}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+export default function DashboardPage() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [authChecking, setAuthChecking] = useState<boolean>(true);
+  const [authChecking, setAuthChecking] = useState(true);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  // Inquiries State
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [loading, setLoading] = useState(true);
+  const [live, setLive] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [feedVersion, setFeedVersion] = useState(0);
+
+  const [view, setView] = useState<ConsoleView>("overview");
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [filterType, setFilterType] = useState<string>("all");
   const [search, setSearch] = useState("");
-  const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
-  const [testSending, setTestSending] = useState(false);
-  const [testResult, setTestResult] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [noteDraft, setNoteDraft] = useState("");
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [busy, setBusy] = useState<string | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user && !isSuperAdminEmail(user.email)) {
+        await signOut(auth);
+        setCurrentUser(null);
+        setLoginError("Bu panel yalnızca süper yönetici hesabına açıktır.");
+        setAuthChecking(false);
+        return;
+      }
       setCurrentUser(user);
       setAuthChecking(false);
-      if (user) {
-        fetchLeads();
-      } else {
-        setInquiries([]);
-      }
     });
     return () => unsubscribe();
   }, []);
 
-  const handleSendTestEmail = async () => {
-    setTestSending(true);
-    setTestResult(null);
-    try {
-      const res = await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          type: "contact",
-          name: "STRUCTIVA Sistem Testi",
-          email: "info@structiva.com.tr",
-          phone: "0532 055 09 45",
-          company: "STRUCTIVA",
-          country: "Türkiye / Adana",
-          model: "Q-Series Arch (36m Açıklık)",
-          message: "Bu bildirim kurumsal altyapı üzerinden info@structiva.com.tr adresine başarıyla iletilmiştir.",
-        }),
-      });
-      const data = await res.json();
-      if (res.ok && data.success) {
-        setTestResult("✓ E-posta bildirimi başarıyla iletildi (info@structiva.com.tr).");
-      } else {
-        setTestResult(`Uyarı: ${data.error || "E-posta sunucusu yanıt vermedi."}`);
-      }
-    } catch (err: any) {
-      setTestResult(`Bağlantı Notu: ${err.message}. (Talepler anında veritabanına ve panoya kaydedilir)`);
-    } finally {
-      setTestSending(false);
+  useEffect(() => {
+    if (!currentUser) {
+      setInquiries([]);
+      setLoading(false);
+      setLive(false);
+      return;
     }
-  };
+    setLoading(true);
+    const unsubscribe = subscribeInquiries(
+      (data) => {
+        setInquiries(data);
+        setLoading(false);
+        setLive(true);
+        setLoadError(null);
+      },
+      (error) => {
+        setLoading(false);
+        setLive(false);
+        setLoadError(error.message);
+      }
+    );
+    return () => unsubscribe();
+  }, [currentUser, feedVersion]);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const selected = inquiries.find((item) => item.id === selectedId) || null;
+
+  useEffect(() => {
+    setNoteDraft(selected?.adminNote || "");
+  }, [selected?.id, selected?.adminNote]);
+
+  const filtered = useMemo(() => {
+    const needle = search.trim().toLowerCase();
+    return inquiries.filter((item) => {
+      const matchesStatus = filterStatus === "all" || item.status === filterStatus;
+      const matchesType = filterType === "all" || item.type === filterType || item.source === filterType;
+      const matchesSearch =
+        !needle ||
+        item.name.toLowerCase().includes(needle) ||
+        item.email.toLowerCase().includes(needle) ||
+        (item.company || "").toLowerCase().includes(needle) ||
+        (item.model || "").toLowerCase().includes(needle) ||
+        item.country.toLowerCase().includes(needle) ||
+        item.message.toLowerCase().includes(needle);
+      return matchesStatus && matchesType && matchesSearch;
+    });
+  }, [inquiries, filterStatus, filterType, search]);
+
+  const contactItems = inquiries.filter((item) => item.type === "contact");
+  const quoteItems = inquiries.filter((item) => item.type === "quote");
+  const newCount = inquiries.filter((item) => item.status === "new").length;
+  const quotedArea = quoteItems.reduce((sum, item) => sum + (item.areaM2 || 0), 0);
+  const last7 = inquiries.filter((item) => withinDays(item.createdAt, 7)).length;
+  const prev7 = inquiries.filter((item) => withinDays(item.createdAt, 7, 7)).length;
+  const series = useMemo(() => buildDailySeries(inquiries), [inquiries]);
+  const hasSeries = series.some((day) => day.toplam > 0);
+
+  const countries = useMemo(() => {
+    const counts = new Map<string, number>();
+    inquiries.forEach((item) => {
+      const label = countryLabel(item.country);
+      counts.set(label, (counts.get(label) || 0) + 1);
+    });
+    return Array.from(counts.entries()).sort((a, b) => b[1] - a[1]).slice(0, 6);
+  }, [inquiries]);
+
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
     setLoginError("");
+    if (!isSuperAdminEmail(loginEmail)) {
+      setLoginError("Bu panel yalnızca süper yönetici hesabına açıktır.");
+      return;
+    }
     setIsLoggingIn(true);
     try {
+      await setPersistence(auth, indexedDBLocalPersistence);
       await signInWithEmailAndPassword(auth, loginEmail.trim(), loginPassword);
-    } catch (err: any) {
-      console.error("Firebase auth login error:", err);
-      let msg = "Giriş başarısız. Lütfen bilgilerinizi kontrol ediniz.";
-      if (
-        err.code === "auth/invalid-credential" ||
-        err.code === "auth/wrong-password" ||
-        err.code === "auth/user-not-found"
-      ) {
-        msg = "E-posta veya şifre hatalı. Lütfen yetkili bilgilerinizi kontrol ediniz.";
-      } else if (err.code === "auth/too-many-requests") {
-        msg = "Çok fazla başarısız deneme yapıldı. Lütfen biraz bekleyiniz.";
+    } catch (error: unknown) {
+      const code = typeof error === "object" && error && "code" in error ? String((error as { code?: string }).code) : "";
+      if (code === "auth/invalid-credential" || code === "auth/wrong-password" || code === "auth/user-not-found" || code === "auth/invalid-email") {
+        setLoginError("E-posta veya şifre hatalı.");
+      } else if (code === "auth/too-many-requests") {
+        setLoginError("Çok fazla deneme yapıldı. Bir süre sonra tekrar deneyin.");
+      } else if (code === "auth/operation-not-allowed") {
+        setLoginError("Firebase projesinde e-posta ile giriş kapalı.");
+      } else {
+        setLoginError("Giriş tamamlanamadı. Bağlantıyı kontrol edip tekrar deneyin.");
       }
-      setLoginError(msg);
     } finally {
       setIsLoggingIn(false);
     }
   };
 
-  const handleLogout = async () => {
+  const handleStatus = async (id: string, status: InquiryStatus) => {
+    setBusy(`status:${id}`);
+    setActionError(null);
     try {
-      await signOut(auth);
-    } catch (err) {
-      console.error("Logout error:", err);
+      await updateInquiryStatus(id, status);
+    } catch (error) {
+      setActionError(firestoreErrorMessage(error));
+    } finally {
+      setBusy(null);
     }
   };
 
-  const fetchLeads = async () => {
-    setLoading(true);
-    const data = await getAllInquiries();
-    setInquiries(data);
-    setLoading(false);
-  };
-
-  const handleStatusChange = async (id: string, status: Inquiry["status"]) => {
-    await updateInquiryStatus(id, status);
-    setInquiries((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, status } : item))
-    );
-    if (selectedInquiry && selectedInquiry.id === id) {
-      setSelectedInquiry((prev) => (prev ? { ...prev, status } : null));
+  const handleSaveNote = async () => {
+    if (!selected) return;
+    setBusy(`note:${selected.id}`);
+    setActionError(null);
+    try {
+      await updateInquiryNote(selected.id, noteDraft);
+    } catch (error) {
+      setActionError(firestoreErrorMessage(error));
+    } finally {
+      setBusy(null);
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (window.confirm("Bu talebi silmek istediğinize emin misiniz?")) {
+    if (!window.confirm("Bu talep Firestore'dan silinecek. Devam edilsin mi?")) return;
+    setBusy(`delete:${id}`);
+    setActionError(null);
+    try {
       await deleteInquiry(id);
-      setInquiries((prev) => prev.filter((item) => item.id !== id));
-      if (selectedInquiry?.id === id) {
-        setSelectedInquiry(null);
-      }
+      if (selectedId === id) setSelectedId(null);
+    } catch (error) {
+      setActionError(firestoreErrorMessage(error));
+    } finally {
+      setBusy(null);
     }
   };
 
-  // Loading state while checking Firebase Auth session
   if (authChecking) {
     return (
-      <div className="min-h-[85vh] flex items-center justify-center bg-[#09131c]">
-        <SEOHead title="Yönetici Paneli | STRUCTIVA" description="Yönetici Paneli" robots="noindex, nofollow" />
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 rounded-full border-2 border-amber-500/20 border-t-amber-500 animate-spin" />
-          <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">Yetki Kontrol Ediliyor...</span>
+      <Shell>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-10 h-10 rounded-full border-2 border-amber-500/20 border-t-amber-500 animate-spin" />
+            <span className="text-xs font-mono text-slate-400 uppercase tracking-widest">Oturum kontrol ediliyor</span>
+          </div>
         </div>
-      </div>
+      </Shell>
     );
   }
 
-  // If Not Authenticated, render Firebase Auth Login Gate
   if (!currentUser) {
     return (
-      <div className="min-h-[85vh] flex items-center justify-center bg-[#09131c] px-4 py-16">
-        <SEOHead title="Yönetici Girişi | STRUCTIVA" description="STRUCTIVA Yönetici Girişi" robots="noindex, nofollow" />
-        <div className="w-full max-w-md rounded-3xl bg-[#0e1b27] border border-amber-500/30 p-8 sm:p-10 shadow-2xl relative overflow-hidden">
-          <div className="text-center mb-6">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-500/40 text-amber-400 mx-auto mb-3">
-              <Lock size={28} />
+      <Shell title="Yönetici Girişi | STRUCTIVA" description="STRUCTIVA süper yönetici girişi">
+        <div className="min-h-screen flex items-center justify-center px-4 py-16">
+          <div className="w-full max-w-md rounded-3xl bg-[#0e1b27] border border-amber-500/30 p-8 sm:p-10 shadow-2xl">
+            <div className="text-center mb-6">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-500/15 border border-amber-500/40 text-amber-400 mx-auto mb-3">
+                <Lock size={28} />
+              </div>
+              <h1 className="text-xl font-black text-white tracking-wide uppercase">Süper yönetici girişi</h1>
+              <p className="text-xs text-slate-400 mt-2">Talepler Firestore üzerinde tutulur. Oturum localStorage kullanmaz.</p>
             </div>
-            <h2 className="text-xl font-black text-white tracking-wide uppercase">STRUCTIVA YÖNETİCİ GİRİŞİ</h2>
-            <p className="text-xs text-slate-400 mt-1">Firebase Yetkili Güvenli Giriş Kapısı</p>
-          </div>
-
-          {loginError && (
-            <div className="mb-4 p-3 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs text-center font-medium">
-              {loginError}
-            </div>
-          )}
-
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Yönetici E-posta
+            {loginError && (
+              <div className="mb-4 p-3 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs text-center font-medium">
+                {loginError}
+              </div>
+            )}
+            <form onSubmit={handleLogin} className="space-y-4">
+              <label className="block">
+                <span className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">E-posta</span>
+                <input
+                  type="email"
+                  required
+                  autoComplete="username"
+                  value={loginEmail}
+                  onChange={(event) => setLoginEmail(event.target.value)}
+                  placeholder={SUPER_ADMIN_EMAIL}
+                  className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-sm text-white placeholder:text-slate-600 outline-none focus:border-amber-400"
+                />
               </label>
-              <input
-                type="email"
-                required
-                value={loginEmail}
-                onChange={(e) => setLoginEmail(e.target.value)}
-                placeholder="admin@structiva.com.tr"
-                className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-600 outline-none focus:border-amber-400"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Admin Şifresi
+              <label className="block">
+                <span className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">Şifre</span>
+                <input
+                  type="password"
+                  required
+                  autoComplete="current-password"
+                  value={loginPassword}
+                  onChange={(event) => setLoginPassword(event.target.value)}
+                  className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-sm text-white outline-none focus:border-amber-400"
+                />
               </label>
-              <input
-                type="password"
-                required
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full rounded-xl bg-black/40 border border-white/15 px-4 py-3 text-xs text-white placeholder:text-slate-600 outline-none focus:border-amber-400"
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoggingIn}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-[#0f1d2a] font-black text-xs uppercase tracking-wider shadow-xl shadow-amber-500/25 active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-2 disabled:opacity-50"
-            >
-              {isLoggingIn ? (
-                <div className="w-4 h-4 rounded-full border-2 border-[#0f1d2a]/30 border-t-[#0f1d2a] animate-spin" />
-              ) : (
-                <ShieldCheck size={16} />
-              )}
-              <span>{isLoggingIn ? "Doğrulanıyor..." : "Yetkili Olarak Giriş Yap"}</span>
-            </button>
-          </form>
-
-          <div className="mt-8 pt-6 border-t border-white/10 text-center text-[11px] text-slate-500">
-            STRUCTIVA · Güvenli Yönetici Paneli
+              <button
+                type="submit"
+                disabled={isLoggingIn}
+                className="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#0f1d2a] font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {isLoggingIn ? <span className="w-4 h-4 rounded-full border-2 border-[#0f1d2a]/30 border-t-[#0f1d2a] animate-spin" /> : <ShieldCheck size={16} />}
+                <span>{isLoggingIn ? "Doğrulanıyor" : "Giriş yap"}</span>
+              </button>
+            </form>
           </div>
         </div>
-      </div>
+      </Shell>
     );
   }
 
-  const filteredInquiries = inquiries.filter((inq) => {
-    const matchesStatus = filterStatus === "all" ? true : inq.status === filterStatus;
-    const matchesType = filterType === "all" ? true : inq.type === filterType;
-    const matchesSearch =
-      inq.name.toLowerCase().includes(search.toLowerCase()) ||
-      inq.email.toLowerCase().includes(search.toLowerCase()) ||
-      (inq.company && inq.company.toLowerCase().includes(search.toLowerCase())) ||
-      (inq.model && inq.model.toLowerCase().includes(search.toLowerCase())) ||
-      inq.country.toLowerCase().includes(search.toLowerCase());
-    return matchesStatus && matchesType && matchesSearch;
-  });
-
-  const totalArea = inquiries.reduce((acc, curr) => acc + (curr.areaM2 || 0), 0);
-  const newCount = inquiries.filter((i) => i.status === "new").length;
-  const contactMessagesCount = inquiries.filter((i) => i.type === "contact").length;
-  const quoteRequestsCount = inquiries.filter((i) => i.type === "quote").length;
-
-  const exportCSV = () => {
-    const headers = ["ID", "Tarih", "Tür", "İsim", "E-posta", "Telefon", "Şirket", "Ülke", "Model", "Alan (m2)", "Durum", "Mesaj"];
-    const rows = inquiries.map((i) => [
-      i.id,
-      i.createdAt,
-      i.type,
-      `"${i.name}"`,
-      i.email,
-      `"${i.phone || ""}"`,
-      `"${i.company || ""}"`,
-      `"${i.country}"`,
-      `"${i.model || ""}"`,
-      i.areaM2 || "",
-      i.status,
-      `"${(i.message || "").replace(/"/g, '""')}"`,
-    ]);
-
-    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((e) => e.join(","))].join("\n");
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement("a");
-    link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `structiva_inquiries_${new Date().toISOString().slice(0, 10)}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
-    <div className="min-h-screen bg-[#09131c] text-white pt-6 pb-20 px-4 sm:px-6 lg:px-8">
-      <SEOHead title="Yönetici Paneli | STRUCTIVA" description="STRUCTIVA Yönetici ve Talep Yönetim Paneli" robots="noindex, nofollow" />
-      <div className="mx-auto max-w-[1440px]">
-        {/* Dashboard Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-8">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 px-3 py-1 text-[11px] font-bold">
-                <UserCheck size={14} />
-                <span>Yetkili: {currentUser.email || "Admin"}</span>
-              </span>
-              <span className="text-amber-400 font-mono text-xs uppercase tracking-widest hidden sm:inline">
-                • Tam Yetkili Yönetici
-              </span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-              Gelen Mesajlar & <span className="text-amber-400">Teknik Teklif Talepleri</span>
-            </h1>
-            <p className="text-xs text-slate-400 mt-1">
-              Web sitesi formlarından ve 3D konfigüratörden iletilen tüm müşteri başvuruları burada toplanır.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={fetchLeads}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-slate-300"
-              title="Yenile"
-            >
-              <RefreshCw size={14} className={loading ? "animate-spin" : ""} />
-              <span>Yenile</span>
-            </button>
-            <button
-              onClick={exportCSV}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-xs font-bold text-amber-300 transition-colors"
-            >
-              <Download size={14} />
-              <span>CSV İndir</span>
-            </button>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-xs font-bold text-rose-300 transition-colors"
-              title="Çıkış Yap"
-            >
-              <LogOut size={14} />
-              <span>Çıkış</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Top Metric Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <div className="rounded-2xl bg-[#0f1d2a] border border-white/10 p-4 sm:p-5">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Toplam Talep</span>
-            <div className="text-2xl sm:text-3xl font-mono font-black text-white">{inquiries.length}</div>
-            <span className="text-[10px] text-slate-500 mt-1 block">Tüm gelen formlar</span>
-          </div>
-
-          <div className="rounded-2xl bg-[#0f1d2a] border border-amber-500/30 p-4 sm:p-5 relative overflow-hidden">
-            <div className="absolute top-0 right-0 h-1.5 left-0 bg-amber-400" />
-            <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400 block mb-1">Yeni / Bekleyen</span>
-            <div className="text-2xl sm:text-3xl font-mono font-black text-amber-400">{newCount}</div>
-            <span className="text-[10px] text-slate-400 mt-1 block">İnceleme bekliyor</span>
-          </div>
-
-          <div className="rounded-2xl bg-[#0f1d2a] border border-sky-500/30 p-4 sm:p-5">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-sky-400 block mb-1">İletişim Mesajları</span>
-            <div className="text-2xl sm:text-3xl font-mono font-black text-sky-400">{contactMessagesCount}</div>
-            <span className="text-[10px] text-slate-500 mt-1 block">İletişim formundan gelenler</span>
-          </div>
-
-          <div className="rounded-2xl bg-[#0f1d2a] border border-emerald-500/30 p-4 sm:p-5">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 block mb-1">Teklif (RFQ) Talepleri</span>
-            <div className="text-2xl sm:text-3xl font-mono font-black text-emerald-400">{quoteRequestsCount}</div>
-            <span className="text-[10px] text-slate-500 mt-1 block">3D Motor & Teklif Formu</span>
-          </div>
-        </div>
-
-        {/* Natro SMTP Notification Status Strip */}
-        <div className="rounded-2xl bg-gradient-to-r from-[#0d1c29] to-[#122536] border border-amber-500/30 p-4 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/30">
-              <Mail size={20} />
-            </div>
+    <Shell>
+      <div className="min-h-screen">
+        <header className="border-b border-white/10 bg-[#0c1722]/90 backdrop-blur sticky top-0 z-30">
+          <div className="mx-auto max-w-[1500px] px-4 sm:px-6 py-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-white uppercase tracking-wider">Kurumsal Bildirim Servisi</span>
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 px-2.5 py-1 text-[11px] font-bold">
+                  <ShieldCheck size={13} /> Süper yönetici
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/5 text-slate-300 border border-white/10 px-2.5 py-1 text-[11px]">
+                  <UserCheck size={13} /> {currentUser.email}
+                </span>
+                <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] border ${live ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" : "bg-rose-500/15 text-rose-300 border-rose-500/30"}`}>
+                  <span className={`h-1.5 w-1.5 rounded-full ${live ? "bg-emerald-400 animate-pulse" : "bg-rose-400"}`} />
+                  {live ? "Firestore canlı" : "Bağlantı yok"}
+                </span>
               </div>
-              <p className="text-xs text-slate-300 mt-0.5">
-                Gönderen: <strong className="text-amber-400">info@structiva.com.tr</strong> → Hedef: <strong className="text-emerald-400">Mühendislik & İletişim Masası</strong>
-              </p>
+              <h1 className="text-xl sm:text-2xl font-black tracking-tight">Operasyon paneli</h1>
             </div>
-          </div>
-
-          <div className="flex items-center gap-3 w-full sm:w-auto">
-            {testResult && (
-              <span className="text-xs text-amber-300 bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-lg">
-                {testResult}
-              </span>
-            )}
-            <button
-              onClick={handleSendTestEmail}
-              disabled={testSending}
-              className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#0f1d2a] text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all shrink-0"
-            >
-              <Mail size={14} />
-              <span>{testSending ? "Gönderiliyor..." : "Test E-postası Gönder"}</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Filter and Search Bar */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#0f1d2a] border border-white/10 rounded-2xl p-4 mb-6">
-          <div className="flex flex-wrap items-center gap-2">
-            {/* Status filters */}
-            <div className="flex items-center gap-1.5 bg-black/30 p-1 rounded-xl border border-white/5">
-              {[
-                { id: "all", label: "Tüm Durumlar" },
-                { id: "new", label: "Yeni" },
-                { id: "contacted", label: "Görüşüldü" },
-                { id: "quoted", label: "Teklif Verildi" },
-                { id: "archived", label: "Arşiv" }
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setFilterStatus(tab.id)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-                    filterStatus === tab.id
-                      ? "bg-amber-500 text-[#0f1d2a]"
-                      : "text-slate-400 hover:text-white"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Type filters */}
-            <div className="flex items-center gap-1.5 bg-black/30 p-1 rounded-xl border border-white/5">
-              <button
-                onClick={() => setFilterType("all")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-                  filterType === "all"
-                    ? "bg-white/20 text-white"
-                    : "text-slate-400 hover:text-white"
-                }`}
-              >
-                Hepsi
+            <div className="flex flex-wrap items-center gap-2">
+              <a href="/tr" className="px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-semibold text-slate-300">Siteye dön</a>
+              <button onClick={() => setFeedVersion((value) => value + 1)} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-semibold text-slate-300">
+                <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> Yenile
               </button>
-              <button
-                onClick={() => setFilterType("contact")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-                  filterType === "contact"
-                    ? "bg-sky-500 text-white shadow-md shadow-sky-500/20"
-                    : "text-slate-400 hover:text-sky-300"
-                }`}
-              >
-                ✉️ İletişim Formu ({contactMessagesCount})
+              <button onClick={() => downloadCsv(filtered)} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500/15 border border-amber-500/40 text-xs font-bold text-amber-200">
+                <Download size={14} /> CSV
               </button>
-              <button
-                onClick={() => setFilterType("quote")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-                  filterType === "quote"
-                    ? "bg-amber-500 text-[#0f1d2a] shadow-md shadow-amber-500/20"
-                    : "text-slate-400 hover:text-amber-300"
-                }`}
-              >
-                🏗️ Teklif Talepleri ({quoteRequestsCount})
+              <button onClick={() => signOut(auth)} className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-rose-500/15 border border-rose-500/40 text-xs font-bold text-rose-200">
+                <LogOut size={14} /> Çıkış
               </button>
             </div>
           </div>
+        </header>
 
-          <div className="relative w-full md:w-72">
-            <Search size={15} className="absolute left-3 top-3 text-slate-400" />
-            <input
-              type="text"
-              placeholder="İsim, e-posta veya model ara..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-xl bg-white/5 border border-white/10 pl-9 pr-4 py-2 text-xs text-white placeholder:text-slate-500 outline-none focus:border-amber-400"
-            />
+        <div className="mx-auto max-w-[1500px] px-4 sm:px-6 py-6">
+          <div className="flex flex-wrap gap-2 mb-6">
+            <ViewButton active={view === "overview"} onClick={() => setView("overview")} icon={<LayoutDashboard size={15} />} label="Genel bakış" />
+            <ViewButton active={view === "inbox"} onClick={() => setView("inbox")} icon={<Inbox size={15} />} label={`Gelen talepler (${inquiries.length})`} />
+            <ViewButton active={view === "board"} onClick={() => setView("board")} icon={<Archive size={15} />} label="Durum panosu" />
           </div>
-        </div>
 
-        {/* Inquiries Table & Detail Modal / Split View */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* List Col */}
-          <div className={`${selectedInquiry ? "lg:col-span-7" : "lg:col-span-12"} space-y-3`}>
-            {filteredInquiries.length === 0 ? (
-              <div className="rounded-2xl bg-[#0f1d2a] border border-white/10 p-12 text-center text-slate-400">
-                <Inbox size={36} className="mx-auto mb-3 text-slate-500" />
-                <p className="text-sm font-semibold">Bu filtrelere uygun mesaj veya talep bulunamadı.</p>
-              </div>
-            ) : (
-              filteredInquiries.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => setSelectedInquiry(item)}
-                  className={`cursor-pointer rounded-2xl border p-5 transition-all ${
-                    selectedInquiry?.id === item.id
-                      ? "bg-white/10 border-amber-400 shadow-lg shadow-amber-500/10"
-                      : "bg-[#0f1d2a] border-white/10 hover:border-white/20"
-                  }`}
-                >
-                  <div className="flex items-start justify-between gap-4 mb-2">
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                        <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
-                          item.type === "contact"
-                            ? "bg-sky-500/20 text-sky-400 border border-sky-500/40"
-                            : "bg-amber-500/20 text-amber-400 border border-amber-500/40"
-                        }`}>
-                          {item.type === "contact" ? "✉️ İletişim Formu" : "🏗️ Proje Teklifi (RFQ)"}
-                        </span>
-                        <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
-                          item.status === "new"
-                            ? "bg-rose-500/20 text-rose-400 border border-rose-500/40"
-                            : item.status === "quoted"
-                            ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
-                            : item.status === "contacted"
-                            ? "bg-blue-500/20 text-blue-400 border border-blue-500/40"
-                            : "bg-slate-500/20 text-slate-300 border border-slate-500/40"
-                        }`}>
-                          {item.status === "new" ? "Yeni" : item.status === "quoted" ? "Teklif Verildi" : item.status === "contacted" ? "Görüşüldü" : "Arşiv"}
-                        </span>
-                        <span className="text-[10px] font-mono text-slate-400">
-                          {new Date(item.createdAt).toLocaleDateString("tr-TR", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
-                        </span>
-                      </div>
-                      <h3 className="text-base font-bold text-white flex items-center gap-2">
-                        <span>{item.name}</span>
-                        {item.company && <span className="text-xs font-normal text-slate-400">({item.company})</span>}
-                      </h3>
-                    </div>
+          {(loadError || actionError) && (
+            <div className="mb-5 rounded-2xl border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">
+              {loadError || actionError}
+            </div>
+          )}
 
-                    {item.areaM2 ? (
-                      <div className="text-right">
-                        <span className="block font-mono text-sm font-bold text-amber-400">{item.areaM2} m²</span>
-                        <span className="text-[10px] text-slate-400">{item.model}</span>
-                      </div>
-                    ) : (
-                      <div className="text-right">
-                        <span className="inline-block font-mono text-xs text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded border border-sky-500/20">
-                          Doğrudan Mesaj
-                        </span>
-                      </div>
-                    )}
-                  </div>
+          <section className="grid grid-cols-2 xl:grid-cols-6 gap-3 mb-6">
+            <Metric label="Toplam talep" value={inquiries.length} hint="Firestore kayıtları" />
+            <Metric label="Yeni" value={newCount} hint="İşlem bekleyen" tone="amber" />
+            <Metric label="İletişim formu" value={contactItems.length} hint="Doğrudan mesajlar" tone="sky" onClick={() => { setView("inbox"); setFilterType("contact"); }} />
+            <Metric label="Teklif" value={quoteItems.length} hint="RFQ ve konfigüratör" tone="emerald" onClick={() => { setView("inbox"); setFilterType("quote"); }} />
+            <Metric label="Son 7 gün" value={last7} hint={`Önceki 7 gün: ${prev7}`} />
+            <Metric label="Teklif alanı" value={quotedArea ? `${quotedArea.toLocaleString("tr-TR")} m²` : "0 m²"} hint="Kayıtlı RFQ alanları" />
+          </section>
 
-                  <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed mb-3">
-                    {item.message}
-                  </p>
-
-                  <div className="flex items-center justify-between text-xs text-slate-400 pt-3 border-t border-white/5">
-                    <div className="flex items-center gap-4">
-                      <span>📍 {item.country}</span>
-                      {item.phone && <span>📞 {item.phone}</span>}
-                    </div>
-                    <span className="text-amber-400 text-xs font-semibold hover:underline">Detayları Gör →</span>
+          {view === "overview" && (
+            <div className="grid grid-cols-1 xl:grid-cols-5 gap-4">
+              <div className="xl:col-span-3 rounded-2xl bg-[#0f1d2a] border border-white/10 p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h2 className="text-sm font-bold">Son 14 gün</h2>
+                    <p className="text-xs text-slate-400">Günlük kayıt sayısı, iletişim ve teklif ayrımıyla</p>
                   </div>
                 </div>
-              ))
-            )}
-          </div>
-
-          {/* Detail Side Panel */}
-          {selectedInquiry && (
-            <div className="lg:col-span-5 rounded-2xl bg-[#0d1822] border border-amber-400/40 p-6 sticky top-24 self-start shadow-2xl animate-in slide-in-from-right-4 duration-200">
-              <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
-                <div>
-                  <span className="text-[10px] font-mono uppercase text-amber-400">Talep Detayı #{selectedInquiry.id}</span>
-                  <h3 className="text-xl font-bold text-white">{selectedInquiry.name}</h3>
-                </div>
-                <button
-                  onClick={() => setSelectedInquiry(null)}
-                  className="p-1 rounded-lg text-slate-400 hover:text-white"
-                >
-                  ✕
-                </button>
-              </div>
-
-              {/* Status Update Buttons */}
-              <div className="mb-5">
-                <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Durumu Güncelle:</span>
-                <div className="grid grid-cols-3 gap-2">
-                  {(["new", "contacted", "quoted", "archived"] as const).map((st) => (
-                    <button
-                      key={st}
-                      onClick={() => handleStatusChange(selectedInquiry.id, st)}
-                      className={`py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all border ${
-                        selectedInquiry.status === st
-                          ? "bg-amber-500 text-[#0f1d2a] border-amber-400"
-                          : "bg-white/5 text-slate-300 border-white/10 hover:bg-white/10"
-                      }`}
-                    >
-                      {st === "new" ? "Yeni" : st === "contacted" ? "Görüşüldü" : st === "quoted" ? "Teklifli" : "Arşiv"}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Contact Quick Actions */}
-              <div className="flex gap-2 mb-6">
-                {selectedInquiry.phone && (
-                  <a
-                    href={`https://wa.me/${selectedInquiry.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent(
-                      `Merhaba Sayın ${selectedInquiry.name},\nSTRUCTIVA Adana Çelik Yapı Fabrikamız üzerinden ilettiğiniz ${selectedInquiry.model || "yapı"} teklif talebinizi inceledik. Proje detaylarınızı netleştirmek ve resmi proforma teklifimizi sunmak üzere iletişime geçiyorum.`
-                    )}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-md"
-                  >
-                    <MessageSquare size={14} />
-                    <span>WhatsApp İle Yanıtla</span>
-                  </a>
+                {hasSeries ? (
+                  <div className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={series}>
+                        <CartesianGrid stroke="rgba(255,255,255,0.06)" vertical={false} />
+                        <XAxis dataKey="label" tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} />
+                        <YAxis allowDecimals={false} tick={{ fill: "#94a3b8", fontSize: 11 }} axisLine={false} tickLine={false} width={28} />
+                        <Tooltip contentStyle={{ background: "#0c1722", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 12, fontSize: 12 }} />
+                        <Area type="monotone" dataKey="iletisim" name="İletişim" stroke="#38bdf8" fill="#38bdf8" fillOpacity={0.18} strokeWidth={2} />
+                        <Area type="monotone" dataKey="teklif" name="Teklif" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.16} strokeWidth={2} />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+                ) : (
+                  <EmptyState title="Bu aralıkta kayıt yok" text="İletişim formundan gelen başvuru, grafikte aynı gün içinde görünür." />
                 )}
-                <a
-                  href={`mailto:${selectedInquiry.email}?subject=STRUCTIVA Çelik Yapı Teklifiniz&body=Sayın ${selectedInquiry.name},`}
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#0f1d2a] text-xs font-bold"
-                >
-                  <Mail size={14} />
-                  <span>E-posta</span>
-                </a>
               </div>
 
-              {/* Specs Box */}
-              {selectedInquiry.model && (
-                <div className="rounded-xl bg-white/5 border border-white/10 p-4 mb-5 space-y-2 text-xs">
-                  <div className="flex justify-between text-slate-400">
-                    <span>Model:</span>
-                    <strong className="text-white">{selectedInquiry.model}</strong>
+              <div className="xl:col-span-2 space-y-4">
+                <div className="rounded-2xl bg-[#0f1d2a] border border-white/10 p-5">
+                  <h2 className="text-sm font-bold mb-3">Durum dağılımı</h2>
+                  <div className="space-y-3">
+                    {(Object.keys(STATUS_LABEL) as InquiryStatus[]).map((status) => {
+                      const count = inquiries.filter((item) => item.status === status).length;
+                      const width = inquiries.length ? Math.round((count / inquiries.length) * 100) : 0;
+                      return (
+                        <button key={status} onClick={() => { setView("inbox"); setFilterStatus(status); }} className="w-full text-left">
+                          <div className="flex justify-between text-xs mb-1">
+                            <span className="text-slate-300">{STATUS_LABEL[status]}</span>
+                            <span className="font-mono text-white">{count}</span>
+                          </div>
+                          <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+                            <div className="h-full bg-amber-400" style={{ width: `${width}%` }} />
+                          </div>
+                        </button>
+                      );
+                    })}
                   </div>
-                  <div className="flex justify-between text-slate-400">
-                    <span>Ölçüler:</span>
-                    <strong className="text-amber-400 font-mono">
-                      {selectedInquiry.span}m Açıklık × {selectedInquiry.length}m Boy × {selectedInquiry.height}m Yükseklik
-                    </strong>
-                  </div>
-                  <div className="flex justify-between text-slate-400">
-                    <span>Toplam Taban Alanı:</span>
-                    <strong className="text-emerald-400 font-mono text-sm">{selectedInquiry.areaM2} m²</strong>
-                  </div>
-                  {selectedInquiry.accessories && selectedInquiry.accessories.length > 0 && (
-                    <div className="pt-2 border-t border-white/5">
-                      <span className="block text-[10px] text-slate-400 uppercase mb-1">Aksesuarlar:</span>
-                      <div className="flex flex-wrap gap-1">
-                        {selectedInquiry.accessories.map((acc) => (
-                          <span key={acc} className="text-[10px] bg-white/10 px-2 py-0.5 rounded text-slate-300">
-                            {acc}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
+                </div>
+                <div className="rounded-2xl bg-[#0f1d2a] border border-white/10 p-5">
+                  <h2 className="text-sm font-bold mb-3">Ülkeler</h2>
+                  {countries.length === 0 ? (
+                    <p className="text-xs text-slate-400">Ülke dağılımı, ilk gerçek taleple birlikte oluşur.</p>
+                  ) : (
+                    <ul className="space-y-2">
+                      {countries.map(([name, count]) => (
+                        <li key={name} className="flex items-center justify-between text-sm">
+                          <span className="text-slate-300 truncate pr-3">{name}</span>
+                          <span className="font-mono text-amber-300">{count}</span>
+                        </li>
+                      ))}
+                    </ul>
                   )}
                 </div>
-              )}
-
-              {/* Message Content */}
-              <div className="mb-6">
-                <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Talep Açıklaması / Notu:</span>
-                <div className="rounded-xl bg-black/40 border border-white/10 p-3.5 text-xs text-slate-200 leading-relaxed max-h-48 overflow-y-auto">
-                  {selectedInquiry.message || "Açıklama belirtilmedi."}
-                </div>
               </div>
 
-              {/* Delete Button */}
-              <button
-                onClick={() => handleDelete(selectedInquiry.id)}
-                className="w-full flex items-center justify-center gap-1.5 py-2 text-xs text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-lg transition-colors"
-              >
-                <Trash2 size={14} />
-                <span>Bu Talebi Sil</span>
-              </button>
+              <div className="xl:col-span-5 rounded-2xl bg-[#0f1d2a] border border-sky-500/20 p-5">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div>
+                    <h2 className="text-sm font-bold text-sky-300">İletişim formundan gelenler</h2>
+                    <p className="text-xs text-slate-400">Yalnızca sitedeki iletişim formunun yazdığı kayıtlar</p>
+                  </div>
+                  <button onClick={() => { setView("inbox"); setFilterType("contact"); setFilterStatus("all"); }} className="text-xs font-bold text-sky-300 inline-flex items-center gap-1">
+                    Tümünü aç <ArrowUpRight size={14} />
+                  </button>
+                </div>
+                {contactItems.length === 0 ? (
+                  <EmptyState title="İletişim talebi yok" text="Form gönderildiğinde kayıt burada, ek bir yenileme beklemeden listelenir." />
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {contactItems.slice(0, 4).map((item) => (
+                      <InquiryRow key={item.id} item={item} active={item.id === selectedId} onOpen={() => { setSelectedId(item.id); setView("inbox"); setFilterType("contact"); }} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {view === "inbox" && (
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-4">
+              <div className="xl:col-span-7 space-y-3">
+                <FilterBar
+                  filterStatus={filterStatus}
+                  filterType={filterType}
+                  search={search}
+                  contactCount={contactItems.length}
+                  quoteCount={quoteItems.length}
+                  onStatus={setFilterStatus}
+                  onType={setFilterType}
+                  onSearch={setSearch}
+                />
+                {loading && inquiries.length === 0 ? (
+                  <EmptyState title="Kayıtlar yükleniyor" text="Firestore dinleniyor." />
+                ) : filtered.length === 0 ? (
+                  <EmptyState title="Eşleşen talep yok" text="Filtreyi temizleyin veya yeni bir iletişim formu gönderiminin düşmesini bekleyin." />
+                ) : (
+                  filtered.map((item) => (
+                    <InquiryRow key={item.id} item={item} active={item.id === selectedId} onOpen={() => setSelectedId(item.id)} />
+                  ))
+                )}
+              </div>
+              <div className="xl:col-span-5">
+                <DetailPanel
+                  item={selected}
+                  noteDraft={noteDraft}
+                  busy={busy}
+                  onNote={setNoteDraft}
+                  onSaveNote={handleSaveNote}
+                  onStatus={handleStatus}
+                  onDelete={handleDelete}
+                  onClose={() => setSelectedId(null)}
+                />
+              </div>
+            </div>
+          )}
+
+          {view === "board" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-3">
+              {(Object.keys(STATUS_LABEL) as InquiryStatus[]).map((status) => {
+                const column = inquiries.filter((item) => item.status === status);
+                return (
+                  <div key={status} className="rounded-2xl bg-[#0c1722] border border-white/10 p-3 min-h-[320px]">
+                    <div className="flex items-center justify-between px-1 mb-3">
+                      <h2 className="text-xs font-bold uppercase tracking-wider text-slate-300">{STATUS_LABEL[status]}</h2>
+                      <span className="text-xs font-mono text-amber-300">{column.length}</span>
+                    </div>
+                    <div className="space-y-2">
+                      {column.length === 0 && <p className="text-xs text-slate-500 px-1">Bu durumda kayıt yok.</p>}
+                      {column.map((item) => (
+                        <button key={item.id} onClick={() => { setSelectedId(item.id); setView("inbox"); }} className="w-full text-left rounded-xl bg-[#0f1d2a] border border-white/10 p-3 hover:border-amber-400/50">
+                          <div className="text-[10px] uppercase tracking-wider text-slate-400 mb-1">{sourceLabel(item)}</div>
+                          <div className="text-sm font-bold text-white">{item.name}</div>
+                          <div className="text-xs text-slate-400 truncate">{item.company || item.email}</div>
+                          <div className="text-[11px] text-slate-500 mt-2">{formatWhen(item.createdAt)}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
       </div>
+    </Shell>
+  );
+}
+
+function Shell({ children, title = "Yönetici Paneli | STRUCTIVA", description = "STRUCTIVA operasyon paneli" }: { children: React.ReactNode; title?: string; description?: string }) {
+  return (
+    <div className="bg-[#09131c] text-white min-h-screen">
+      <SEOHead title={title} description={description} robots="noindex, nofollow" />
+      {children}
+    </div>
+  );
+}
+
+function ViewButton({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) {
+  return (
+    <button onClick={onClick} className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold border ${active ? "bg-amber-500 text-[#0f1d2a] border-amber-400" : "bg-white/5 text-slate-300 border-white/10"}`}>
+      {icon}
+      {label}
+    </button>
+  );
+}
+
+function Metric({ label, value, hint, tone = "slate", onClick }: { label: string; value: string | number; hint: string; tone?: "slate" | "amber" | "sky" | "emerald"; onClick?: () => void }) {
+  const toneClass = {
+    slate: "border-white/10",
+    amber: "border-amber-500/40",
+    sky: "border-sky-500/40",
+    emerald: "border-emerald-500/40",
+  }[tone];
+  const valueClass = {
+    slate: "text-white",
+    amber: "text-amber-300",
+    sky: "text-sky-300",
+    emerald: "text-emerald-300",
+  }[tone];
+  const Tag = onClick ? "button" : "div";
+  return (
+    <Tag onClick={onClick} className={`rounded-2xl bg-[#0f1d2a] border ${toneClass} p-4 text-left ${onClick ? "hover:bg-white/5" : ""}`}>
+      <span className="block text-[11px] uppercase tracking-wider text-slate-400 mb-1">{label}</span>
+      <span className={`block text-2xl font-black font-mono ${valueClass}`}>{value}</span>
+      <span className="block text-[11px] text-slate-500 mt-1">{hint}</span>
+    </Tag>
+  );
+}
+
+function FilterBar({
+  filterStatus,
+  filterType,
+  search,
+  contactCount,
+  quoteCount,
+  onStatus,
+  onType,
+  onSearch,
+}: {
+  filterStatus: string;
+  filterType: string;
+  search: string;
+  contactCount: number;
+  quoteCount: number;
+  onStatus: (value: string) => void;
+  onType: (value: string) => void;
+  onSearch: (value: string) => void;
+}) {
+  const statuses = [{ id: "all", label: "Tümü" }, ...Object.entries(STATUS_LABEL).map(([id, label]) => ({ id, label }))];
+  const types = [
+    { id: "all", label: "Tüm kaynaklar" },
+    { id: "contact", label: `İletişim (${contactCount})` },
+    { id: "quote", label: `Teklif (${quoteCount})` },
+  ];
+  return (
+    <div className="rounded-2xl bg-[#0f1d2a] border border-white/10 p-3 space-y-3">
+      <div className="flex flex-wrap gap-1.5">
+        {statuses.map((item) => (
+          <button key={item.id} onClick={() => onStatus(item.id)} className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold ${filterStatus === item.id ? "bg-amber-500 text-[#0f1d2a]" : "bg-black/30 text-slate-300"}`}>
+            {item.label}
+          </button>
+        ))}
+      </div>
+      <div className="flex flex-col sm:flex-row gap-2">
+        <div className="flex flex-wrap gap-1.5">
+          {types.map((item) => (
+            <button key={item.id} onClick={() => onType(item.id)} className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold ${filterType === item.id ? "bg-sky-500 text-white" : "bg-black/30 text-slate-300"}`}>
+              {item.label}
+            </button>
+          ))}
+        </div>
+        <div className="relative flex-1">
+          <Search size={14} className="absolute left-3 top-2.5 text-slate-500" />
+          <input value={search} onChange={(event) => onSearch(event.target.value)} placeholder="İsim, e-posta, şirket, mesaj" className="w-full rounded-xl bg-black/30 border border-white/10 pl-8 pr-3 py-2 text-xs outline-none focus:border-amber-400" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function InquiryRow({ item, active, onOpen }: { item: Inquiry; active: boolean; onOpen: () => void }) {
+  return (
+    <button onClick={onOpen} className={`w-full text-left rounded-2xl border p-4 ${active ? "bg-white/10 border-amber-400" : "bg-[#0f1d2a] border-white/10 hover:border-white/20"}`}>
+      <div className="flex items-start justify-between gap-3 mb-2">
+        <div>
+          <div className="flex flex-wrap items-center gap-1.5 mb-1">
+            <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${item.type === "contact" ? "bg-sky-500/15 text-sky-300" : "bg-amber-500/15 text-amber-300"}`}>{sourceLabel(item)}</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/5 text-slate-300">{STATUS_LABEL[item.status]}</span>
+          </div>
+          <div className="font-bold text-white">{item.name}{item.company ? <span className="font-normal text-slate-400"> · {item.company}</span> : null}</div>
+        </div>
+        <div className="text-right text-[11px] text-slate-400 shrink-0">{formatWhen(item.createdAt)}</div>
+      </div>
+      <p className="text-xs text-slate-300 line-clamp-2">{item.message || "Mesaj metni yok."}</p>
+      <div className="mt-3 flex flex-wrap gap-3 text-[11px] text-slate-400">
+        <span>{countryLabel(item.country)}</span>
+        {item.phone && <span>{item.phone}</span>}
+        {item.areaM2 ? <span>{item.areaM2} m²</span> : null}
+      </div>
+    </button>
+  );
+}
+
+function DetailPanel({
+  item,
+  noteDraft,
+  busy,
+  onNote,
+  onSaveNote,
+  onStatus,
+  onDelete,
+  onClose,
+}: {
+  item: Inquiry | null;
+  noteDraft: string;
+  busy: string | null;
+  onNote: (value: string) => void;
+  onSaveNote: () => void;
+  onStatus: (id: string, status: InquiryStatus) => void;
+  onDelete: (id: string) => void;
+  onClose: () => void;
+}) {
+  if (!item) {
+    return (
+      <div className="rounded-2xl border border-dashed border-white/15 p-8 text-center text-sm text-slate-400 xl:sticky xl:top-24">
+        Detay için bir talep seçin.
+      </div>
+    );
+  }
+  const phone = (item.phone || "").replace(/[^0-9]/g, "");
+  return (
+    <aside className="rounded-2xl bg-[#0d1822] border border-amber-400/30 p-5 xl:sticky xl:top-24">
+      <div className="flex items-start justify-between gap-3 mb-4">
+        <div>
+          <div className="text-[11px] uppercase tracking-wider text-amber-300">{sourceLabel(item)}</div>
+          <h2 className="text-xl font-black">{item.name}</h2>
+          <p className="text-xs text-slate-400">{formatWhen(item.createdAt)}</p>
+        </div>
+        <button onClick={onClose} className="text-slate-400 text-sm">Kapat</button>
+      </div>
+      <div className="grid grid-cols-2 gap-2 mb-4">
+        {(Object.keys(STATUS_LABEL) as InquiryStatus[]).map((status) => (
+          <button
+            key={status}
+            disabled={busy === `status:${item.id}`}
+            onClick={() => onStatus(item.id, status)}
+            className={`py-2 rounded-lg text-[11px] font-bold border ${item.status === status ? "bg-amber-500 text-[#0f1d2a] border-amber-400" : "bg-white/5 text-slate-300 border-white/10"}`}
+          >
+            {STATUS_LABEL[status]}
+          </button>
+        ))}
+      </div>
+      <div className="flex gap-2 mb-4">
+        {phone && (
+          <a href={`https://wa.me/${phone}`} target="_blank" rel="noreferrer" className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-emerald-600 text-xs font-bold">
+            <MessageSquare size={14} /> WhatsApp
+          </a>
+        )}
+        {item.email && (
+          <a href={`mailto:${item.email}?subject=${encodeURIComponent("STRUCTIVA başvurusunuz")}`} className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-amber-500 text-[#0f1d2a] text-xs font-bold">
+            <Mail size={14} /> E-posta
+          </a>
+        )}
+        {phone && (
+          <a href={`tel:${phone}`} className="inline-flex items-center justify-center px-3 rounded-xl bg-white/10 text-xs font-bold">
+            <Phone size={14} />
+          </a>
+        )}
+      </div>
+      <dl className="space-y-2 text-xs mb-4">
+        <Info icon={<Mail size={13} />} label="E-posta" value={item.email || "—"} />
+        <Info icon={<Phone size={13} />} label="Telefon" value={item.phone || "—"} />
+        <Info icon={<Building2 size={13} />} label="Şirket" value={item.company || "—"} />
+        <Info icon={<Clock3 size={13} />} label="Ülke" value={item.country} />
+        {item.model && <Info icon={<CheckCircle2 size={13} />} label="Model" value={item.model} />}
+        {(item.span || item.length || item.height) && (
+          <Info icon={<Archive size={13} />} label="Ölçü" value={`${item.span || "—"} m × ${item.length || "—"} m × ${item.height || "—"} m${item.areaM2 ? ` · ${item.areaM2} m²` : ""}`} />
+        )}
+      </dl>
+      {item.accessories && item.accessories.length > 0 && (
+        <div className="flex flex-wrap gap-1 mb-4">
+          {item.accessories.map((accessory) => (
+            <span key={accessory} className="text-[10px] bg-white/10 px-2 py-1 rounded text-slate-300">{accessory}</span>
+          ))}
+        </div>
+      )}
+      <div className="mb-4">
+        <div className="text-[10px] uppercase tracking-wider text-slate-400 mb-1">Mesaj</div>
+        <div className="rounded-xl bg-black/40 border border-white/10 p-3 text-xs leading-relaxed whitespace-pre-wrap max-h-48 overflow-auto">{item.message || "Mesaj metni yok."}</div>
+      </div>
+      <label className="block mb-4">
+        <span className="text-[10px] uppercase tracking-wider text-slate-400">Yönetici notu</span>
+        <textarea value={noteDraft} onChange={(event) => onNote(event.target.value)} rows={3} className="mt-1 w-full rounded-xl bg-black/40 border border-white/10 p-3 text-xs outline-none focus:border-amber-400" />
+        <button onClick={onSaveNote} disabled={busy === `note:${item.id}`} className="mt-2 w-full py-2 rounded-xl bg-white/10 text-xs font-bold disabled:opacity-50">
+          {busy === `note:${item.id}` ? "Kaydediliyor" : "Notu Firestore'a yaz"}
+        </button>
+        {item.noteUpdatedAt && <span className="block text-[10px] text-slate-500 mt-1">Son not: {formatWhen(item.noteUpdatedAt)}</span>}
+      </label>
+      <button onClick={() => onDelete(item.id)} disabled={busy === `delete:${item.id}`} className="w-full inline-flex items-center justify-center gap-1.5 py-2 text-xs text-rose-300">
+        <Trash2 size={14} /> Talebi sil
+      </button>
+    </aside>
+  );
+}
+
+function Info({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+  return (
+    <div className="flex items-start justify-between gap-3">
+      <dt className="inline-flex items-center gap-1.5 text-slate-400">{icon}{label}</dt>
+      <dd className="text-right text-slate-100 break-all">{value}</dd>
+    </div>
+  );
+}
+
+function EmptyState({ title, text }: { title: string; text: string }) {
+  return (
+    <div className="rounded-2xl border border-dashed border-white/15 px-4 py-8 text-center">
+      <Inbox size={22} className="mx-auto mb-2 text-slate-500" />
+      <div className="text-sm font-semibold text-slate-200">{title}</div>
+      <p className="text-xs text-slate-400 mt-1">{text}</p>
     </div>
   );
 }

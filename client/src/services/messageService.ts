@@ -1,9 +1,24 @@
 import { db } from "../lib/firebase";
-import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc, query, orderBy, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  onSnapshot,
+  serverTimestamp,
+  updateDoc,
+  type Unsubscribe,
+} from "firebase/firestore";
+
+export type InquiryType = "quote" | "contact";
+export type InquirySource = "contact" | "rfq" | "configurator";
+export type InquiryStatus = "new" | "contacted" | "quoted" | "archived";
 
 export interface Inquiry {
   id: string;
-  type: "quote" | "contact";
+  type: InquiryType;
+  source?: InquirySource;
   name: string;
   email: string;
   phone?: string;
@@ -16,142 +31,195 @@ export interface Inquiry {
   areaM2?: number;
   accessories?: string[];
   message: string;
-  status: "new" | "contacted" | "quoted" | "archived";
+  status: InquiryStatus;
+  adminNote?: string;
   createdAt: string;
+  statusUpdatedAt?: string;
+  noteUpdatedAt?: string;
 }
 
-const LOCAL_STORAGE_KEY = "structiva_leads_data";
+const COLLECTION = "inquiries";
+const STATUSES: InquiryStatus[] = ["new", "contacted", "quoted", "archived"];
 
-const SAMPLE_INQUIRIES: Inquiry[] = [];
+function asStatus(value: unknown): InquiryStatus {
+  return STATUSES.includes(value as InquiryStatus) ? (value as InquiryStatus) : "new";
+}
+
+function asType(value: unknown): InquiryType {
+  return value === "contact" ? "contact" : "quote";
+}
+
+function asSource(value: unknown, type: InquiryType): InquirySource | undefined {
+  if (value === "contact" || value === "rfq" || value === "configurator") return value;
+  return type === "contact" ? "contact" : undefined;
+}
+
+function toIso(value: unknown): string {
+  if (!value) return "";
+  if (typeof value === "string") return value;
+  if (value instanceof Date) return value.toISOString();
+  if (typeof value === "object" && value !== null && "toDate" in value) {
+    const toDate = (value as { toDate?: () => Date }).toDate;
+    if (typeof toDate === "function") {
+      try {
+        return toDate.call(value).toISOString();
+      } catch {
+        return "";
+      }
+    }
+  }
+  if (typeof value === "object" && value !== null && "seconds" in value) {
+    const seconds = (value as { seconds?: number }).seconds;
+    if (typeof seconds === "number") return new Date(seconds * 1000).toISOString();
+  }
+  return "";
+}
+
+function asNumber(value: unknown): number | undefined {
+  if (typeof value === "number" && Number.isFinite(value)) return value;
+  if (typeof value === "string" && value.trim() && Number.isFinite(Number(value))) return Number(value);
+  return undefined;
+}
+
+function asString(value: unknown): string | undefined {
+  return typeof value === "string" && value.trim() ? value : undefined;
+}
+
+function asStringList(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const list = value.filter((item): item is string => typeof item === "string" && item.trim().length > 0);
+  return list.length ? list : undefined;
+}
+
+export function mapInquiry(id: string, raw: Record<string, unknown>): Inquiry {
+  const type = asType(raw.type);
+  const createdAt = toIso(raw.createdAt) || toIso(raw.timestamp);
+  return {
+    id,
+    type,
+    source: asSource(raw.source, type),
+    name: asString(raw.name) || "İsimsiz başvuru",
+    email: asString(raw.email) || "",
+    phone: asString(raw.phone),
+    company: asString(raw.company),
+    country: asString(raw.country) || "Belirtilmedi",
+    model: asString(raw.model),
+    span: asNumber(raw.span),
+    length: asNumber(raw.length),
+    height: asNumber(raw.height),
+    areaM2: asNumber(raw.areaM2),
+    accessories: asStringList(raw.accessories),
+    message: typeof raw.message === "string" ? raw.message : "",
+    status: asStatus(raw.status),
+    adminNote: asString(raw.adminNote),
+    createdAt,
+    statusUpdatedAt: toIso(raw.statusUpdatedAt) || undefined,
+    noteUpdatedAt: toIso(raw.noteUpdatedAt) || undefined,
+  };
+}
+
+function sortInquiries(list: Inquiry[]): Inquiry[] {
+  return [...list].sort((a, b) => {
+    const aTime = Date.parse(a.createdAt) || 0;
+    const bTime = Date.parse(b.createdAt) || 0;
+    return bTime - aTime;
+  });
+}
+
+function withoutUndefined<T extends Record<string, unknown>>(data: T): Record<string, unknown> {
+  return Object.fromEntries(Object.entries(data).filter(([, value]) => value !== undefined));
+}
+
+export function firestoreErrorMessage(error: unknown): string {
+  const code = typeof error === "object" && error && "code" in error ? String((error as { code?: string }).code) : "";
+  if (code.includes("permission-denied")) {
+    return "Firestore bu işleme izin vermiyor. Süper yönetici oturumu ve güvenlik kuralları kontrol edilmeli.";
+  }
+  if (code.includes("unavailable") || code.includes("network")) {
+    return "Firestore şu an ulaşılamıyor. Bağlantı düzelince kayıtlar kendiliğinden yenilenir.";
+  }
+  if (error instanceof Error && error.message) return error.message;
+  return "İşlem tamamlanamadı.";
+}
 
 export async function saveInquiry(data: Omit<Inquiry, "id" | "createdAt" | "status">): Promise<Inquiry> {
-  const newId = `lead-${Date.now().toString(36)}`;
-  const now = new Date().toISOString();
+  const name = data.name?.trim();
+  const email = data.email?.trim();
+  const message = data.message?.trim() || "";
+  if (!name || !email) {
+    throw new Error("Ad ve e-posta olmadan talep kaydedilemez.");
+  }
 
-  const newInquiry: Inquiry = {
-    ...data,
-    id: newId,
-    status: "new",
-    createdAt: now,
-  };
+  const createdAt = new Date().toISOString();
+  const payload = withoutUndefined({
+    type: data.type,
+    source: data.source,
+    name,
+    email,
+    phone: data.phone?.trim() || undefined,
+    company: data.company?.trim() || undefined,
+    country: data.country?.trim() || "Belirtilmedi",
+    model: data.model?.trim() || undefined,
+    span: data.span,
+    length: data.length,
+    height: data.height,
+    areaM2: data.areaM2,
+    accessories: data.accessories?.length ? data.accessories : undefined,
+    message,
+    status: "new" as const,
+    createdAt,
+    timestamp: serverTimestamp(),
+  });
 
-  // 1. Mandatory Remote Firestore Sync
-  // Ensure that the inquiry is securely and permanently persisted to Firestore before confirming success.
   try {
-    const docRef = await addDoc(collection(db, "inquiries"), {
-      ...newInquiry,
-      timestamp: serverTimestamp(),
-    });
-    if (docRef?.id) {
-      newInquiry.id = docRef.id;
-    }
-  } catch (firebaseErr: any) {
-    console.error("Critical Firestore write failure:", firebaseErr);
-    // DO NOT swallow this error! A quote that is only saved in the user's local browser is NOT received by the business.
+    const docRef = await addDoc(collection(db, COLLECTION), payload);
+    return mapInquiry(docRef.id, { ...payload, timestamp: undefined });
+  } catch (error) {
+    console.error("Firestore inquiry write failed:", error);
     throw new Error(
-      "Teklif kaydı sunucuya iletilemedi. Lütfen internet bağlantınızı kontrol edip tekrar deneyiniz veya WhatsApp / Telefon ile doğrudan bizimle iletişime geçiniz."
+      "Talep sunucuya yazılamadı. İnternet bağlantınızı kontrol edip tekrar deneyin veya WhatsApp / telefon ile doğrudan ulaşın."
     );
   }
-
-  // 2. Client-side local backup cache (only saved after confirmed Firestore persistence)
-  try {
-    const existing = getLocalInquiries();
-    const updated = [newInquiry, ...existing.filter((item) => item.id !== newInquiry.id)];
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated.slice(0, 50)));
-  } catch (e) {
-    console.warn("Local storage cache warning:", e);
-  }
-
-  // 3. Optional asynchronous email notification dispatch (non-blocking notification queue)
-  try {
-    fetch("/api/send-email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newInquiry),
-    }).catch((err) => console.warn("Email dispatch note:", err));
-  } catch (err) {
-    console.warn("Email dispatch error:", err);
-  }
-
-  return newInquiry;
 }
 
-export function getLocalInquiries(): Inquiry[] {
-  try {
-    const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (!raw) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(SAMPLE_INQUIRIES));
-      return SAMPLE_INQUIRIES;
+/** Live Firestore feed. Contact-form and RFQ writes appear here without a local cache. */
+export function subscribeInquiries(
+  onData: (items: Inquiry[]) => void,
+  onError: (error: Error) => void
+): Unsubscribe {
+  return onSnapshot(
+    collection(db, COLLECTION),
+    (snap) => {
+      const list = snap.docs.map((entry) => mapInquiry(entry.id, entry.data() as Record<string, unknown>));
+      onData(sortInquiries(list));
+    },
+    (error) => {
+      console.error("Firestore inquiry subscription failed:", error);
+      onError(new Error(firestoreErrorMessage(error)));
     }
-    return JSON.parse(raw);
-  } catch {
-    return SAMPLE_INQUIRIES;
-  }
+  );
 }
 
 export async function getAllInquiries(): Promise<Inquiry[]> {
-  try {
-    const q = query(collection(db, "inquiries"), orderBy("timestamp", "desc"));
-    const snap = await getDocs(q);
-    if (!snap.empty) {
-      const list: Inquiry[] = [];
-      snap.forEach((d) => {
-        const item = d.data();
-        list.push({
-          id: d.id,
-          type: item.type || "quote",
-          name: item.name || "Anonymous",
-          email: item.email || "",
-          phone: item.phone,
-          company: item.company,
-          country: item.country || "International",
-          model: item.model,
-          span: item.span,
-          length: item.length,
-          height: item.height,
-          areaM2: item.areaM2,
-          accessories: item.accessories,
-          message: item.message || "",
-          status: item.status || "new",
-          createdAt: item.createdAt || new Date().toISOString(),
-        });
-      });
-      // Update local cache
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
-      return list;
-    }
-  } catch (err) {
-    console.warn("Using offline / cached inquiries:", err);
-  }
-
-  return getLocalInquiries();
+  const snap = await getDocs(collection(db, COLLECTION));
+  const list = snap.docs.map((entry) => mapInquiry(entry.id, entry.data() as Record<string, unknown>));
+  return sortInquiries(list);
 }
 
-export async function updateInquiryStatus(id: string, status: Inquiry["status"]): Promise<void> {
-  // Update local storage
-  const list = getLocalInquiries();
-  const index = list.findIndex((x) => x.id === id);
-  if (index !== -1) {
-    list[index].status = status;
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
-  }
+export async function updateInquiryStatus(id: string, status: InquiryStatus): Promise<void> {
+  await updateDoc(doc(db, COLLECTION, id), {
+    status,
+    statusUpdatedAt: new Date().toISOString(),
+  });
+}
 
-  // Update Firestore if possible
-  try {
-    const docRef = doc(db, "inquiries", id);
-    await updateDoc(docRef, { status });
-  } catch {
-    // Ignore Firestore offline
-  }
+export async function updateInquiryNote(id: string, adminNote: string): Promise<void> {
+  await updateDoc(doc(db, COLLECTION, id), {
+    adminNote: adminNote.trim(),
+    noteUpdatedAt: new Date().toISOString(),
+  });
 }
 
 export async function deleteInquiry(id: string): Promise<void> {
-  const list = getLocalInquiries().filter((x) => x.id !== id);
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(list));
-
-  try {
-    await deleteDoc(doc(db, "inquiries", id));
-  } catch {
-    // Ignore
-  }
+  await deleteDoc(doc(db, COLLECTION, id));
 }
